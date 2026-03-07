@@ -114,18 +114,38 @@
   }
 
   .card-value {
-    @apply bg-card border border-border p-8 md:p-10 transition-all duration-300;
-    @apply hover:border-t-2 hover:border-t-primary hover:shadow-lg;
+    @apply bg-card border border-border p-8 md:p-10 transition-all duration-500;
+    @apply hover:border-t-2 hover:border-t-primary hover:shadow-xl hover:-translate-y-1;
   }
 
+  /* Headshot placeholder frame — ready for real images */
+  .headshot-frame {
+    @apply w-36 h-36 md:w-44 md:h-44 rounded-full bg-muted flex items-center justify-center overflow-hidden;
+    @apply ring-2 ring-border ring-offset-2 ring-offset-background;
+  }
+
+  /* Fade-up scroll reveal */
   .fade-up {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .fade-up.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Decorative divider */
+  .section-divider {
+    @apply w-12 h-[2px] mx-auto;
+    background: hsl(var(--gold));
+  }
+}
+
+/* Smooth page transitions */
+@layer utilities {
+  .will-change-transform {
+    will-change: transform;
   }
 }
