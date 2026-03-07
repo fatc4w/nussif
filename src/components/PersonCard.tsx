@@ -5,17 +5,22 @@ interface PersonCardProps {
   role: string;
   email?: string;
   linkedIn?: string;
+  headshot?: string;
 }
 
-export default function PersonCard({ name, role, email, linkedIn }: PersonCardProps) {
+export default function PersonCard({ name, role, email, linkedIn, headshot }: PersonCardProps) {
   return (
     <div className="flex flex-col items-center text-center group">
-      {/* Placeholder headshot */}
-      <div className="w-36 h-36 md:w-44 md:h-44 rounded-full bg-muted flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="text-muted-foreground/40">
-          <circle cx="24" cy="18" r="9" stroke="currentColor" strokeWidth="1.5" fill="none" />
-          <path d="M6 44c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="currentColor" strokeWidth="1.5" fill="none" />
-        </svg>
+      {/* Headshot frame — replace src with real headshot */}
+      <div className="headshot-frame mb-5 group-hover:scale-[1.02] group-hover:shadow-lg transition-all duration-300">
+        {headshot ? (
+          <img src={headshot} alt={name} className="w-full h-full object-cover rounded-full" />
+        ) : (
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="text-muted-foreground/40">
+            <circle cx="24" cy="18" r="9" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <path d="M6 44c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="currentColor" strokeWidth="1.5" fill="none" />
+          </svg>
+        )}
       </div>
       <h4 className="font-display font-medium text-lg text-foreground">{name}</h4>
       <p className="eyebrow mt-1 text-[10px]">{role}</p>

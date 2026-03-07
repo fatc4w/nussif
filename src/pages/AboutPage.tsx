@@ -5,10 +5,15 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useCountUp } from '@/hooks/useCountUp';
 import heroImage from '@/assets/hero-singapore.jpg';
 
+import citadelLogo from '@/assets/partners/citadel.png';
+import citadelSecLogo from '@/assets/partners/citadel-securities.png';
+import point72Logo from '@/assets/partners/point72.png';
+import massiveLogo from '@/assets/partners/massive.jpg';
+import millenniumLogo from '@/assets/partners/millennium.png';
+
 const stats = [
   { value: 35, suffix: '+', label: 'MEMBERS' },
   { value: 25, suffix: '+', label: 'ANALYSTS' },
-  { value: 64, suffix: '', label: 'YEARS OF COMBINED ADVISOR EXPERIENCE' },
 ];
 
 const values = [
@@ -27,7 +32,13 @@ const achievements = [
   { name: 'JPMorgan Asia Asset & Wealth Management Challenge (Singapore)', result: 'Champions' },
 ];
 
-const partners = ['Citadel', 'Citadel Securities', 'S&P Global', 'Point72', 'polygon.io', 'Millennium'];
+const partners = [
+  { name: 'Citadel', logo: citadelLogo, height: 'h-7' },
+  { name: 'Citadel Securities', logo: citadelSecLogo, height: 'h-6' },
+  { name: 'Point72', logo: point72Logo, height: 'h-8' },
+  { name: 'Massive', logo: massiveLogo, height: 'h-6' },
+  { name: 'Millennium', logo: millenniumLogo, height: 'h-7' },
+];
 
 function StatCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
   const { count, ref } = useCountUp(value);
@@ -169,7 +180,7 @@ export default function AboutPage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {achievements.map((a, i) => (
-              <div key={i} className="border border-primary-foreground/10 p-8 fade-up" style={{ transitionDelay: `${i * 0.08}s` }}>
+              <div key={i} className="border border-primary-foreground/10 p-8 fade-up group hover:bg-primary-foreground/[0.04] transition-all duration-500" style={{ transitionDelay: `${i * 0.08}s` }}>
                 <p className="font-display italic text-primary-foreground text-lg md:text-xl mb-3">{a.name}</p>
                 <p className="eyebrow text-primary-foreground/50">{a.result}</p>
               </div>
@@ -183,11 +194,11 @@ export default function AboutPage() {
         <div className="container-site">
           <h2 className="heading-section mb-3 fade-up">Senior Advisors</h2>
           <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            Guided by industry practitioners with a combined 64+ years of experience in global finance.
+            Guided by industry practitioners with decades of experience in global finance.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 fade-up" style={{ transitionDelay: '0.2s' }}>
             <div className="flex gap-6 items-start">
-              <div className="w-32 h-32 rounded-full bg-muted flex-shrink-0 flex items-center justify-center">
+              <div className="headshot-frame flex-shrink-0">
                 <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-muted-foreground/40">
                   <circle cx="24" cy="18" r="9" stroke="currentColor" strokeWidth="1.5" fill="none" />
                   <path d="M6 44c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="currentColor" strokeWidth="1.5" fill="none" />
@@ -200,7 +211,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="flex gap-6 items-start">
-              <div className="w-32 h-32 rounded-full bg-muted flex-shrink-0 flex items-center justify-center">
+              <div className="headshot-frame flex-shrink-0">
                 <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-muted-foreground/40">
                   <circle cx="24" cy="18" r="9" stroke="currentColor" strokeWidth="1.5" fill="none" />
                   <path d="M6 44c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="currentColor" strokeWidth="1.5" fill="none" />
@@ -220,10 +231,10 @@ export default function AboutPage() {
       <section className="section-padding bg-muted/50 border-t border-border">
         <div className="container-site">
           <h2 className="heading-section mb-16 text-center fade-up">Our Partners</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 fade-up" style={{ transitionDelay: '0.1s' }}>
+          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16 fade-up" style={{ transitionDelay: '0.1s' }}>
             {partners.map((p) => (
-              <div key={p} className="bg-card border border-border flex items-center justify-center h-20 px-4 grayscale hover:grayscale-0 transition-all duration-300">
-                <span className="font-body text-sm text-muted-foreground font-normal tracking-wide">{p}</span>
+              <div key={p.name} className="grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-500">
+                <img src={p.logo} alt={p.name} className={`${p.height} w-auto object-contain`} />
               </div>
             ))}
           </div>

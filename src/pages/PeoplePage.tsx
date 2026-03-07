@@ -1,5 +1,6 @@
 import HeroSection from '@/components/HeroSection';
 import PersonCard from '@/components/PersonCard';
+import AnalystCard from '@/components/AnalystCard';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import heroImage from '@/assets/hero-singapore.jpg';
 
@@ -17,6 +18,10 @@ const investingPods = [
       { name: 'Abdullah Armain', role: 'Portfolio Manager, L/S Equities', email: 'abdullah@u.nus.edu', linkedIn: 'https://linkedin.com' },
       { name: 'Wong Zhao Yang', role: 'Portfolio Manager, L/S Equities', email: 'zhaoyang@u.nus.edu', linkedIn: 'https://linkedin.com' },
     ],
+    analysts: [
+      { name: 'Analyst 1', email: 'analyst1@u.nus.edu', linkedIn: 'https://linkedin.com' },
+      { name: 'Analyst 2', email: 'analyst2@u.nus.edu', linkedIn: 'https://linkedin.com' },
+    ],
   },
   {
     name: 'Global Macro',
@@ -26,6 +31,9 @@ const investingPods = [
       { name: 'Ye Wen Jun', role: 'Portfolio Manager, Global Macro', email: 'wenjun@u.nus.edu', linkedIn: 'https://linkedin.com' },
       { name: 'Eve', role: 'Analyst, Global Macro', email: 'eve@u.nus.edu', linkedIn: 'https://linkedin.com' },
     ],
+    analysts: [
+      { name: 'Analyst 1', email: 'analyst1@u.nus.edu', linkedIn: 'https://linkedin.com' },
+    ],
   },
   {
     name: 'Commodities',
@@ -33,12 +41,18 @@ const investingPods = [
     members: [
       { name: 'Chew Jinn Ming', role: 'Portfolio Manager, Commodities', email: 'jinnming@u.nus.edu', linkedIn: 'https://linkedin.com' },
     ],
+    analysts: [
+      { name: 'Analyst 1', email: 'analyst1@u.nus.edu', linkedIn: 'https://linkedin.com' },
+    ],
   },
   {
     name: 'Systematic Strategies',
     description: 'The Systematic Strategies pod embeds quantitative and data-driven analysis into the fund\'s investment and portfolio decisions. The team supports the asset pods by providing a quantitative dimension to market views.',
     members: [
       { name: 'Poo Chet Wee', role: 'Head of Systematic Strategies', email: 'chetwee@u.nus.edu', linkedIn: 'https://linkedin.com' },
+    ],
+    analysts: [
+      { name: 'Analyst 1', email: 'analyst1@u.nus.edu', linkedIn: 'https://linkedin.com' },
     ],
   },
 ];
@@ -82,11 +96,11 @@ export default function PeoplePage() {
         <div className="container-site">
           <h2 className="heading-section mb-3 fade-up">Senior Advisors</h2>
           <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            Guided by industry practitioners with a combined 64+ years of experience in global finance.
+            Guided by industry practitioners with decades of experience in global finance.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 fade-up" style={{ transitionDelay: '0.2s' }}>
             <div className="flex gap-6 items-start">
-              <div className="w-28 h-28 rounded-full bg-muted flex-shrink-0 flex items-center justify-center">
+              <div className="headshot-frame flex-shrink-0">
                 <svg width="36" height="36" viewBox="0 0 48 48" fill="none" className="text-muted-foreground/40">
                   <circle cx="24" cy="18" r="9" stroke="currentColor" strokeWidth="1.5" fill="none" />
                   <path d="M6 44c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="currentColor" strokeWidth="1.5" fill="none" />
@@ -99,7 +113,7 @@ export default function PeoplePage() {
               </div>
             </div>
             <div className="flex gap-6 items-start">
-              <div className="w-28 h-28 rounded-full bg-muted flex-shrink-0 flex items-center justify-center">
+              <div className="headshot-frame flex-shrink-0">
                 <svg width="36" height="36" viewBox="0 0 48 48" fill="none" className="text-muted-foreground/40">
                   <circle cx="24" cy="18" r="9" stroke="currentColor" strokeWidth="1.5" fill="none" />
                   <path d="M6 44c0-9.94 8.06-18 18-18s18 8.06 18 18" stroke="currentColor" strokeWidth="1.5" fill="none" />
@@ -144,11 +158,26 @@ export default function PeoplePage() {
             <div key={pod.name} className="mb-20 last:mb-0 fade-up" style={{ transitionDelay: `${i * 0.1}s` }}>
               <h3 className="heading-sub mb-3">{pod.name}</h3>
               <p className="body-text max-w-3xl mb-10">{pod.description}</p>
+              
+              {/* Portfolio Managers */}
+              <p className="eyebrow mb-6 text-gold">Portfolio Managers</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                 {pod.members.map((m) => (
                   <PersonCard key={m.name} {...m} />
                 ))}
               </div>
+
+              {/* Analysts */}
+              {pod.analysts && pod.analysts.length > 0 && (
+                <div className="mt-10 pt-8 border-t border-border">
+                  <p className="eyebrow mb-6">Analysts</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {pod.analysts.map((a, j) => (
+                      <AnalystCard key={`${a.name}-${j}`} {...a} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
