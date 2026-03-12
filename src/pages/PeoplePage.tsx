@@ -36,12 +36,14 @@ const investingPods = [
     name: 'Global Macro',
     description: 'The Global Macro pod exercises discretion over the FICC portfolio, deploying macro hedge fund strategies to generate absolute returns across fixed income, currencies, and equity index instruments — regardless of investment climate.',
     members: [
-      { name: 'Alvin Yeow', role: 'Portfolio Manager, Global Macro', email: 'alvin@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/alvin-yeow.jpg' },
-      { name: 'Ye Wen Jun', role: 'Portfolio Manager, Global Macro', email: 'wenjun@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/ye-wen-jun.jpg' },
-      { name: 'Eve', role: 'Analyst, Global Macro', email: 'eve@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/eve.jpg' },
+      { name: 'Wen Jun', role: 'Portfolio Manager, Global Macro', email: 'wenjun.ye@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jadon-wenjun-ye/', headshot: '/people/ye-wen-jun.jpg' },
+      { name: 'Guo Xuan', role: 'Portfolio Manager, Global Macro', email: 'guoxuan@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/guo-xuan-koh/', headshot: '/people/guo-xuan.JPG' },
     ],
     analysts: [
-      { name: 'Analyst 1', email: 'analyst1@u.nus.edu', linkedIn: 'https://linkedin.com' },
+      { name: 'Davin', email: 'davinchang@u.nus.edu' },
+      { name: 'Bernard', email: 'E1408760@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/bernard-kwee/' },
+      { name: 'Arthava', email: 'e1398424@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/atharvamulik/' },
+      { name: 'Joash', email: 'e0957928@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/joash-lim-634292223/' },
     ],
   },
   {
