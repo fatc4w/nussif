@@ -23,11 +23,8 @@ function RootNode() {
   return (
     <div className="inline-block px-10 md:px-14 py-6 md:py-7 rounded border border-border bg-card/50 hover:bg-card transition-colors duration-300 text-center">
       <h3 className="font-display font-normal text-foreground text-xl md:text-[28px] tracking-tight">
-        NUSSIF Leadership
+        NUSSIF Leadership Team
       </h3>
-      <p className="text-[10px] font-medium tracking-[2.5px] uppercase text-muted-foreground mt-1">
-        NUS Student Investment Fund
-      </p>
     </div>
   );
 }
@@ -75,24 +72,27 @@ export default function OrgChart() {
           lineBorderRadius="0"
           label={<RootNode />}
         >
-          <TreeNode label={<MidNode title="Investing Teams" subtitle="4 Sub-Teams" />}>
+          <TreeNode
+            label={<MidNode title="Investing Teams" subtitle="4 Sub-Teams" />}
+          >
             {investingTeams.map((team) => (
-              <TreeNode key={team.tag} label={<LeafNode name={team.name} tag={team.tag} />} />
+              <TreeNode
+                key={team.tag}
+                label={<LeafNode name={team.name} tag={team.tag} />}
+              />
             ))}
           </TreeNode>
-          <TreeNode label={<MidNode title="Operations Teams" subtitle="3 Sub-Teams" />}>
+          <TreeNode
+            label={<MidNode title="Operations Teams" subtitle="3 Sub-Teams" />}
+          >
             {operationsTeams.map((team) => (
-              <TreeNode key={team.tag} label={<LeafNode name={team.name} tag={team.tag} />} />
+              <TreeNode
+                key={team.tag}
+                label={<LeafNode name={team.name} tag={team.tag} />}
+              />
             ))}
           </TreeNode>
         </Tree>
-      </div>
-
-      {/* Footer */}
-      <div className="text-center mt-12 md:mt-16">
-        <span className="text-[10px] font-normal tracking-[2.5px] uppercase text-muted-foreground">
-          2025–26
-        </span>
       </div>
     </motion.div>
   );

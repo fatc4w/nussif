@@ -57,11 +57,15 @@ const achievements = [
 ];
 
 const partners = [
-  { name: "Citadel", logo: citadelLogo },
-  { name: "Citadel Securities", logo: citadelSecLogo },
-  { name: "Point72", logo: point72Logo },
-  { name: "Massive", logo: massiveLogo },
-  { name: "Millennium", logo: millenniumLogo },
+  { name: "Citadel", logo: citadelLogo, url: "https://www.citadel.com" },
+  {
+    name: "Citadel Securities",
+    logo: citadelSecLogo,
+    url: "https://www.citadelsecurities.com",
+  },
+  { name: "Point72", logo: point72Logo, url: "https://www.point72.com" },
+  { name: "Massive", logo: massiveLogo, url: "https://www.massive.com" },
+  { name: "Millennium", logo: millenniumLogo, url: "https://www.mlp.com" },
 ];
 
 function StatCounter({
