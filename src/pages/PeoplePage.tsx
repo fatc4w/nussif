@@ -74,6 +74,7 @@ const operationsPods = [
     name: 'Risk & Infrastructure',
     members: [
       { name: 'Senyi', role: 'Head of Risk & Infrastructure', email: 'senyi@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/senyi.jpg' },
+      { name: 'Enzo Chung', role: 'Head of Infra', email: 'enzo.chung@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/enzochung/', headshot: '/people/enzo-chung.jpg' },
     ],
   },
   {
