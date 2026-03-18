@@ -1,51 +1,83 @@
-import { Link } from 'react-router-dom';
-import HeroSection from '@/components/HeroSection';
-import VideoModal from '@/components/VideoModal';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { useCountUp } from '@/hooks/useCountUp';
-import heroImage from '@/assets/hero-singapore.jpg';
+import { Link } from "react-router-dom";
+import HeroSection from "@/components/HeroSection";
+import VideoModal from "@/components/VideoModal";
+import SocialProof from "@/components/ui/social-proof";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useCountUp } from "@/hooks/useCountUp";
+import heroImage from "@/assets/hero-singapore.jpg";
 
-import citadelLogo from '@/assets/partners/citadel.png';
-import citadelSecLogo from '@/assets/partners/citadel-securities.png';
-import point72Logo from '@/assets/partners/point72.png';
-import massiveLogo from '@/assets/partners/massive.jpg';
-import millenniumLogo from '@/assets/partners/millennium.png';
+import citadelLogo from "@/assets/partners/citadel.png";
+import citadelSecLogo from "@/assets/partners/citadel-securities.png";
+import point72Logo from "@/assets/partners/point72.png";
+import massiveLogo from "@/assets/partners/massive.png";
+import millenniumLogo from "@/assets/partners/millennium.png";
 
 const stats = [
-  { value: 35, suffix: '+', label: 'MEMBERS' },
-  { value: 25, suffix: '+', label: 'ANALYSTS' },
+  { value: 35, suffix: "+", label: "MEMBERS" },
+  { value: 25, suffix: "+", label: "ANALYSTS" },
 ];
 
 const values = [
-  { num: '01', title: 'Debate', desc: 'We want to hear everyone\'s viewpoints, and we privilege the rigour of contestation of ideas.' },
-  { num: '02', title: 'Evolve', desc: 'We believe strongly in anchoring to long-term macro rules, yet are always reminded to interrogate our own intersubjectivity and seek new norms.' },
-  { num: '03', title: 'Efficiency', desc: 'We operate in lean and dynamic teams, focusing on agility within comprehensive frameworks to motivate active decision-making.' },
-  { num: '04', title: 'Ownership', desc: 'Each pod is lean and takes responsibility for their own returns, keeping every member — down to the analysts — highly involved and committed.' },
+  {
+    num: "01",
+    title: "Debate",
+    desc: "We want to hear everyone's viewpoints, and we privilege the rigour of contestation of ideas.",
+  },
+  {
+    num: "02",
+    title: "Evolve",
+    desc: "We believe strongly in anchoring to long-term macro rules, yet are always reminded to interrogate our own intersubjectivity and seek new norms.",
+  },
+  {
+    num: "03",
+    title: "Efficiency",
+    desc: "We operate in lean and dynamic teams, focusing on agility within comprehensive frameworks to motivate active decision-making.",
+  },
+  {
+    num: "04",
+    title: "Ownership",
+    desc: "Each pod is lean and takes responsibility for their own returns, keeping every member — down to the analysts — highly involved and committed.",
+  },
 ];
 
 const achievements = [
-  { name: 'UBS Pan Asia Finance Challenge', result: 'Champions' },
-  { name: 'Point72 Oxford University Equity Research Competition', result: 'Champions' },
-  { name: 'Point72 NTU Stock Pitch Competition', result: 'Champion' },
-  { name: 'CFA Research Challenge (Singapore)', result: 'Champions' },
-  { name: 'Temasek-NUS Stock Pitch Competition', result: 'Champion' },
-  { name: 'JPMorgan Asia Asset & Wealth Management Challenge (Singapore)', result: 'Champions' },
+  { name: "UBS Pan Asia Finance Challenge", result: "Champions" },
+  {
+    name: "Point72 Oxford University Equity Research Competition",
+    result: "Champions",
+  },
+  { name: "Point72 NTU Stock Pitch Competition", result: "Champion" },
+  { name: "CFA Research Challenge (Singapore)", result: "Champions" },
+  { name: "Temasek-NUS Stock Pitch Competition", result: "Champion" },
+  {
+    name: "JPMorgan Asia Asset & Wealth Management Challenge (Singapore)",
+    result: "Champions",
+  },
 ];
 
 const partners = [
-  { name: 'Citadel', logo: citadelLogo, height: 'h-7' },
-  { name: 'Citadel Securities', logo: citadelSecLogo, height: 'h-6' },
-  { name: 'Point72', logo: point72Logo, height: 'h-8' },
-  { name: 'Massive', logo: massiveLogo, height: 'h-6' },
-  { name: 'Millennium', logo: millenniumLogo, height: 'h-7' },
+  { name: "Citadel", logo: citadelLogo },
+  { name: "Citadel Securities", logo: citadelSecLogo },
+  { name: "Point72", logo: point72Logo },
+  { name: "Massive", logo: massiveLogo },
+  { name: "Millennium", logo: millenniumLogo },
 ];
 
-function StatCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+function StatCounter({
+  value,
+  suffix,
+  label,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+}) {
   const { count, ref } = useCountUp(value);
   return (
     <div ref={ref} className="flex flex-col items-center text-center px-6 py-8">
       <span className="font-display font-light text-foreground text-6xl md:text-7xl lg:text-[96px] leading-none">
-        {count}{suffix}
+        {count}
+        {suffix}
       </span>
       <span className="eyebrow mt-4">{label}</span>
     </div>
@@ -65,8 +97,12 @@ export default function AboutPage() {
         fullHeight
       >
         <div className="flex items-center justify-center gap-8 mt-10">
-          <Link to="/program" className="gold-link">→ Our Program</Link>
-          <Link to="/people" className="gold-link">→ Our People</Link>
+          <Link to="/program" className="gold-link">
+            → Our Program
+          </Link>
+          <Link to="/people" className="gold-link">
+            → Our People
+          </Link>
         </div>
       </HeroSection>
 
@@ -80,7 +116,10 @@ export default function AboutPage() {
       </section>
 
       {/* Video */}
-      <VideoModal vimeoId="1171285504" thumbnailUrl="https://i.vimeocdn.com/video/2130738176-ba696526f900a41a6a9305fe38df112d76e67f15047bd3e1941bbbaba103f600-d_640?region=us" />
+      <VideoModal
+        vimeoId="1171285504"
+        thumbnailUrl="https://i.vimeocdn.com/video/2130738176-ba696526f900a41a6a9305fe38df112d76e67f15047bd3e1941bbbaba103f600-d_640?region=us"
+      />
 
       {/* Who We Are */}
       <section id="who-we-are" className="section-padding bg-background">
@@ -90,14 +129,28 @@ export default function AboutPage() {
               "Forging the next generation of NUS and Finance in Asia."
             </p>
           </div>
-          <div className="lg:col-span-3 space-y-10 fade-up" style={{ transitionDelay: '0.1s' }}>
+          <div
+            className="lg:col-span-3 space-y-10 fade-up"
+            style={{ transitionDelay: "0.1s" }}
+          >
             {[
-              { title: 'Background', text: 'NUSSIF was founded to bring real, professional investment opportunities to NUS students passionate about careers in buy-side asset management and hedge funds.' },
-              { title: 'Our Purpose', text: 'Drawing inspiration from leading global practices and internship experiences across hedge funds and trading desks, we are determined to build a platform for active professional growth — through the management of live capital, industry connections, and genuine member ownership.' },
-              { title: 'Our Vision', text: 'To become an institution where our members are bold, future-ready leaders in industry and government, building a network of illustrious alumni who actively give back to the NUS community.' },
+              {
+                title: "Background",
+                text: "NUSSIF was founded to bring real, professional investment opportunities to NUS students passionate about careers in buy-side asset management and hedge funds.",
+              },
+              {
+                title: "Our Purpose",
+                text: "Drawing inspiration from leading global practices and internship experiences across hedge funds and trading desks, we are determined to build a platform for active professional growth — through the management of live capital, industry connections, and genuine member ownership.",
+              },
+              {
+                title: "Our Vision",
+                text: "To become an institution where our members are bold, future-ready leaders in industry and government, building a network of illustrious alumni who actively give back to the NUS community.",
+              },
             ].map((block) => (
               <div key={block.title} className="border-l-2 border-primary pl-6">
-                <h3 className="font-display font-medium text-foreground text-lg mb-2">{block.title}</h3>
+                <h3 className="font-display font-medium text-foreground text-lg mb-2">
+                  {block.title}
+                </h3>
                 <p className="body-text">{block.text}</p>
               </div>
             ))}
@@ -108,12 +161,18 @@ export default function AboutPage() {
       {/* Org Structure */}
       <section className="section-padding bg-muted/50">
         <div className="container-site">
-          <h2 className="heading-section mb-3 fade-up">Organisational Structure</h2>
-          <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            A simple and powerful model, focused on complementary teams specialising in specific asset classes.
+          <h2 className="heading-section mb-3 fade-up">
+            Organisational Structure
+          </h2>
+          <p
+            className="body-text max-w-2xl mb-16 fade-up"
+            style={{ transitionDelay: "0.1s" }}
+          >
+            A simple and powerful model, focused on complementary teams
+            specialising in specific asset classes.
           </p>
 
-          <div className="fade-up" style={{ transitionDelay: '0.2s' }}>
+          <div className="fade-up" style={{ transitionDelay: "0.2s" }}>
             {/* Leadership - Top */}
             <div className="flex flex-col items-center">
               <div className="bg-primary text-primary-foreground px-8 py-4 font-display text-sm tracking-wide shadow-lg">
@@ -146,7 +205,12 @@ export default function AboutPage() {
                   <div className="w-[2px] h-6 bg-border" />
 
                   <div className="grid grid-cols-2 gap-3 w-full">
-                    {['L/S Equities', 'Global Macro', 'Commodities', 'Systematic Strategies'].map((pod) => (
+                    {[
+                      "L/S Equities",
+                      "Global Macro",
+                      "Commodities",
+                      "Systematic Strategies",
+                    ].map((pod) => (
                       <div
                         key={pod}
                         className="relative border border-border bg-card text-foreground px-4 py-4 text-center font-body text-xs tracking-wide hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default"
@@ -166,7 +230,7 @@ export default function AboutPage() {
                   <div className="w-[2px] h-6 bg-border" />
 
                   <div className="grid grid-cols-3 gap-3 w-full">
-                    {['Risk & Infra', 'Externals', 'Fund Dev'].map((pod) => (
+                    {["Risk & Infra", "Externals", "Fund Dev"].map((pod) => (
                       <div
                         key={pod}
                         className="relative border border-border bg-card text-foreground px-4 py-4 text-center font-body text-xs tracking-wide hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default"
@@ -186,14 +250,24 @@ export default function AboutPage() {
       <section id="culture" className="section-padding bg-background">
         <div className="container-site">
           <h2 className="heading-section mb-3 fade-up">Our Culture</h2>
-          <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            We push boundaries through diverse perspectives and bold ambition — driving learning, leadership, and growth unique to NUS.
+          <p
+            className="body-text max-w-2xl mb-16 fade-up"
+            style={{ transitionDelay: "0.1s" }}
+          >
+            We push boundaries through diverse perspectives and bold ambition —
+            driving learning, leadership, and growth unique to NUS.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v, i) => (
-              <div key={v.num} className="card-value fade-up" style={{ transitionDelay: `${i * 0.1}s` }}>
+              <div
+                key={v.num}
+                className="card-value fade-up"
+                style={{ transitionDelay: `${i * 0.1}s` }}
+              >
                 <span className="eyebrow text-gold">{v.num}</span>
-                <h3 className="font-display font-medium text-foreground text-xl mt-3 mb-4">{v.title}</h3>
+                <h3 className="font-display font-medium text-foreground text-xl mt-3 mb-4">
+                  {v.title}
+                </h3>
                 <p className="body-text text-sm">{v.desc}</p>
               </div>
             ))}
@@ -209,8 +283,14 @@ export default function AboutPage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {achievements.map((a, i) => (
-              <div key={i} className="border border-primary-foreground/10 p-8 fade-up group hover:bg-primary-foreground/[0.04] transition-all duration-500" style={{ transitionDelay: `${i * 0.08}s` }}>
-                <p className="font-display italic text-primary-foreground text-lg md:text-xl mb-3">{a.name}</p>
+              <div
+                key={i}
+                className="border border-primary-foreground/10 p-8 fade-up group hover:bg-primary-foreground/[0.04] transition-all duration-500"
+                style={{ transitionDelay: `${i * 0.08}s` }}
+              >
+                <p className="font-display italic text-primary-foreground text-lg md:text-xl mb-3">
+                  {a.name}
+                </p>
                 <p className="eyebrow text-primary-foreground/50">{a.result}</p>
               </div>
             ))}
@@ -222,37 +302,46 @@ export default function AboutPage() {
       <section className="section-padding bg-background">
         <div className="container-site">
           <h2 className="heading-section mb-3 fade-up">Senior Advisors</h2>
-          <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            Guided by industry practitioners with decades of experience in global finance.
+          <p
+            className="body-text max-w-2xl mb-16 fade-up"
+            style={{ transitionDelay: "0.1s" }}
+          >
+            Guided by industry practitioners with decades of experience in
+            global finance.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 fade-up" style={{ transitionDelay: '0.2s' }}>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 fade-up"
+            style={{ transitionDelay: "0.2s" }}
+          >
             <div className="space-y-1">
-              <h3 className="font-display font-medium text-foreground text-xl">Adjunct Professor James Cheng</h3>
+              <h3 className="font-display font-medium text-foreground text-xl">
+                Adjunct Professor James Cheng
+              </h3>
               <p className="eyebrow">Senior Advisor</p>
-              <p className="body-text mt-2 text-sm">Previously CEO & Senior Advisor to Morgan Stanley Investment Management, and CIO at Invesco Asia.</p>
+              <p className="body-text mt-2 text-sm">
+                Previously CEO & Senior Advisor to Morgan Stanley Investment
+                Management, and CIO at Invesco Asia.
+              </p>
             </div>
             <div className="space-y-1">
-              <h3 className="font-display font-medium text-foreground text-xl">Kwan Ng</h3>
+              <h3 className="font-display font-medium text-foreground text-xl">
+                Kwan Ng
+              </h3>
               <p className="eyebrow">Senior Advisor</p>
-              <p className="body-text mt-2 text-sm">Currently Portfolio Manager at ExodusPoint. Formerly Senior Portfolio Manager at BlueCrest Capital Management, Head of FX Trading at Barclays, and Trader at Millennium.</p>
+              <p className="body-text mt-2 text-sm">
+                Currently Portfolio Manager at ExodusPoint. Formerly Senior
+                Portfolio Manager at BlueCrest Capital Management, Head of FX
+                Trading at Barclays, and Trader at Millennium.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Partners */}
-      <section id="partners" className="section-padding bg-muted/50 border-t border-border">
-        <div className="container-site">
-          <h2 className="heading-section mb-16 text-center fade-up">Our Partners</h2>
-          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            {partners.map((p) => (
-              <div key={p.name} className="grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-500">
-                <img src={p.logo} alt={p.name} className={`${p.height} w-auto object-contain`} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div id="partners" className="bg-muted/50 border-t border-border">
+        <SocialProof partners={partners} title="Our Partners" />
+      </div>
     </div>
   );
 }
