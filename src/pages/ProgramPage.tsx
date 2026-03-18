@@ -47,7 +47,7 @@ export default function ProgramPage() {
       />
 
       {/* Philosophy */}
-      <section className="section-padding bg-muted/50">
+      <section id="philosophy" className="section-padding bg-muted/50">
         <div className="container-site grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           <div className="fade-up">
             <p className="font-display italic text-foreground text-2xl md:text-3xl leading-snug">
@@ -63,7 +63,7 @@ export default function ProgramPage() {
       </section>
 
       {/* Analyst Pipeline */}
-      <section className="section-padding bg-background">
+      <section id="analyst-pipeline" className="section-padding bg-background">
         <div className="container-site">
           <h2 className="heading-section mb-3 fade-up">The Analyst Pipeline</h2>
           <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
@@ -96,7 +96,7 @@ export default function ProgramPage() {
       </section>
 
       {/* Investment Mandate */}
-      <section className="section-padding bg-muted/50">
+      <section id="mandate" className="section-padding bg-muted/50">
         <div className="container-site">
           <h2 className="heading-section mb-3 fade-up">Investment Mandate</h2>
           <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>

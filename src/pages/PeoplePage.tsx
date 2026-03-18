@@ -133,7 +133,7 @@ export default function PeoplePage() {
       </section>
 
       {/* Leadership */}
-      <section className="section-padding bg-muted/50">
+      <section id="leadership" className="section-padding bg-muted/50">
         <div className="container-site">
           <p className="eyebrow mb-4 fade-up">Leadership</p>
           <h2 className="heading-section mb-3 fade-up">NUSSIF Leadership Team</h2>
@@ -149,7 +149,7 @@ export default function PeoplePage() {
       </section>
 
       {/* Investing Teams */}
-      <section className="section-padding bg-background">
+      <section id="investing" className="section-padding bg-background">
         <div className="container-site">
           <p className="eyebrow mb-4 fade-up">Investing</p>
           <h2 className="heading-section mb-3 fade-up">Investing Teams</h2>
@@ -187,7 +187,7 @@ export default function PeoplePage() {
       </section>
 
       {/* Operations */}
-      <section className="section-padding bg-muted/50">
+      <section id="operations" className="section-padding bg-muted/50">
         <div className="container-site">
           <p className="eyebrow mb-4 fade-up">Operations</p>
           <h2 className="heading-section mb-3 fade-up">Operations Teams</h2>

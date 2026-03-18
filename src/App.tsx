@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollToHash from "@/components/ScrollToHash";
 import AboutPage from "./pages/AboutPage";
 import ProgramPage from "./pages/ProgramPage";
 import PeoplePage from "./pages/PeoplePage";
@@ -18,6 +19,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToHash />
         <Navbar />
         <main>
           <Routes>
