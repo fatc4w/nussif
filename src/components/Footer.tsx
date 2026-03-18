@@ -17,8 +17,16 @@ export default function Footer() {
       title: "Program",
       links: [
         { text: "Philosophy", href: "/program#philosophy", internal: true },
-        { text: "Analyst Pipeline", href: "/program#analyst-pipeline", internal: true },
-        { text: "Investment Mandate", href: "/program#mandate", internal: true },
+        {
+          text: "Analyst Pipeline",
+          href: "/program#analyst-pipeline",
+          internal: true,
+        },
+        {
+          text: "Investment Mandate",
+          href: "/program#mandate",
+          internal: true,
+        },
       ],
     },
     {
@@ -27,7 +35,11 @@ export default function Footer() {
         { text: "Leadership", href: "/people#leadership", internal: true },
         { text: "Investing Teams", href: "/people#investing", internal: true },
         { text: "Operations", href: "/people#operations", internal: true },
-        { text: "LinkedIn", href: "https://www.linkedin.com/company/nussif", external: true },
+        {
+          text: "LinkedIn",
+          href: "https://www.linkedin.com/company/nussif",
+          external: true,
+        },
       ],
     },
   ];
@@ -77,7 +89,7 @@ export default function Footer() {
               {/* Motto */}
               <div>
                 <h3 className="font-display text-lg font-medium tracking-tight text-primary-foreground sm:text-xl">
-                  Excellence in investing,
+                  Asia’s premier live student fund,
                   <br />
                   built by students
                 </h3>
