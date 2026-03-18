@@ -83,7 +83,7 @@ export default function AboutPage() {
       <VideoModal vimeoId="1171285504" thumbnailUrl="https://i.vimeocdn.com/video/2130738176-ba696526f900a41a6a9305fe38df112d76e67f15047bd3e1941bbbaba103f600-d_640?region=us" />
 
       {/* Who We Are */}
-      <section className="section-padding bg-background">
+      <section id="who-we-are" className="section-padding bg-background">
         <div className="container-site grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20">
           <div className="lg:col-span-2 fade-up">
             <p className="font-display italic text-foreground text-2xl md:text-3xl lg:text-4xl leading-snug">
@@ -154,7 +154,7 @@ export default function AboutPage() {
       </section>
 
       {/* Culture */}
-      <section className="section-padding bg-background">
+      <section id="culture" className="section-padding bg-background">
         <div className="container-site">
           <h2 className="heading-section mb-3 fade-up">Our Culture</h2>
           <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
@@ -173,7 +173,7 @@ export default function AboutPage() {
       </section>
 
       {/* Achievements */}
-      <section className="section-padding bg-primary">
+      <section id="achievements" className="section-padding bg-primary">
         <div className="container-site">
           <h2 className="font-display font-medium text-primary-foreground text-3xl md:text-4xl lg:text-[48px] leading-tight mb-16 fade-up">
             Recognised on a Regional & Global Stage
@@ -212,7 +212,7 @@ export default function AboutPage() {
       </section>
 
       {/* Partners */}
-      <section className="section-padding bg-muted/50 border-t border-border">
+      <section id="partners" className="section-padding bg-muted/50 border-t border-border">
         <div className="container-site">
           <h2 className="heading-section mb-16 text-center fade-up">Our Partners</h2>
           <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16 fade-up" style={{ transitionDelay: '0.1s' }}>
