@@ -7,10 +7,10 @@ export default function Footer() {
     {
       title: "About Us",
       links: [
-        { text: "Who We Are", href: "/about#who-we-are", internal: true },
-        { text: "Our Culture", href: "/about#culture", internal: true },
-        { text: "Achievements", href: "/about#achievements", internal: true },
-        { text: "Partners", href: "/about#partners", internal: true },
+        { text: "Who We Are", href: "/#who-we-are", internal: true },
+        { text: "Our Culture", href: "/#culture", internal: true },
+        { text: "Achievements", href: "/#achievements", internal: true },
+        { text: "Partners", href: "/#partners", internal: true },
       ],
     },
     {
@@ -27,7 +27,7 @@ export default function Footer() {
         { text: "Leadership", href: "/people#leadership", internal: true },
         { text: "Investing Teams", href: "/people#investing", internal: true },
         { text: "Operations", href: "/people#operations", internal: true },
-        { text: "LinkedIn", href: "https://linkedin.com", external: true },
+        { text: "LinkedIn", href: "https://www.linkedin.com/company/nussif", external: true },
       ],
     },
   ];
