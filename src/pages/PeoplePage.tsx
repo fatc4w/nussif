@@ -5,9 +5,9 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import heroImage from '@/assets/hero-singapore.jpg';
 
 const leadership = [
-  { name: 'Sean Wong', role: 'Co-Head of Total Portfolios', email: 'sean@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/sean-wong.jpg' },
-  { name: 'Rave Lai', role: 'Co-Head of Total Portfolios', email: 'rave@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/rave-lai.jpg' },
-  { name: 'Jerry Z', role: 'Leadership', email: 'jerry@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/jerry-z.jpg' },
+  { name: 'Sean Wong', role: 'Co-Head of Total Portfolios', email: 'sean_wong@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/sean-wong.jpg' },
+  { name: 'Rave Lai', role: 'Co-Head of Total Portfolios', email: 'ravelai@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/rave-lai.jpg' },
+  { name: 'Jerry Z', role: 'Leadership', email: 'zhonghaoxijerry@gmail.com', linkedIn: 'https://linkedin.com', headshot: '/people/jerry-z.jpg' },
 ];
 
 const investingPods = [
@@ -64,7 +64,8 @@ const investingPods = [
       { name: 'Chet Wee', role: 'Head of Systematic Strategies', email: 'chetweepe@gmail.com', linkedIn: 'https://www.linkedin.com/in/cwpe/', headshot: '/people/poo-chet-wee.jpg' },
     ],
     analysts: [
-      { name: 'Analyst 1', email: 'analyst1@u.nus.edu', linkedIn: 'https://linkedin.com' },
+      { name: 'Jia Yun', email: 'jiayun.li@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jiayun-li-nus/' },
+      { name: 'Jun Yang', email: 'limjunyang@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jun-yang-lim/' },
     ],
   },
 ];
@@ -77,8 +78,6 @@ const operationsPods = [
       { name: 'Enzo Chung', role: 'Head of Infra', email: 'enzo.chung@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/enzochung/', headshot: '/people/enzo-chung.jpg' },
     ],
     analysts: [
-      { name: 'Jia Yun', email: 'jiayun.li@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jiayun-li-nus/' },
-      { name: 'Jun Yang', email: 'limjunyang@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jun-yang-lim/' },
       { name: 'Qiao En', email: 'e1523469@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/qiao-enn-chew261/' },
       { name: 'Elina (Ling Xue)', email: 'E1304487@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/elinayilingxue/' },
       { name: 'Samuel', email: 'E1357105@u.nus.edu' },
