@@ -50,17 +50,18 @@ const investingPods = [
     name: 'Commodities',
     description: 'The Commodities pod focuses on the identification and execution of trading strategies across energy and metals markets. Grounded in both micro and macro fundamentals, the team brings deep specialisation and dedicated rigour.',
     members: [
-      { name: 'Chew Jinn Ming', role: 'Portfolio Manager, Commodities', email: 'jinnming@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/chew-jinn-ming.jpg' },
+      { name: 'Chew Jinn Ming', role: 'Portfolio Manager, Commodities', email: 'chew.jinnming@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/chew-jinn-ming/', headshot: '/people/chew-jinn-ming.jpg' },
     ],
     analysts: [
-      { name: 'Analyst 1', email: 'analyst1@u.nus.edu', linkedIn: 'https://linkedin.com' },
+      { name: 'Gerald', email: 'ce1186154@u.nus.edu' },
+      { name: 'Pu Huan', email: 'pzhu@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/zhu-puhuan-hank-a9a839299/' },
     ],
   },
   {
     name: 'Systematic Strategies',
     description: 'The Systematic Strategies pod embeds quantitative and data-driven analysis into the fund\'s investment and portfolio decisions. The team supports the asset pods by providing a quantitative dimension to market views.',
     members: [
-      { name: 'Poo Chet Wee', role: 'Head of Systematic Strategies', email: 'chetwee@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/poo-chet-wee.jpg' },
+      { name: 'Chet Wee', role: 'Head of Systematic Strategies', email: 'chetweepe@gmail.com', linkedIn: 'https://www.linkedin.com/in/cwpe/', headshot: '/people/poo-chet-wee.jpg' },
     ],
     analysts: [
       { name: 'Analyst 1', email: 'analyst1@u.nus.edu', linkedIn: 'https://linkedin.com' },
@@ -78,15 +79,22 @@ const operationsPods = [
   {
     name: 'Externals',
     members: [
-      { name: 'Davin', role: 'Head of Externals', email: 'davin@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/davin.jpg' },
-      { name: 'Yi Fei', role: 'Analyst, Externals', email: 'yifei@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/yi-fei.jpg' },
+      { name: 'Davin', role: 'Head of Externals', email: 'davinchang@u.nus.edu', headshot: '/people/davin.jpg' },
+      { name: 'Jonathan Goh', role: 'Marketing Lead', email: 'jonathan.goh@u.nus.edu', headshot: '/people/jonathan-goh.jpg' },
+    ],
+    analysts: [
+      { name: 'Ariel', email: 'e1354950@u.nus.edu' },
     ],
   },
   {
     name: 'Fund Development',
     members: [
-      { name: 'Helena', role: 'Head of Fund Development', email: 'helena@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/helena.jpg' },
-      { name: 'Brenda', role: 'Analyst, Fund Development', email: 'brenda@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/brenda.jpg' },
+      { name: 'Helena', role: 'Fund Development Director', email: 'helena.tan@u.nus.edu', headshot: '/people/helena.jpg' },
+      { name: 'Rui Wen', role: 'Fund Development Lead', email: 'e1669001@u.nus.edu', headshot: '/people/rui-wen.jpg' },
+    ],
+    analysts: [
+      { name: 'Brenda', email: 'brendajchen@u.nus.edu' },
+      { name: 'YiFei', email: 'chuayifei@u.nus.edu' },
     ],
   },
 ];
@@ -195,6 +203,18 @@ export default function PeoplePage() {
                   <PersonCard key={m.name} {...m} />
                 ))}
               </div>
+
+              {/* Analysts */}
+              {pod.analysts && pod.analysts.length > 0 && (
+                <div className="mt-10 pt-8 border-t border-border">
+                  <p className="eyebrow mb-6">Analysts</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {pod.analysts.map((a, j) => (
+                      <AnalystCard key={`${a.name}-${j}`} {...a} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
