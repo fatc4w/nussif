@@ -113,39 +113,68 @@ export default function AboutPage() {
             A simple and powerful model, focused on complementary teams specialising in specific asset classes.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 fade-up" style={{ transitionDelay: '0.2s' }}>
-            {/* Investing Teams */}
-            <div>
-              <p className="eyebrow mb-6">Investing Teams</p>
-              <div className="flex flex-col items-center">
-                <div className="bg-primary text-primary-foreground px-6 py-3 font-display text-sm tracking-wide">
-                  NUSSIF Leadership
+          <div className="fade-up" style={{ transitionDelay: '0.2s' }}>
+            {/* Leadership - Top */}
+            <div className="flex flex-col items-center">
+              <div className="bg-primary text-primary-foreground px-8 py-4 font-display text-sm tracking-wide shadow-lg">
+                NUSSIF Leadership
+              </div>
+
+              {/* Vertical line down */}
+              <div className="w-[2px] h-8 bg-border" />
+
+              {/* Split into two branches */}
+              <div className="flex items-start justify-center w-full max-w-5xl">
+                {/* Left branch line */}
+                <div className="flex-1 flex justify-end">
+                  <div className="w-1/2 h-[2px] bg-border" />
                 </div>
-                <div className="w-[1px] h-8 bg-border" />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {['L/S Equities', 'Global Macro', 'Commodities', 'Systematic Strategies'].map((pod) => (
-                    <div key={pod} className="border border-primary text-foreground px-4 py-3 text-center font-body text-xs tracking-wide">
-                      {pod}
-                    </div>
-                  ))}
+                {/* Right branch line */}
+                <div className="flex-1 flex justify-start">
+                  <div className="w-1/2 h-[2px] bg-border" />
                 </div>
               </div>
-            </div>
 
-            {/* Operations Teams */}
-            <div>
-              <p className="eyebrow mb-6">Operations Teams</p>
-              <div className="flex flex-col items-center">
-                <div className="bg-primary text-primary-foreground px-6 py-3 font-display text-sm tracking-wide">
-                  NUSSIF Leadership
+              {/* Two branches */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full max-w-5xl">
+                {/* Investing Teams Branch */}
+                <div className="flex flex-col items-center">
+                  <div className="w-[2px] h-8 bg-border" />
+                  <div className="bg-gold/20 border border-gold text-foreground px-6 py-3 font-display text-xs tracking-wider uppercase">
+                    Investing Teams
+                  </div>
+                  <div className="w-[2px] h-6 bg-border" />
+
+                  <div className="grid grid-cols-2 gap-3 w-full">
+                    {['L/S Equities', 'Global Macro', 'Commodities', 'Systematic Strategies'].map((pod) => (
+                      <div
+                        key={pod}
+                        className="relative border border-border bg-card text-foreground px-4 py-4 text-center font-body text-xs tracking-wide hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                      >
+                        {pod}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="w-[1px] h-8 bg-border" />
-                <div className="grid grid-cols-3 gap-3">
-                  {['Risk & Infrastructure', 'Externals', 'Fund Development'].map((pod) => (
-                    <div key={pod} className="border border-primary text-foreground px-4 py-3 text-center font-body text-xs tracking-wide">
-                      {pod}
-                    </div>
-                  ))}
+
+                {/* Operations Teams Branch */}
+                <div className="flex flex-col items-center mt-8 lg:mt-0">
+                  <div className="w-[2px] h-8 bg-border" />
+                  <div className="bg-primary/10 border border-primary text-foreground px-6 py-3 font-display text-xs tracking-wider uppercase">
+                    Operations Teams
+                  </div>
+                  <div className="w-[2px] h-6 bg-border" />
+
+                  <div className="grid grid-cols-3 gap-3 w-full">
+                    {['Risk & Infra', 'Externals', 'Fund Dev'].map((pod) => (
+                      <div
+                        key={pod}
+                        className="relative border border-border bg-card text-foreground px-4 py-4 text-center font-body text-xs tracking-wide hover:border-primary hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                      >
+                        {pod}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
