@@ -76,14 +76,31 @@ const operationsPods = [
       { name: 'Senyi', role: 'Head of Risk & Infrastructure', email: 'senyi@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/senyi.jpg' },
       { name: 'Enzo Chung', role: 'Head of Infra', email: 'enzo.chung@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/enzochung/', headshot: '/people/enzo-chung.jpg' },
     ],
+    analysts: [
+      { name: 'Jia Yun', email: 'jiayun.li@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jiayun-li-nus/' },
+      { name: 'Jun Yang', email: 'limjunyang@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jun-yang-lim/' },
+      { name: 'Qiao En', email: 'e1523469@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/qiao-enn-chew261/' },
+      { name: 'Elina (Ling Xue)', email: 'E1304487@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/elinayilingxue/' },
+      { name: 'Samuel', email: 'E1357105@u.nus.edu' },
+      { name: 'Gabriel', email: 'gabrieltang@u.nus.edu' },
+      { name: 'Justin Cheong', email: 'justin.cheong@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/justin-cheong-534aa51aa/' },
+      { name: 'Daron', email: 'e1121489@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/daron-oh/' },
+      { name: 'Wai Hin', email: 'wongwaihin@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/wai-hin-wong26/' },
+      { name: 'Kiefer', email: 'kiefer.ong@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/kiefer-ong/' },
+      { name: 'Madhu', email: 'madhu_polluru@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/madhu-polluru/' },
+      { name: 'Jia Wei', email: 'jiawei.wong21@gmail.com' },
+      { name: 'Jason', email: 'jian.li@u.nus.edu' },
+      { name: 'Yi Han', email: 'zhangyihan@u.nus.edu' },
+      { name: 'Belle', email: 'christabelle.lee@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/christabellelee/' },
+    ],
   },
   {
     name: 'Externals',
     members: [
       { name: 'Davin', role: 'Head of Externals', email: 'davinchang@u.nus.edu', headshot: '/people/davin.jpg' },
-      { name: 'Jonathan Goh', role: 'Marketing Lead', email: 'jonathan.goh@u.nus.edu', headshot: '/people/jonathan-goh.jpg' },
     ],
     analysts: [
+      { name: 'Jonathan Goh', email: 'jonathan.goh@u.nus.edu' },
       { name: 'Ariel', email: 'e1354950@u.nus.edu' },
     ],
   },
@@ -91,9 +108,9 @@ const operationsPods = [
     name: 'Fund Development',
     members: [
       { name: 'Helena', role: 'Fund Development Director', email: 'helena.tan@u.nus.edu', headshot: '/people/helena.jpg' },
-      { name: 'Rui Wen', role: 'Fund Development Lead', email: 'e1669001@u.nus.edu', headshot: '/people/rui-wen.jpg' },
     ],
     analysts: [
+      { name: 'Rui Wen', email: 'e1669001@u.nus.edu' },
       { name: 'Brenda', email: 'brendajchen@u.nus.edu' },
       { name: 'YiFei', email: 'chuayifei@u.nus.edu' },
     ],
