@@ -150,7 +150,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24">
             <div className="lg:col-span-2 fade-up">
               <p className="font-display font-light italic text-foreground text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.25] tracking-wide">
-                "Forging the next generation of NUS and Finance in Asia."
+                Forging the next generation of NUS and Finance in Asia.
               </p>
             </div>
             <div

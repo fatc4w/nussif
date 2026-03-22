@@ -221,7 +221,7 @@ export default function PeoplePage() {
       <section className="py-20 bg-muted/30">
         <div className="container-site text-center">
           <p className="font-display italic text-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            "Outstanding Trainee Analysts from the Execution Track will be invited to join the Investing Teams. Trainee Analyst cohort members are not listed here pending graduation from the programme."
+            Outstanding Trainee Analysts from the Execution Track will be invited to join the Investing Teams. Trainee Analyst cohort members are not listed here pending graduation from the programme.
           </p>
         </div>
       </section>
