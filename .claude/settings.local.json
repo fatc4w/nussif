@@ -1,13 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Skill(superpowers:brainstorming)",
-      "Bash(bash:*)",
-      "Bash(mkdir:*)",
-      "Bash(npx shadcn@latest add:*)",
-      "Bash(npm install:*)",
-      "Bash(npm run build:*)",
-      "WebSearch"
+      "Bash(node -e:*)"
     ],
     "deny": [],
     "ask": []

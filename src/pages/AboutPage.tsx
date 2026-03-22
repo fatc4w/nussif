@@ -37,16 +37,26 @@ const values = [
 
 const achievements = [
   { name: "UBS Pan Asia Finance Challenge", result: "Champions" },
-  { name: "Point72 Oxford University Equity Research Competition", result: "Champions" },
+  {
+    name: "Point72 Oxford University Equity Research Competition",
+    result: "Champions",
+  },
   { name: "Point72 NTU Stock Pitch Competition", result: "Champion" },
   { name: "CFA Research Challenge (Singapore)", result: "Champions" },
   { name: "Temasek-NUS Stock Pitch Competition", result: "Champion" },
-  { name: "JPMorgan Asia Asset & Wealth Management Challenge (Singapore)", result: "Champions" },
+  {
+    name: "JPMorgan Asia Asset & Wealth Management Challenge (Singapore)",
+    result: "Champions",
+  },
 ];
 
 const partners = [
   { name: "Citadel", logo: citadelLogo, url: "https://www.citadel.com" },
-  { name: "Citadel Securities", logo: citadelSecLogo, url: "https://www.citadelsecurities.com" },
+  {
+    name: "Citadel Securities",
+    logo: citadelSecLogo,
+    url: "https://www.citadelsecurities.com",
+  },
   { name: "Point72", logo: point72Logo, url: "https://www.point72.com" },
   { name: "Massive", logo: massiveLogo, url: "https://www.massive.com" },
   { name: "Millennium", logo: millenniumLogo, url: "https://www.mlp.com" },
@@ -71,7 +81,8 @@ function StatCounter({
       style={{ transitionDelay: `${delay}s` }}
     >
       <span className="font-display font-light text-primary-foreground text-7xl md:text-8xl leading-none tracking-tight tabular-nums">
-        {count}{suffix}
+        {count}
+        {suffix}
       </span>
       <span className="mt-5 text-[10px] tracking-[0.25em] uppercase text-primary-foreground/45 font-body">
         {label}
@@ -93,8 +104,12 @@ export default function AboutPage() {
         fullHeight
       >
         <div className="flex items-center justify-center gap-8 mt-10">
-          <Link to="/program" className="gold-link">→ Our Program</Link>
-          <Link to="/people" className="gold-link">→ Our People</Link>
+          <Link to="/program" className="gold-link">
+            → Our Program
+          </Link>
+          <Link to="/people" className="gold-link">
+            → Our People
+          </Link>
         </div>
       </HeroSection>
 
@@ -105,7 +120,10 @@ export default function AboutPage() {
             <StatCounter value={35} suffix="+" label="Members" delay={0} />
             <StatCounter value={25} suffix="+" label="Analysts" delay={0.1} />
             {/* 1 in 25 — static */}
-            <div className="flex flex-col items-center text-center px-8 py-16 fade-up" style={{ transitionDelay: "0.2s" }}>
+            <div
+              className="flex flex-col items-center text-center px-8 py-16 fade-up"
+              style={{ transitionDelay: "0.2s" }}
+            >
               <span className="font-display font-light text-primary-foreground leading-none tracking-tight">
                 <span className="text-7xl md:text-8xl">1</span>
                 <span className="text-3xl md:text-4xl mx-3 opacity-40">in</span>
@@ -170,9 +188,15 @@ export default function AboutPage() {
       {/* Org Structure */}
       <section className="section-padding bg-muted/50">
         <div className="container-site">
-          <h2 className="heading-section mb-3 fade-up">Organisational Structure</h2>
-          <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: "0.1s" }}>
-            A simple and powerful model, focused on complementary teams specialising in specific asset classes.
+          <h2 className="heading-section mb-3 fade-up">
+            Organisational Structure
+          </h2>
+          <p
+            className="body-text max-w-2xl mb-16 fade-up"
+            style={{ transitionDelay: "0.1s" }}
+          >
+            A simple and powerful model, focused on complementary teams
+            specialising in specific asset classes.
           </p>
           <OrgChart />
         </div>
@@ -187,7 +211,8 @@ export default function AboutPage() {
               Our Culture
             </h2>
             <p className="mt-5 body-text text-primary-foreground/55 max-w-2xl">
-              We push boundaries through diverse perspectives and bold ambition — driving learning, leadership, and growth unique to NUS.
+              We push boundaries through diverse perspectives and bold ambition
+              — driving learning, leadership, and growth unique to NUS.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-primary-foreground/10">
@@ -217,7 +242,9 @@ export default function AboutPage() {
         <div className="container-site">
           <div className="mb-16 fade-up">
             <div className="w-12 h-px bg-gold mb-10" />
-            <h2 className="heading-section">Recognised on a Regional & Global Stage</h2>
+            <h2 className="heading-section">
+              Recognised on a Regional & Global Stage
+            </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
             {achievements.map((a, i) => (
@@ -245,8 +272,12 @@ export default function AboutPage() {
         <div className="container-site">
           <div className="w-12 h-px bg-gold mb-10 fade-up" />
           <h2 className="heading-section mb-3 fade-up">Senior Advisors</h2>
-          <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: "0.1s" }}>
-            Guided by industry practitioners with decades of experience in global finance.
+          <p
+            className="body-text max-w-2xl mb-16 fade-up"
+            style={{ transitionDelay: "0.1s" }}
+          >
+            Guided by industry practitioners with decades of experience in
+            global finance.
           </p>
           <div
             className="grid grid-cols-1 md:grid-cols-2 gap-16 fade-up"
@@ -260,7 +291,8 @@ export default function AboutPage() {
                 Senior Advisor
               </p>
               <p className="body-text text-sm text-foreground/70 leading-relaxed">
-                Previously CEO & Senior Advisor to Morgan Stanley Investment Management, and CIO at Invesco Asia.
+                Previously CEO & Senior Advisor to Morgan Stanley Investment
+                Management, and CIO at Invesco Asia.
               </p>
             </div>
             <div className="group cursor-default">
@@ -271,7 +303,9 @@ export default function AboutPage() {
                 Senior Advisor
               </p>
               <p className="body-text text-sm text-foreground/70 leading-relaxed">
-                Currently Portfolio Manager at ExodusPoint. Formerly Senior Portfolio Manager at BlueCrest Capital Management, Head of FX Trading at Barclays, and Trader at Millennium.
+                Currently Portfolio Manager at ExodusPoint. Formerly Senior
+                Portfolio Manager at BlueCrest Capital Management, Head of FX
+                Trading at Barclays, and Trader at Millennium.
               </p>
             </div>
           </div>
@@ -279,9 +313,14 @@ export default function AboutPage() {
       </section>
 
       {/* Partners — full opacity, subtle scale on hover */}
-      <section id="partners" className="section-padding bg-background border-t border-border">
+      <section
+        id="partners"
+        className="section-padding bg-background border-t border-border"
+      >
         <div className="container-site">
-          <h2 className="heading-section text-center mb-20 fade-up">Our Partners</h2>
+          <h2 className="heading-section text-center mb-20 fade-up">
+            Our Partners
+          </h2>
           <div
             className="flex flex-wrap items-center justify-center gap-16 md:gap-24 fade-up"
             style={{ transitionDelay: "0.1s" }}
