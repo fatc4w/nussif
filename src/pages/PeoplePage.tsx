@@ -65,7 +65,7 @@ const investingCapsules = [
     description:
       "The Systematic Strategies pod embeds quantitative and data-driven analysis into the fund's investment and portfolio decisions. The team supports the asset pods by providing a quantitative dimension to market views.",
     teamPhoto: '/people/teams/systematic-strategies.jpg',
-    imagePosition: 'center 30%',
+    imagePosition: 'center 40%',
     leadersLabel: 'Head',
     leaders: [
       { name: 'Chet Wee', role: 'Head of Systematic Strategies', email: 'chetweepe@gmail.com', linkedIn: 'https://www.linkedin.com/in/cwpe/', headshot: '/people/poo-chet-wee.jpg' },
