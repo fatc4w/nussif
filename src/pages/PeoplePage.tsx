@@ -59,7 +59,7 @@ const investingPods = [
   },
   {
     name: 'Systematic Strategies',
-    description: 'The Systematic Strategies pod embeds quantitative and data-driven analysis into the fund\'s investment and portfolio decisions. The team supports the asset pods by providing a quantitative dimension to market views.',
+    description: "The Systematic Strategies pod embeds quantitative and data-driven analysis into the fund's investment and portfolio decisions. The team supports the asset pods by providing a quantitative dimension to market views.",
     members: [
       { name: 'Chet Wee', role: 'Head of Systematic Strategies', email: 'chetweepe@gmail.com', linkedIn: 'https://www.linkedin.com/in/cwpe/', headshot: '/people/poo-chet-wee.jpg' },
     ],
@@ -175,10 +175,10 @@ export default function PeoplePage() {
           </p>
 
           {investingPods.map((pod, i) => (
-            <div key={pod.name} id={pod.name.toLowerCase().replace(/[\/\s&]+/g, '-').replace(/--+/g, '-')} className="mb-20 last:mb-0 fade-up scroll-mt-24"
+            <div key={pod.name} id={pod.name.toLowerCase().replace(/[\s&/]+/g, '-').replace(/--+/g, '-')} className="mb-20 last:mb-0 fade-up scroll-mt-24" style={{ transitionDelay: `${i * 0.1}s` }}>
               <h3 className="heading-sub mb-3">{pod.name}</h3>
               <p className="body-text max-w-3xl mb-10">{pod.description}</p>
-              
+
               {/* Portfolio Managers */}
               <p className="eyebrow mb-6 text-gold">Portfolio Managers</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -213,7 +213,7 @@ export default function PeoplePage() {
           </p>
 
           {operationsPods.map((pod, i) => (
-            <div key={pod.name} id={pod.name.toLowerCase().replace(/[\/\s&]+/g, '-').replace(/--+/g, '-')} className="mb-20 last:mb-0 fade-up scroll-mt-24"
+            <div key={pod.name} id={pod.name.toLowerCase().replace(/[\s&/]+/g, '-').replace(/--+/g, '-')} className="mb-20 last:mb-0 fade-up scroll-mt-24" style={{ transitionDelay: `${i * 0.1}s` }}>
               <h3 className="heading-sub mb-10">{pod.name}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                 {pod.members.map((m) => (
