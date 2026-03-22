@@ -21,6 +21,7 @@ interface TeamCapsuleProps {
   name: string;
   description: string;
   teamPhoto?: string;
+  imagePosition?: string;
   leaders: Leader[];
   analysts: Analyst[];
   leadersLabel?: string;
@@ -30,6 +31,7 @@ export default function TeamCapsule({
   name,
   description,
   teamPhoto,
+  imagePosition = 'center top',
   leaders,
   analysts,
   leadersLabel = 'Portfolio Managers',
@@ -48,6 +50,7 @@ export default function TeamCapsule({
             src={teamPhoto}
             alt={name}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-[1.025]"
+            style={{ objectPosition: imagePosition }}
           />
         ) : (
           <div
