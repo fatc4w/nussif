@@ -98,7 +98,7 @@ export default function AboutPage() {
       <HeroSection
         image={heroImage}
         title="NUSSIF"
-        subtitle="A buy-side structured multi-strategy investment organisation."
+        subtitle="Asia's premier buy-side structured, multi-strategy student investment fund."
         fullHeight
       >
         <div className="flex items-center justify-center gap-8 mt-10">
