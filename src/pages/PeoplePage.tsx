@@ -17,6 +17,7 @@ const investingCapsules = [
     description:
       'Our Long/Short Equities pod pursues alpha through both long and short positions across Singapore and global equity markets. Combining fundamental analysis with thematic conviction, the team identifies mispriced securities and relative value opportunities, deploying a blend of L/S, Event-Driven, and Relative Value strategies.',
     teamPhoto: '/people/teams/ls-equities.jpg',
+    imagePosition: 'center 10%',
     leadersLabel: 'Portfolio Managers',
     leaders: [
       { name: 'Abdullah Armain', role: 'Portfolio Manager, L/S Equities', email: 'e1399126@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/abdullah-armain-078052189/', headshot: '/people/abdullah-armain.jpg' },
@@ -42,6 +43,7 @@ const investingCapsules = [
     description:
       'The Global Macro & Commodities division combines discretionary macro hedge fund strategies across FICC markets with deep specialisation in energy and metals. The Global Macro pod exercises conviction over fixed income, currencies, and equity index instruments. The Commodities pod deploys trading strategies grounded in both micro and macro fundamentals across energy and metals markets.',
     teamPhoto: '/people/teams/global-macro-commodities.jpg',
+    imagePosition: 'center 30%',
     leadersLabel: 'Portfolio Managers',
     leaders: [
       { name: 'Wen Jun', role: 'Portfolio Manager, Global Macro', email: 'wenjun.ye@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jadon-wenjun-ye/', headshot: '/people/ye-wen-jun.jpg' },
@@ -63,6 +65,7 @@ const investingCapsules = [
     description:
       "The Systematic Strategies pod embeds quantitative and data-driven analysis into the fund's investment and portfolio decisions. The team supports the asset pods by providing a quantitative dimension to market views.",
     teamPhoto: '/people/teams/systematic-strategies.jpg',
+    imagePosition: 'center 0%',
     leadersLabel: 'Head',
     leaders: [
       { name: 'Chet Wee', role: 'Head of Systematic Strategies', email: 'chetweepe@gmail.com', linkedIn: 'https://www.linkedin.com/in/cwpe/', headshot: '/people/poo-chet-wee.jpg' },
@@ -80,6 +83,7 @@ const operationsCapsule = {
   description:
     'The backbone of the fund — spanning risk infrastructure, external relations, and fund development to ensure robust operations, institutional-grade oversight, and long-term growth.',
   teamPhoto: '/people/teams/operations.jpg',
+  imagePosition: 'center 15%',
   leadersLabel: 'Leadership',
   leaders: [
     { name: 'Senyi', role: 'Head of Risk & Infrastructure', email: 'senyi@u.nus.edu', linkedIn: 'https://linkedin.com', headshot: '/people/senyi.jpg' },
@@ -179,6 +183,7 @@ export default function PeoplePage() {
                   name={capsule.name}
                   description={capsule.description}
                   teamPhoto={capsule.teamPhoto}
+                  imagePosition={capsule.imagePosition}
                   leaders={capsule.leaders}
                   analysts={capsule.analysts}
                   leadersLabel={capsule.leadersLabel}
@@ -203,6 +208,7 @@ export default function PeoplePage() {
               name={operationsCapsule.name}
               description={operationsCapsule.description}
               teamPhoto={operationsCapsule.teamPhoto}
+              imagePosition={operationsCapsule.imagePosition}
               leaders={operationsCapsule.leaders}
               analysts={operationsCapsule.analysts}
               leadersLabel={operationsCapsule.leadersLabel}
