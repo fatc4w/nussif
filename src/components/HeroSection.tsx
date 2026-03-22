@@ -5,10 +5,11 @@ interface HeroSectionProps {
   title: string;
   subtitle: string;
   fullHeight?: boolean;
+  noOverlay?: boolean;
   children?: React.ReactNode;
 }
 
-export default function HeroSection({ image, title, subtitle, fullHeight = false, children }: HeroSectionProps) {
+export default function HeroSection({ image, title, subtitle, fullHeight = false, noOverlay = false, children }: HeroSectionProps) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -27,20 +28,22 @@ export default function HeroSection({ image, title, subtitle, fullHeight = false
         style={{ transform: visible ? 'scale(1)' : 'scale(1.08)' }}
         loading="eager"
       />
-      <div className="absolute inset-0 bg-navy-deep/[0.72]" />
-      
-      {/* Subtle gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/30 via-transparent to-navy-deep/50" />
+      {!noOverlay && (
+        <>
+          <div className="absolute inset-0 bg-navy-deep/[0.72]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/30 via-transparent to-navy-deep/50" />
+        </>
+      )}
 
       <div
         className={`relative z-10 text-center px-6 max-w-3xl transition-all duration-1000 ease-out ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
         }`}
       >
-        <h1 className="font-display font-medium text-primary-foreground text-4xl md:text-5xl lg:text-6xl tracking-wide leading-tight">
+        <h1 className="font-display font-medium text-primary-foreground text-4xl md:text-5xl lg:text-6xl tracking-wide leading-tight drop-shadow-lg">
           {title}
         </h1>
-        <p className="mt-6 font-body font-light text-primary-foreground/70 text-base md:text-lg">
+        <p className="mt-6 font-body font-light text-primary-foreground/90 text-base md:text-lg drop-shadow">
           {subtitle}
         </p>
         {children}
