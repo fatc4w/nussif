@@ -28,6 +28,7 @@ export default function HeroSection({ image, title, subtitle, fullHeight = false
         style={{ transform: visible ? 'scale(1)' : 'scale(1.08)' }}
         loading="eager"
       />
+
       {!noOverlay && (
         <>
           <div className="absolute inset-0 bg-navy-deep/[0.72]" />
@@ -35,15 +36,25 @@ export default function HeroSection({ image, title, subtitle, fullHeight = false
         </>
       )}
 
+      {/* When noOverlay, still add a soft radial scrim behind the text */}
+      {noOverlay && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,0,0,0.45) 0%, transparent 100%)',
+          }}
+        />
+      )}
+
       <div
         className={`relative z-10 text-center px-6 max-w-3xl transition-all duration-1000 ease-out ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
         }`}
       >
-        <h1 className="font-display font-medium text-primary-foreground text-4xl md:text-5xl lg:text-6xl tracking-wide leading-tight drop-shadow-lg">
+        <h1 className="font-display font-medium text-white text-4xl md:text-5xl lg:text-6xl tracking-wide leading-tight drop-shadow-lg">
           {title}
         </h1>
-        <p className="mt-6 font-body font-light text-primary-foreground/90 text-base md:text-lg drop-shadow">
+        <p className="mt-6 font-body font-light text-white/90 text-base md:text-lg drop-shadow">
           {subtitle}
         </p>
         {children}
