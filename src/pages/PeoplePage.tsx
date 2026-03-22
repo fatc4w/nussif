@@ -175,7 +175,7 @@ export default function PeoplePage() {
           </p>
 
           {investingPods.map((pod, i) => (
-            <div key={pod.name} className="mb-20 last:mb-0 fade-up" style={{ transitionDelay: `${i * 0.1}s` }}>
+            <div key={pod.name} id={pod.name.toLowerCase().replace(/[\/\s&]+/g, '-').replace(/-{2,}/g, '-')} className="mb-20 last:mb-0 fade-up scroll-mt-24"
               <h3 className="heading-sub mb-3">{pod.name}</h3>
               <p className="body-text max-w-3xl mb-10">{pod.description}</p>
               
@@ -213,7 +213,7 @@ export default function PeoplePage() {
           </p>
 
           {operationsPods.map((pod, i) => (
-            <div key={pod.name} className="mb-20 last:mb-0 fade-up" style={{ transitionDelay: `${i * 0.1}s` }}>
+            <div key={pod.name} id={pod.name.toLowerCase().replace(/[\/\s&]+/g, '-').replace(/-{2,}/g, '-')} className="mb-20 last:mb-0 fade-up scroll-mt-24"
               <h3 className="heading-sub mb-10">{pod.name}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                 {pod.members.map((m) => (
