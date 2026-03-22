@@ -52,11 +52,25 @@ const partners = [
   { name: "Millennium", logo: millenniumLogo, url: "https://www.mlp.com" },
 ];
 
-function StatCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+function StatCounter({
+  value,
+  suffix,
+  label,
+  delay = 0,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+  delay?: number;
+}) {
   const { count, ref } = useCountUp(value);
   return (
-    <div ref={ref} className="flex flex-col items-center text-center px-8 py-16 fade-up">
-      <span className="font-display font-light text-primary-foreground text-7xl md:text-8xl leading-none tracking-tight">
+    <div
+      ref={ref}
+      className="flex flex-col items-center text-center px-8 py-16 fade-up"
+      style={{ transitionDelay: `${delay}s` }}
+    >
+      <span className="font-display font-light text-primary-foreground text-7xl md:text-8xl leading-none tracking-tight tabular-nums">
         {count}{suffix}
       </span>
       <span className="mt-5 text-[10px] tracking-[0.25em] uppercase text-primary-foreground/45 font-body">
@@ -88,13 +102,13 @@ export default function AboutPage() {
       <section className="bg-primary">
         <div className="container-site">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-primary-foreground/10">
-            <StatCounter value={35} suffix="+" label="Members" />
-            <StatCounter value={25} suffix="+" label="Analysts" />
-            {/* 1 in 25 — static display */}
-            <div className="flex flex-col items-center text-center px-8 py-16 fade-up">
+            <StatCounter value={35} suffix="+" label="Members" delay={0} />
+            <StatCounter value={25} suffix="+" label="Analysts" delay={0.1} />
+            {/* 1 in 25 — static */}
+            <div className="flex flex-col items-center text-center px-8 py-16 fade-up" style={{ transitionDelay: "0.2s" }}>
               <span className="font-display font-light text-primary-foreground leading-none tracking-tight">
                 <span className="text-7xl md:text-8xl">1</span>
-                <span className="text-3xl md:text-4xl mx-3 opacity-50">in</span>
+                <span className="text-3xl md:text-4xl mx-3 opacity-40">in</span>
                 <span className="text-7xl md:text-8xl">25</span>
               </span>
               <span className="mt-5 text-[10px] tracking-[0.25em] uppercase text-primary-foreground/45 font-body">
@@ -139,11 +153,13 @@ export default function AboutPage() {
                   text: "To become an institution where our members are bold, future-ready leaders in industry and government, building a network of illustrious alumni who actively give back to the NUS community.",
                 },
               ].map((block) => (
-                <div key={block.title}>
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mb-4">
+                <div key={block.title} className="group">
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mb-4 transition-opacity duration-300 group-hover:opacity-100">
                     {block.title}
                   </p>
-                  <p className="body-text text-foreground/75 leading-relaxed">{block.text}</p>
+                  <p className="body-text text-foreground/75 leading-relaxed transition-colors duration-300 group-hover:text-foreground/90">
+                    {block.text}
+                  </p>
                 </div>
               ))}
             </div>
@@ -178,16 +194,16 @@ export default function AboutPage() {
             {values.map((v, i) => (
               <div
                 key={v.num}
-                className="px-8 py-10 first:pl-0 fade-up"
+                className="px-8 py-10 first:pl-0 fade-up group cursor-default transition-colors duration-500 hover:bg-primary-foreground/[0.03]"
                 style={{ transitionDelay: `${i * 0.1}s` }}
               >
-                <span className="text-[10px] tracking-[0.25em] uppercase text-gold/70 font-body">
+                <span className="text-[10px] tracking-[0.25em] uppercase text-gold/70 font-body transition-colors duration-300 group-hover:text-gold">
                   {v.num}
                 </span>
-                <h3 className="font-display font-light text-primary-foreground text-2xl mt-8 mb-5 tracking-wide">
+                <h3 className="font-display font-light text-primary-foreground text-2xl mt-8 mb-5 tracking-wide transition-colors duration-300 group-hover:text-white">
                   {v.title}
                 </h3>
-                <p className="text-primary-foreground/50 font-body text-sm leading-relaxed">
+                <p className="text-primary-foreground/50 font-body text-sm leading-relaxed transition-colors duration-300 group-hover:text-primary-foreground/75">
                   {v.desc}
                 </p>
               </div>
@@ -196,7 +212,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Achievements — light background */}
+      {/* Achievements */}
       <section id="achievements" className="section-padding bg-background">
         <div className="container-site">
           <div className="mb-16 fade-up">
@@ -207,13 +223,15 @@ export default function AboutPage() {
             {achievements.map((a, i) => (
               <div
                 key={i}
-                className="bg-background px-10 py-10 fade-up group hover:bg-muted/40 transition-colors duration-300"
+                className="relative bg-background px-10 py-10 fade-up group cursor-default overflow-hidden transition-colors duration-300 hover:bg-muted/30"
                 style={{ transitionDelay: `${i * 0.08}s` }}
               >
+                {/* Gold top border reveal on hover */}
+                <div className="absolute top-0 left-0 right-0 h-px bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                 <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mb-5">
                   {a.result}
                 </p>
-                <p className="font-display font-light text-foreground text-xl md:text-2xl leading-snug">
+                <p className="font-display font-light text-foreground text-xl md:text-2xl leading-snug transition-colors duration-300 group-hover:text-foreground">
                   {a.name}
                 </p>
               </div>
@@ -234,25 +252,25 @@ export default function AboutPage() {
             className="grid grid-cols-1 md:grid-cols-2 gap-16 fade-up"
             style={{ transitionDelay: "0.2s" }}
           >
-            <div>
-              <h3 className="font-display font-medium text-foreground text-2xl mb-1">
+            <div className="group cursor-default">
+              <h3 className="font-display font-medium text-foreground text-2xl mb-1 transition-colors duration-300 group-hover:text-primary">
                 Adjunct Professor James Cheng
               </h3>
               <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mt-2 mb-5">
                 Senior Advisor
               </p>
-              <p className="body-text text-sm text-foreground/70">
+              <p className="body-text text-sm text-foreground/70 leading-relaxed">
                 Previously CEO & Senior Advisor to Morgan Stanley Investment Management, and CIO at Invesco Asia.
               </p>
             </div>
-            <div>
-              <h3 className="font-display font-medium text-foreground text-2xl mb-1">
+            <div className="group cursor-default">
+              <h3 className="font-display font-medium text-foreground text-2xl mb-1 transition-colors duration-300 group-hover:text-primary">
                 Kwan Ng
               </h3>
               <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mt-2 mb-5">
                 Senior Advisor
               </p>
-              <p className="body-text text-sm text-foreground/70">
+              <p className="body-text text-sm text-foreground/70 leading-relaxed">
                 Currently Portfolio Manager at ExodusPoint. Formerly Senior Portfolio Manager at BlueCrest Capital Management, Head of FX Trading at Barclays, and Trader at Millennium.
               </p>
             </div>
@@ -260,7 +278,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Partners — no boxes, bare logos */}
+      {/* Partners — full opacity, subtle scale on hover */}
       <section id="partners" className="section-padding bg-background border-t border-border">
         <div className="container-site">
           <h2 className="heading-section text-center mb-20 fade-up">Our Partners</h2>
@@ -274,7 +292,7 @@ export default function AboutPage() {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="opacity-60 hover:opacity-100 transition-opacity duration-300"
+                className="transition-transform duration-300 hover:scale-110"
               >
                 <img
                   src={p.logo}
