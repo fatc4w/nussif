@@ -1,16 +1,17 @@
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 
 const investingTeams = [
-  "L/S Equities",
-  "Global Macro",
-  "Commodities",
-  "Systematic Strategies",
+  { name: "L/S Equities", anchor: "l-s-equities" },
+  { name: "Global Macro", anchor: "global-macro" },
+  { name: "Commodities", anchor: "commodities" },
+  { name: "Systematic Strategies", anchor: "systematic-strategies" },
 ];
 
 const operationsTeams = [
-  "Risk & Infrastructure",
-  "Externals",
-  "Fund Development",
+  { name: "Risk & Infrastructure", anchor: "risk-infrastructure" },
+  { name: "Externals", anchor: "externals" },
+  { name: "Fund Development", anchor: "fund-development" },
 ];
 
 export default function OrgChart() {
@@ -24,9 +25,12 @@ export default function OrgChart() {
       {/* Leadership */}
       <div className="flex flex-col items-center mb-16">
         <p className="eyebrow mb-3">Leadership</p>
-        <h3 className="font-display font-normal text-foreground text-2xl md:text-3xl tracking-tight">
+        <Link
+          to="/people#leadership"
+          className="font-display font-normal text-foreground text-2xl md:text-3xl tracking-tight hover:text-primary transition-colors duration-300"
+        >
           NUSSIF Leadership Team
-        </h3>
+        </Link>
         <div className="mt-8 w-px h-10 bg-border" />
       </div>
 
@@ -40,17 +44,20 @@ export default function OrgChart() {
           <ul className="space-y-7">
             {investingTeams.map((team, i) => (
               <motion.li
-                key={team}
+                key={team.name}
                 initial={{ opacity: 0, x: -12 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="group flex items-center gap-5 cursor-default"
+                className="group flex items-center gap-5"
               >
                 <span className="block h-px w-5 bg-border group-hover:w-8 group-hover:bg-[hsl(var(--gold))] transition-all duration-300 shrink-0" />
-                <span className="font-display text-foreground text-xl md:text-2xl tracking-tight group-hover:text-primary transition-colors duration-300">
-                  {team}
-                </span>
+                <Link
+                  to={`/people#${team.anchor}`}
+                  className="font-display text-foreground text-xl md:text-2xl tracking-tight group-hover:text-primary transition-colors duration-300"
+                >
+                  {team.name}
+                </Link>
               </motion.li>
             ))}
           </ul>
@@ -64,17 +71,20 @@ export default function OrgChart() {
           <ul className="space-y-7">
             {operationsTeams.map((team, i) => (
               <motion.li
-                key={team}
+                key={team.name}
                 initial={{ opacity: 0, x: -12 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 + 0.15, duration: 0.5 }}
-                className="group flex items-center gap-5 cursor-default"
+                className="group flex items-center gap-5"
               >
                 <span className="block h-px w-5 bg-border group-hover:w-8 group-hover:bg-[hsl(var(--gold))] transition-all duration-300 shrink-0" />
-                <span className="font-display text-foreground text-xl md:text-2xl tracking-tight group-hover:text-primary transition-colors duration-300">
-                  {team}
-                </span>
+                <Link
+                  to={`/people#${team.anchor}`}
+                  className="font-display text-foreground text-xl md:text-2xl tracking-tight group-hover:text-primary transition-colors duration-300"
+                >
+                  {team.name}
+                </Link>
               </motion.li>
             ))}
           </ul>
