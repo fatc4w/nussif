@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useRef } from "react";
 import HeroSection from "@/components/HeroSection";
 import VideoModal from "@/components/VideoModal";
@@ -54,20 +54,18 @@ const partners = [
   { name: "Millennium", logo: millenniumLogo, url: "https://www.mlp.com" },
 ];
 
-function StatBlock({
+function StatCounter({
   value,
   suffix,
   label,
   description,
   delay = 0,
-  large = false,
 }: {
   value: number;
   suffix: string;
   label: string;
-  description: string;
+  description?: string;
   delay?: number;
-  large?: boolean;
 }) {
   const { count, ref } = useCountUp(value);
   return (
@@ -77,44 +75,22 @@ function StatBlock({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      className="flex flex-col px-8 py-16 md:py-20"
     >
       <span
-        className={`font-display font-light text-foreground leading-none tracking-tight tabular-nums block ${
-          large ? 'text-8xl md:text-[10rem] lg:text-[12rem]' : 'text-6xl md:text-7xl lg:text-8xl'
-        }`}
-        style={{ color: 'hsl(var(--foreground) / 0.15)' }}
+        className="font-display font-light leading-none tracking-tight tabular-nums"
+        style={{ fontSize: 'clamp(4rem, 8vw, 8rem)', color: 'hsl(var(--gold))' }}
       >
         {count}{suffix}
       </span>
-      <h3 className="font-display font-medium text-foreground text-xl md:text-2xl mt-4 mb-3">
-        {label}
-      </h3>
-      <p className="font-body font-light text-muted-foreground text-sm leading-[1.8] max-w-xs">
-        {description}
-      </p>
-    </motion.div>
-  );
-}
-
-function SectionNumber({ number, label }: { number: string; label: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-6 mb-16"
-    >
-      <span
-        className="font-body text-sm tracking-wide"
-        style={{ color: 'hsl(var(--gold) / 0.5)' }}
-      >
-        {number}
-      </span>
-      <div className="w-12 h-px" style={{ background: 'hsl(var(--gold) / 0.3)' }} />
-      <span className="font-body text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+      <span className="mt-6 font-display font-medium text-white text-xl md:text-2xl tracking-wide">
         {label}
       </span>
+      {description && (
+        <span className="mt-3 font-body text-sm text-white/50 leading-relaxed max-w-xs">
+          {description}
+        </span>
+      )}
     </motion.div>
   );
 }
@@ -122,29 +98,26 @@ function SectionNumber({ number, label }: { number: string; label: string }) {
 export default function AboutPage() {
   const revealRef = useScrollReveal();
   const cultureRef = useRef<HTMLDivElement>(null);
-  const imageBreak1Ref = useRef<HTMLDivElement>(null);
-  const imageBreak2Ref = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
+
+  // Scroll progress bar
+  const { scrollYProgress } = useScroll({ target: pageRef, offset: ['start start', 'end end'] });
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   const { scrollYProgress: cultureScroll } = useScroll({
     target: cultureRef,
     offset: ['start end', 'end start'],
   });
-  const cultureBgY = useTransform(cultureScroll, [0, 1], ['0%', '15%']);
-
-  const { scrollYProgress: img1Scroll } = useScroll({
-    target: imageBreak1Ref,
-    offset: ['start end', 'end start'],
-  });
-  const img1Y = useTransform(img1Scroll, [0, 1], ['-10%', '10%']);
-
-  const { scrollYProgress: img2Scroll } = useScroll({
-    target: imageBreak2Ref,
-    offset: ['start end', 'end start'],
-  });
-  const img2Y = useTransform(img2Scroll, [0, 1], ['-10%', '10%']);
+  const cultureBgY = useTransform(cultureScroll, [0, 1], ['0%', '10%']);
 
   return (
-    <div ref={revealRef}>
+    <div ref={(el) => { revealRef.current = el; (pageRef as any).current = el; }}>
+      {/* Scroll progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left"
+        style={{ scaleX, backgroundColor: 'hsl(var(--gold))' }}
+      />
+
       {/* Hero */}
       <HeroSection
         image={heroImage}
@@ -169,99 +142,120 @@ export default function AboutPage() {
         </div>
       </HeroSection>
 
-      {/* ═══ STATS — Brevan Howard asymmetric style ═══ */}
-      <section className="bg-background">
-        <div className="container-site py-28 md:py-40 lg:py-48">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
-            {/* Left — big hero stat */}
-            <StatBlock
-              value={35}
-              suffix="+"
-              label="Members"
-              description="A diverse and driven community of student investors operating across multiple asset classes and strategies."
-              large
-              delay={0}
-            />
-            {/* Right — two stacked stats */}
-            <div className="flex flex-col justify-between gap-16 lg:gap-20 lg:pt-12">
-              <StatBlock
-                value={25}
+      {/* Stats — dark navy strip */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: 'hsl(218, 55%, 12%)' }}>
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 200px, rgba(255,255,255,0.15) 200px, rgba(255,255,255,0.15) 201px)',
+          }}
+        />
+        <div className="container-site relative">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+            {/* Left — large stat */}
+            <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/[0.06]">
+              <StatCounter
+                value={35}
                 suffix="+"
-                label="Analysts"
-                description="Trained through a rigorous pipeline modelled after institutional buy-side programs."
-                delay={0.15}
+                label="Members"
+                description="A diverse and driven community of student investors operating across multiple asset classes and strategies."
+                delay={0}
               />
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <span
-                  className="font-display font-light leading-none tracking-tight block text-6xl md:text-7xl lg:text-8xl"
-                  style={{ color: 'hsl(var(--foreground) / 0.15)' }}
+            </div>
+            {/* Right — two smaller stats stacked */}
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
+                <div className="border-b sm:border-b-0 sm:border-r border-white/[0.06]">
+                  <StatCounter
+                    value={25}
+                    suffix="+"
+                    label="Analysts"
+                    description="Trained through a rigorous pipeline modelled after institutional buy-side programs."
+                    delay={0.15}
+                  />
+                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col px-8 py-16 md:py-20"
                 >
-                  1<span className="text-3xl md:text-4xl mx-2 opacity-60">in</span>25
-                </span>
-                <h3 className="font-display font-medium text-foreground text-xl md:text-2xl mt-4 mb-3">
-                  Acceptance Rate
-                </h3>
-                <p className="font-body font-light text-muted-foreground text-sm leading-[1.8] max-w-xs">
-                  Selective recruitment ensures only the most committed and capable students join our ranks.
-                </p>
-              </motion.div>
+                  <span className="font-display font-light leading-none tracking-tight">
+                    <span style={{ fontSize: 'clamp(4rem, 8vw, 8rem)', color: 'hsl(var(--gold))' }}>1</span>
+                    <span className="text-2xl md:text-3xl mx-3 text-white/30">in</span>
+                    <span style={{ fontSize: 'clamp(4rem, 8vw, 8rem)', color: 'hsl(var(--gold))' }}>25</span>
+                  </span>
+                  <span className="mt-6 font-display font-medium text-white text-xl md:text-2xl tracking-wide">
+                    Acceptance Rate
+                  </span>
+                  <span className="mt-3 font-body text-sm text-white/50 leading-relaxed max-w-xs">
+                    Selective recruitment ensures only the most committed and capable students join our ranks.
+                  </span>
+                </motion.div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ VIDEO ═══ */}
+      {/* Video — cinematic full-width */}
       <VideoModal
         vimeoId="1171285504"
         thumbnailUrl="https://i.vimeocdn.com/video/2130738176-ba696526f900a41a6a9305fe38df112d76e67f15047bd3e1941bbbaba103f600-d_640?region=us"
       />
 
-      {/* ═══ 01 — WHO WE ARE — with image ═══ */}
-      <section id="who-we-are" className="bg-background overflow-hidden">
-        <div className="container-site pt-32 md:pt-40 lg:pt-48 pb-0">
-          <SectionNumber number="01" label="About Us" />
+      {/* Who We Are — Split layout */}
+      <section id="who-we-are" className="section-padding bg-background overflow-hidden">
+        <div className="container-site">
+          {/* Animated gold line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="w-16 h-px mb-20 origin-left"
+            style={{ backgroundColor: 'hsl(var(--gold))' }}
+          />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* Left — large statement */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+            {/* Left column — large quote */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="lg:col-span-5"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2
-                className="font-display font-light text-foreground leading-[1.15] tracking-tight"
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
+              <p
+                className="font-display font-light italic text-foreground leading-[1.3] tracking-wide"
+                style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.8rem)' }}
               >
-                Firm Overview
-              </h2>
-              <p className="mt-10 font-body font-light text-muted-foreground text-base md:text-lg leading-[1.9] max-w-xl">
-                NUSSIF was founded to bring real, professional investment opportunities to NUS students passionate about careers in buy-side asset management and hedge funds. Drawing inspiration from leading global practices, we build a platform for active professional growth — through the management of live capital, industry connections, and genuine member ownership.
+                "Forging the next generation of{' '}
+                <span style={{ color: 'hsl(var(--gold))' }}>NUS</span> and{' '}
+                <span style={{ color: 'hsl(var(--gold))' }}>Finance</span> in Asia."
               </p>
-              <Link
-                to="/program"
-                className="inline-flex items-center gap-3 mt-10 font-body text-sm tracking-wide text-foreground group"
-              >
-                <span className="group-hover:text-[hsl(var(--gold))] transition-colors duration-300">More Details</span>
-                <span className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:border-[hsl(var(--gold))] group-hover:bg-[hsl(var(--gold)/0.1)] transition-all duration-300">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-foreground group-hover:text-[hsl(var(--gold))] transition-colors duration-300">
-                    <path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </Link>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-10 w-8 h-px origin-left"
+                style={{ backgroundColor: 'hsl(var(--gold) / 0.5)' }}
+              />
             </motion.div>
 
-            {/* Right — stacked info blocks */}
-            <div className="space-y-14 lg:pt-6">
+            {/* Right column — content blocks */}
+            <div className="lg:col-span-6 lg:col-start-7 space-y-16">
               {[
                 {
+                  title: "Background",
+                  text: "NUSSIF was founded to bring real, professional investment opportunities to NUS students passionate about careers in buy-side asset management and hedge funds.",
+                },
+                {
                   title: "Our Purpose",
-                  text: "To build a platform for active professional growth through the management of live capital, industry connections, and genuine member ownership.",
+                  text: "Drawing inspiration from leading global practices and internship experiences across hedge funds and trading desks, we are determined to build a platform for active professional growth — through the management of live capital, industry connections, and genuine member ownership.",
                 },
                 {
                   title: "Our Vision",
@@ -273,13 +267,13 @@ export default function AboutPage() {
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
-                  transition={{ delay: 0.15 + i * 0.12, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                  className="group relative pl-8 border-l-2 border-border hover:border-[hsl(var(--gold))] transition-colors duration-700"
+                  transition={{ delay: i * 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                  className="group relative pl-8 border-l-2 border-transparent hover:border-[hsl(var(--gold)/0.4)] transition-all duration-700"
                 >
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-[hsl(var(--gold))] font-body mb-4">
+                  <p className="text-[10px] tracking-[0.25em] uppercase font-body mb-4" style={{ color: 'hsl(var(--gold))' }}>
                     {block.title}
                   </p>
-                  <p className="font-body font-light text-foreground/70 text-sm leading-[1.9] group-hover:text-foreground/90 transition-colors duration-500">
+                  <p className="body-text text-foreground/70 leading-[1.8] group-hover:text-foreground/90 transition-colors duration-500">
                     {block.text}
                   </p>
                 </motion.div>
@@ -287,53 +281,57 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Full-width image below — placeholder: replace src with your own image */}
-        {/* IMAGE: about-section-1.jpg — a wide shot of your team, campus, or Singapore skyline */}
-        <div ref={imageBreak1Ref} className="relative h-[60vh] md:h-[70vh] mt-32 overflow-hidden">
-          <motion.div className="absolute inset-0" style={{ y: img1Y }}>
-            <img
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
-              alt="Financial district skyline"
-              className="w-full h-[120%] object-cover"
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-          <div className="absolute inset-0 bg-navy-deep/30" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display font-light italic text-white text-center px-6 max-w-3xl"
-              style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)' }}
-            >
-              "Forging the next generation of NUS and Finance in Asia."
-            </motion.p>
-          </div>
+      {/* Full-width image break */}
+      <section className="relative h-[50vh] md:h-[60vh] overflow-hidden">
+        <motion.div
+          initial={{ scale: 1.15 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
+            alt="Financial district skyline"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-[hsl(220,55%,8%,0.45)]" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.p
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display font-light italic text-white/90 text-center px-6 max-w-3xl"
+            style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)' }}
+          >
+            "Built by students. Held to an institutional standard."
+          </motion.p>
         </div>
       </section>
 
-      {/* ═══ 02 — ORG STRUCTURE ═══ */}
-      <section className="bg-background">
-        <div className="container-site py-32 md:py-40 lg:py-48">
-          <SectionNumber number="02" label="Structure" />
-
+      {/* Org Structure */}
+      <section className="section-padding bg-background">
+        <div className="container-site">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-20"
           >
-            <h2
-              className="font-display font-light text-foreground leading-[1.15] tracking-tight"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
-            >
-              Organisational Structure
-            </h2>
-            <p className="mt-6 body-text max-w-2xl text-lg">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="w-16 h-px mb-10 origin-left"
+              style={{ backgroundColor: 'hsl(var(--gold))' }}
+            />
+            <h2 className="heading-section mb-4">Organisational Structure</h2>
+            <p className="body-text max-w-2xl mb-20">
               A simple and powerful model, focused on complementary teams specialising in specific asset classes.
             </p>
           </motion.div>
@@ -341,162 +339,204 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══ 03 — CULTURE — dark cinematic section ═══ */}
-      <section id="culture" ref={cultureRef} className="relative overflow-hidden">
-        {/* Background with parallax */}
-        <motion.div className="absolute inset-0 bg-primary" style={{ y: cultureBgY }} />
-        {/* Subtle vertical lines pattern */}
+      {/* Culture — dark navy with glass cards */}
+      <section id="culture" ref={cultureRef} className="relative overflow-hidden" style={{ padding: 'clamp(6rem, 10vw, 10rem) 0' }}>
+        {/* Dark background with parallax */}
+        <motion.div
+          className="absolute inset-0"
+          style={{ y: cultureBgY, backgroundColor: 'hsl(218, 55%, 12%)' }}
+        />
+        {/* Subtle vertical line pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 200px, rgba(255,255,255,0.15) 200px, rgba(255,255,255,0.15) 201px)',
+            backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 150px, rgba(255,255,255,0.12) 150px, rgba(255,255,255,0.12) 151px)',
           }}
         />
 
-        <div className="container-site relative py-32 md:py-40 lg:py-48">
-          <div className="flex items-center gap-6 mb-16">
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="font-body text-sm tracking-wide text-[hsl(var(--gold)/0.5)]"
-            >
-              03
-            </motion.span>
+        <div className="container-site relative">
+          {/* Section header */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 lg:mb-28">
             <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
+              className="lg:col-span-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="w-12 h-px origin-left"
-              style={{ background: 'hsl(var(--gold) / 0.3)' }}
-            />
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="font-body text-[11px] uppercase tracking-[0.2em] text-primary-foreground/40"
             >
-              Our Culture
-            </motion.span>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="w-16 h-px mb-10 origin-left"
+                style={{ backgroundColor: 'hsl(var(--gold))' }}
+              />
+              <h2
+                className="font-display font-light text-white tracking-wide leading-tight"
+                style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+              >
+                Driven by <span style={{ color: 'hsl(var(--gold))' }}>Ownership</span>.
+              </h2>
+            </motion.div>
+            <motion.div
+              className="lg:col-span-5 lg:col-start-8 flex items-end"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="font-body text-base text-white/50 leading-relaxed">
+                We push boundaries through diverse perspectives and bold ambition — driving learning, leadership, and growth unique to NUS.
+              </p>
+            </motion.div>
           </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-light text-primary-foreground tracking-tight leading-[1.15] mb-8"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
-          >
-            Built on conviction.
-            <br />
-            <span style={{ color: 'hsl(var(--gold) / 0.6)' }}>Driven by ownership.</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-body font-light text-primary-foreground/50 text-base md:text-lg max-w-2xl mb-24 leading-[1.8]"
-          >
-            We push boundaries through diverse perspectives and bold ambition — driving learning, leadership, and growth unique to NUS.
-          </motion.p>
-
-          {/* Values — 2x2 grid with large numbers */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-primary-foreground/[0.06]">
+          {/* Culture cards — glass grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]">
             {values.map((v, i) => (
               <motion.div
                 key={v.num}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-30px' }}
                 transition={{ delay: i * 0.1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-primary p-10 md:p-14 lg:p-16 group cursor-default transition-colors duration-700 hover:bg-primary-foreground/[0.04]"
+                className="group relative cursor-default overflow-hidden"
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                }}
               >
-                {/* Large faded number */}
+                {/* Hover border glow */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                  style={{ boxShadow: 'inset 0 0 0 1px hsl(var(--gold) / 0.2)' }}
+                />
+
+                {/* Large faded gold number watermark */}
                 <span
-                  className="font-display font-light text-6xl md:text-7xl lg:text-8xl leading-none block mb-8"
-                  style={{ color: 'hsl(var(--primary-foreground) / 0.06)' }}
+                  className="absolute top-6 right-8 font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.12] group-hover:scale-110"
+                  style={{
+                    fontSize: 'clamp(5rem, 8vw, 8rem)',
+                    color: 'hsl(var(--gold))',
+                    opacity: 0.06,
+                    lineHeight: 1,
+                  }}
                 >
                   {v.num}
                 </span>
-                <h3 className="font-display font-medium text-primary-foreground text-2xl lg:text-3xl mb-4 tracking-wide transition-colors duration-500 group-hover:text-white">
-                  {v.title}
-                </h3>
-                {/* Reveal line */}
-                <div className="w-0 h-px bg-[hsl(var(--gold)/0.4)] mb-6 transition-all duration-700 group-hover:w-16" />
-                <p className="text-primary-foreground/40 font-body font-light text-sm md:text-base leading-[1.9] transition-colors duration-500 group-hover:text-primary-foreground/70 max-w-sm">
-                  {v.desc}
-                </p>
+
+                <div className="relative px-10 py-14 md:py-16">
+                  {/* Eyebrow */}
+                  <span
+                    className="text-[10px] tracking-[0.25em] uppercase font-body transition-colors duration-500"
+                    style={{ color: 'hsl(var(--gold) / 0.5)' }}
+                  >
+                    {v.num}
+                  </span>
+
+                  {/* Title */}
+                  <h3
+                    className="font-display font-medium text-white text-2xl lg:text-3xl mt-6 mb-4 tracking-wide transition-colors duration-500 group-hover:text-white"
+                  >
+                    {v.title}
+                  </h3>
+
+                  {/* Animated gold underline */}
+                  <motion.div
+                    className="h-px mb-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    style={{
+                      backgroundColor: 'hsl(var(--gold) / 0.5)',
+                      width: '0%',
+                    }}
+                  />
+                  <div className="w-0 h-px mb-6 transition-all duration-700 group-hover:w-12" style={{ backgroundColor: 'hsl(var(--gold) / 0.5)' }} />
+
+                  {/* Description */}
+                  <p className="font-body text-sm text-white/40 leading-[1.8] transition-colors duration-500 group-hover:text-white/65 max-w-sm">
+                    {v.desc}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ FULL-WIDTH IMAGE BREAK 2 ═══ */}
-      {/* IMAGE: about-section-2.jpg — eg. your members in action, campus at night, or trading floor */}
-      <div ref={imageBreak2Ref} className="relative h-[50vh] md:h-[60vh] overflow-hidden">
-        <motion.div className="absolute inset-0" style={{ y: img2Y }}>
+      {/* Second full-width image break */}
+      <section className="relative h-[45vh] md:h-[55vh] overflow-hidden">
+        <motion.div
+          initial={{ scale: 1.15 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0"
+        >
           <img
             src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1920&q=80"
             alt="Professional environment"
-            className="w-full h-[120%] object-cover"
+            className="w-full h-full object-cover"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-navy-deep/50" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-light italic text-white/90 text-center px-6 max-w-3xl"
-            style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
-          >
-            "Built by students. Held to an institutional standard."
-          </motion.p>
-        </div>
-      </div>
+        <div className="absolute inset-0 bg-[hsl(220,55%,8%,0.5)]" />
+      </section>
 
-      {/* ═══ 04 — ACHIEVEMENTS ═══ */}
-      <section id="achievements" className="bg-background">
-        <div className="container-site py-32 md:py-40 lg:py-48">
-          <SectionNumber number="04" label="Track Record" />
-
-          <motion.h2
+      {/* Achievements */}
+      <section id="achievements" className="section-padding bg-background">
+        <div className="container-site">
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-light text-foreground leading-[1.15] tracking-tight mb-20"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
+            className="mb-20"
           >
-            Recognised on a Regional
-            <br />& Global Stage
-          </motion.h2>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="w-16 h-px mb-10 origin-left"
+              style={{ backgroundColor: 'hsl(var(--gold))' }}
+            />
+            <h2 className="heading-section">Recognised on a Regional &amp; Global Stage</h2>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-0 gap-y-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-border/40">
             {achievements.map((a, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative border border-border/40 px-10 py-14 group cursor-default overflow-hidden -mt-px -ml-px"
+                transition={{ delay: i * 0.08, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="relative bg-background px-10 py-14 group cursor-default overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
               >
-                {/* Top gold line that reveals on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[hsl(var(--gold))] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left" />
-                {/* Large faded index */}
-                <span className="font-display text-5xl font-light leading-none block mb-6" style={{ color: 'hsl(var(--foreground) / 0.06)' }}>
+                {/* Large faded index number */}
+                <span
+                  className="absolute top-4 right-6 font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.1]"
+                  style={{
+                    fontSize: '5rem',
+                    color: 'hsl(var(--gold))',
+                    opacity: 0.05,
+                    lineHeight: 1,
+                  }}
+                >
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p className="text-[10px] tracking-[0.25em] uppercase text-[hsl(var(--gold))] font-body mb-4">
+
+                {/* Top gold line that reveals on hover */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left"
+                  style={{ backgroundColor: 'hsl(var(--gold))' }}
+                />
+                <p
+                  className="text-[10px] tracking-[0.25em] uppercase font-body mb-5"
+                  style={{ color: 'hsl(var(--gold))' }}
+                >
                   {a.result}
                 </p>
-                <p className="font-display font-light text-foreground text-lg md:text-xl leading-snug group-hover:text-foreground transition-colors duration-500">
+                <p className="font-display font-light text-foreground text-xl md:text-2xl leading-snug">
                   {a.name}
                 </p>
               </motion.div>
@@ -505,32 +545,30 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══ 05 — SENIOR ADVISORS ═══ */}
-      <section className="bg-muted/30">
-        <div className="container-site py-32 md:py-40 lg:py-48">
-          <SectionNumber number="05" label="Advisors" />
-
-          <motion.h2
+      {/* Senior Advisors */}
+      <section className="section-padding bg-muted/30">
+        <div className="container-site">
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-light text-foreground leading-[1.15] tracking-tight mb-6"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
           >
-            Senior Advisors
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-            className="body-text max-w-2xl text-lg mb-24"
-          >
-            Guided by industry practitioners with decades of experience in global finance.
-          </motion.p>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="w-16 h-px mb-10 origin-left"
+              style={{ backgroundColor: 'hsl(var(--gold))' }}
+            />
+            <h2 className="heading-section mb-4">Senior Advisors</h2>
+            <p className="body-text max-w-2xl mb-20">
+              Guided by industry practitioners with decades of experience in global finance.
+            </p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 lg:gap-32">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
             {[
               {
                 name: "Adjunct Professor James Cheng",
@@ -545,23 +583,31 @@ export default function AboutPage() {
             ].map((advisor, i) => (
               <motion.div
                 key={advisor.name}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ delay: i * 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                 className="group cursor-default"
               >
-                <div className="w-0 h-px bg-[hsl(var(--gold)/0.4)] mb-10 transition-all duration-700 group-hover:w-16" />
-                <h3
-                  className="font-display font-medium text-foreground mb-3 transition-colors duration-500 group-hover:text-primary"
-                  style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}
-                >
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + i * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-0 h-px mb-8 origin-left group-hover:w-12 transition-all duration-700"
+                  style={{ backgroundColor: 'hsl(var(--gold) / 0.4)', width: '0px' }}
+                />
+                <div className="w-0 h-px mb-8 transition-all duration-700 group-hover:w-12" style={{ backgroundColor: 'hsl(var(--gold) / 0.4)' }} />
+                <h3 className="font-display font-medium text-foreground text-2xl mb-2 transition-colors duration-500 group-hover:text-primary">
                   {advisor.name}
                 </h3>
-                <p className="text-[10px] tracking-[0.25em] uppercase text-[hsl(var(--gold))] font-body mt-2 mb-8">
+                <p
+                  className="text-[10px] tracking-[0.25em] uppercase font-body mt-2 mb-6"
+                  style={{ color: 'hsl(var(--gold))' }}
+                >
                   {advisor.role}
                 </p>
-                <p className="body-text text-foreground/65 leading-[1.9] text-base">
+                <p className="body-text text-sm text-foreground/65 leading-[1.8]">
                   {advisor.bio}
                 </p>
               </motion.div>
@@ -570,16 +616,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══ PARTNERS ═══ */}
-      <section id="partners" className="bg-background border-t border-border/30">
-        <div className="container-site py-32 md:py-40">
+      {/* Partners — NORMAL logos, no grayscale */}
+      <section id="partners" className="section-padding bg-background border-t border-border/50">
+        <div className="container-site">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-light text-foreground text-center tracking-tight mb-6"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+            className="heading-section text-center mb-6"
           >
             Our Partners
           </motion.h2>
@@ -588,7 +633,8 @@ export default function AboutPage() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-[hsl(var(--gold)/0.4)] mx-auto mb-24 origin-center"
+            className="w-16 h-px mx-auto mb-20 origin-center"
+            style={{ backgroundColor: 'hsl(var(--gold) / 0.5)' }}
           />
           <motion.div
             initial={{ opacity: 0 }}
@@ -607,7 +653,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-700 hover:scale-110"
+                className="transition-transform duration-500 hover:scale-110"
               >
                 <img
                   src={p.logo}
