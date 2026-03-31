@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import HeroSection from '@/components/HeroSection';
 import PersonCard from '@/components/PersonCard';
 import TeamCapsule from '@/components/TeamCapsule';
@@ -127,57 +128,132 @@ export default function PeoplePage() {
       {/* Senior Advisors */}
       <section className="section-padding bg-background">
         <div className="container-site">
-          <h2 className="heading-section mb-3 fade-up">Senior Advisors</h2>
-          <p className="body-text max-w-2xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            Guided by industry practitioners with decades of experience in global finance.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 fade-up" style={{ transitionDelay: '0.2s' }}>
-            <div className="space-y-1">
-              <h3 className="font-display font-medium text-foreground text-xl">Adjunct Professor James Cheng</h3>
-              <p className="eyebrow">Senior Advisor</p>
-              <p className="body-text mt-2 text-sm">Previously CEO & Senior Advisor to Morgan Stanley Investment Management, and CIO at Invesco Asia.</p>
-            </div>
-            <div className="space-y-1">
-              <h3 className="font-display font-medium text-foreground text-xl">Kwan Ng</h3>
-              <p className="eyebrow">Senior Advisor</p>
-              <p className="body-text mt-2 text-sm">Currently Portfolio Manager at ExodusPoint. Formerly Senior Portfolio Manager at BlueCrest Capital Management, Head of FX Trading at Barclays, and Trader at Millennium.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="w-16 h-px bg-[hsl(var(--gold))] mb-10" />
+            <h2 className="heading-section mb-4">Senior Advisors</h2>
+            <p className="body-text max-w-2xl mb-20">
+              Guided by industry practitioners with decades of experience in global finance.
+            </p>
+          </motion.div>
 
-      {/* Leadership */}
-      <section id="leadership" className="section-padding bg-muted/50">
-        <div className="container-site">
-          <p className="eyebrow mb-4 fade-up">Leadership</p>
-          <h2 className="heading-section mb-3 fade-up">NUSSIF Leadership Team</h2>
-          <p className="body-text max-w-3xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            The NUSSIF Leadership Team is responsible for setting the overall strategic and long-term direction of the society, as well as fund performance and risk management.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 fade-up" style={{ transitionDelay: '0.2s' }}>
-            {leadership.map((m) => (
-              <PersonCard key={m.name} {...m} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+            {[
+              {
+                name: 'Adjunct Professor James Cheng',
+                role: 'Senior Advisor',
+                bio: 'Previously CEO & Senior Advisor to Morgan Stanley Investment Management, and CIO at Invesco Asia.',
+              },
+              {
+                name: 'Kwan Ng',
+                role: 'Senior Advisor',
+                bio: 'Currently Portfolio Manager at ExodusPoint. Formerly Senior Portfolio Manager at BlueCrest Capital Management, Head of FX Trading at Barclays, and Trader at Millennium.',
+              },
+            ].map((advisor, i) => (
+              <motion.div
+                key={advisor.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="group cursor-default"
+              >
+                <div className="w-0 h-px bg-[hsl(var(--gold)/0.4)] mb-8 transition-all duration-700 group-hover:w-12" />
+                <h3 className="font-display font-medium text-foreground text-2xl mb-2 transition-colors duration-500 group-hover:text-primary">
+                  {advisor.name}
+                </h3>
+                <p className="text-[10px] tracking-[0.25em] uppercase text-[hsl(var(--gold))] font-body mt-2 mb-6">
+                  {advisor.role}
+                </p>
+                <p className="body-text text-sm text-foreground/65 leading-[1.8]">
+                  {advisor.bio}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Leadership */}
+      <section id="leadership" className="section-padding bg-muted/30">
+        <div className="container-site">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="eyebrow block mb-4" style={{ color: 'hsl(var(--gold))' }}>Leadership</span>
+            <h2 className="heading-section mb-4">NUSSIF Leadership Team</h2>
+            <p className="body-text max-w-3xl mb-20">
+              The NUSSIF Leadership Team is responsible for setting the overall strategic and long-term direction of the society, as well as fund performance and risk management.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
+            {leadership.map((m, i) => (
+              <motion.div
+                key={m.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <PersonCard {...m} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Full-width image divider */}
+      <section className="relative h-[35vh] md:h-[45vh] overflow-hidden">
+        <motion.div
+          initial={{ scale: 1.1 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+            alt="Modern office workspace"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-navy-deep/40" />
+      </section>
+
       {/* Investing Teams */}
       <section id="investing" className="section-padding bg-background">
         <div className="container-site">
-          <p className="eyebrow mb-4 fade-up">Investing</p>
-          <h2 className="heading-section mb-3 fade-up">Investing Teams</h2>
-          <p className="body-text max-w-3xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            Four specialist pods operating across global equities, macro, commodities, and systematic strategies — each pod lean, accountable, and responsible for their own returns.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="eyebrow block mb-4" style={{ color: 'hsl(var(--gold))' }}>Investing</span>
+            <h2 className="heading-section mb-4">Investing Teams</h2>
+            <p className="body-text max-w-3xl mb-20">
+              Four specialist pods operating across global equities, macro, commodities, and systematic strategies — each pod lean, accountable, and responsible for their own returns.
+            </p>
+          </motion.div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             {investingCapsules.map((capsule, i) => (
-              <div
+              <motion.div
                 key={capsule.id}
                 id={capsule.id}
-                className="fade-up scroll-mt-24"
-                style={{ transitionDelay: `${i * 0.08}s` }}
+                className="scroll-mt-24"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ delay: i * 0.08, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               >
                 <TeamCapsule
                   name={capsule.name}
@@ -188,22 +264,34 @@ export default function PeoplePage() {
                   analysts={capsule.analysts}
                   leadersLabel={capsule.leadersLabel}
                 />
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Operations */}
-      <section id="operations" className="section-padding bg-muted/50">
+      <section id="operations" className="section-padding bg-muted/30">
         <div className="container-site">
-          <p className="eyebrow mb-4 fade-up">Operations</p>
-          <h2 className="heading-section mb-3 fade-up">Operations</h2>
-          <p className="body-text max-w-3xl mb-16 fade-up" style={{ transitionDelay: '0.1s' }}>
-            The backbone of the fund — ensuring robust infrastructure, stakeholder engagement, and long-term fund development.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="eyebrow block mb-4" style={{ color: 'hsl(var(--gold))' }}>Operations</span>
+            <h2 className="heading-section mb-4">Operations</h2>
+            <p className="body-text max-w-3xl mb-20">
+              The backbone of the fund — ensuring robust infrastructure, stakeholder engagement, and long-term fund development.
+            </p>
+          </motion.div>
 
-          <div className="fade-up" style={{ transitionDelay: '0.15s' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          >
             <TeamCapsule
               name={operationsCapsule.name}
               description={operationsCapsule.description}
@@ -213,16 +301,29 @@ export default function PeoplePage() {
               analysts={operationsCapsule.analysts}
               leadersLabel={operationsCapsule.leadersLabel}
             />
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Trainee note */}
-      <section className="py-20 bg-muted/30">
-        <div className="container-site text-center">
-          <p className="font-display italic text-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+      {/* Trainee note — cinematic */}
+      <section className="relative py-28 md:py-36 overflow-hidden bg-primary">
+        <div className="container-site relative text-center">
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="w-16 h-px bg-[hsl(var(--gold)/0.4)] mx-auto mb-10 origin-center"
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display italic text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+          >
             "Outstanding Trainee Analysts from the Execution Track will be invited to join the Investing Teams. Trainee Analyst cohort members are not listed here pending graduation from the programme."
-          </p>
+          </motion.p>
         </div>
       </section>
     </div>
