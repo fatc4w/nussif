@@ -203,40 +203,6 @@ export default function AboutPage() {
                 className="mt-10 w-8 h-px origin-left"
                 style={{ backgroundColor: 'hsl(var(--gold) / 0.5)' }}
               />
-            </motion.div>
-
-            {/* Right column — content blocks */}
-            <div className="lg:col-span-6 lg:col-start-7 space-y-16">
-              {[
-                {
-                  title: "Background",
-                  text: "NUSSIF was founded to bring real, professional investment opportunities to NUS students passionate about careers in buy-side asset management and hedge funds.",
-                },
-                {
-                  title: "Our Purpose",
-                  text: "Drawing inspiration from leading global practices and internship experiences across hedge funds and trading desks, we are determined to build a platform for active professional growth — through the management of live capital, industry connections, and genuine member ownership.",
-                },
-                {
-                  title: "Our Vision",
-                  text: "To become an institution where our members are bold, future-ready leaders in industry and government, building a network of illustrious alumni who actively give back to the NUS community.",
-                },
-              ].map((block, i) => (
-                <motion.div
-                  key={block.title}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ delay: i * 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                  className="group relative pl-8 border-l-2 border-transparent hover:border-[hsl(var(--gold)/0.4)] transition-all duration-700"
-                >
-                  <p className="text-[10px] tracking-[0.25em] uppercase font-body mb-4" style={{ color: 'hsl(var(--gold))' }}>
-                    {block.title}
-                  </p>
-                  <p className="body-text text-foreground/70 leading-[1.8] group-hover:text-foreground/90 transition-colors duration-500">
-                    {block.text}
-                  </p>
-                </motion.div>
-              ))}
             </div>
           </div>
         </div>
@@ -495,12 +461,12 @@ export default function AboutPage() {
         className="section-padding bg-background border-t border-border"
       >
         <div className="container-site">
-          <h2 className="heading-section text-center mb-20 fade-up">
-            Our Partners
-          </h2>
-          <div
-            className="flex flex-wrap items-center justify-center gap-16 md:gap-24 fade-up"
-            style={{ transitionDelay: "0.1s" }}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="heading-section text-center mb-6"
           >
             Our Partners
           </motion.h2>
