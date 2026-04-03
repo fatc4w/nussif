@@ -305,25 +305,12 @@ export default function PeoplePage() {
         </div>
       </section>
 
-      {/* Trainee note — cinematic */}
-      <section className="relative py-28 md:py-36 overflow-hidden bg-primary">
-        <div className="container-site relative text-center">
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-[hsl(var(--gold)/0.4)] mx-auto mb-10 origin-center"
-          />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display italic text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
-          >
-            "Outstanding Trainee Analysts from the Execution Track will be invited to join the Investing Teams. Trainee Analyst cohort members are not listed here pending graduation from the programme."
-          </motion.p>
+      {/* Trainee note */}
+      <section className="py-20 bg-muted/30">
+        <div className="container-site text-center">
+          <p className="font-display italic text-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Outstanding Trainee Analysts from the Execution Track will be invited to join the Investing Teams. Trainee Analyst cohort members are not listed here pending graduation from the programme.
+          </p>
         </div>
       </section>
     </div>

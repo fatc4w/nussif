@@ -39,16 +39,26 @@ const values = [
 
 const achievements = [
   { name: "UBS Pan Asia Finance Challenge", result: "Champions" },
-  { name: "Point72 Oxford University Equity Research Competition", result: "Champions" },
+  {
+    name: "Point72 Oxford University Equity Research Competition",
+    result: "Champions",
+  },
   { name: "Point72 NTU Stock Pitch Competition", result: "Champion" },
   { name: "CFA Research Challenge (Singapore)", result: "Champions" },
   { name: "Temasek-NUS Stock Pitch Competition", result: "Champion" },
-  { name: "JPMorgan Asia Asset & Wealth Management Challenge (Singapore)", result: "Champions" },
+  {
+    name: "JPMorgan Asia Asset & Wealth Management Challenge (Singapore)",
+    result: "Champions",
+  },
 ];
 
 const partners = [
   { name: "Citadel", logo: citadelLogo, url: "https://www.citadel.com" },
-  { name: "Citadel Securities", logo: citadelSecLogo, url: "https://www.citadelsecurities.com" },
+  {
+    name: "Citadel Securities",
+    logo: citadelSecLogo,
+    url: "https://www.citadelsecurities.com",
+  },
   { name: "Point72", logo: point72Logo, url: "https://www.point72.com" },
   { name: "Massive", logo: massiveLogo, url: "https://www.massive.com" },
   { name: "Millennium", logo: millenniumLogo, url: "https://www.mlp.com" },
@@ -77,11 +87,9 @@ function StatCounter({
       transition={{ delay, duration: 1, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col px-8 py-16 md:py-20"
     >
-      <span
-        className="font-display font-light leading-none tracking-tight tabular-nums"
-        style={{ fontSize: 'clamp(4rem, 8vw, 8rem)', color: 'hsl(var(--gold))' }}
-      >
-        {count}{suffix}
+      <span className="font-display font-light text-primary-foreground text-7xl md:text-8xl leading-none tracking-tight tabular-nums">
+        {count}
+        {suffix}
       </span>
       <span className="mt-6 font-display font-medium text-white text-xl md:text-2xl tracking-wide">
         {label}
@@ -125,76 +133,35 @@ export default function AboutPage() {
         subtitle="Asia's premier buy-side structured, multi-strategy student investment fund"
         fullHeight
       >
-        <div className="flex items-center justify-center gap-10 mt-12">
-          <Link
-            to="/program"
-            className="font-body text-sm tracking-[0.1em] uppercase text-white/70 hover:text-[hsl(var(--gold))] transition-all duration-500 relative after:content-[''] after:absolute after:w-full after:h-px after:bottom-0 after:left-0 after:bg-[hsl(var(--gold)/0.5)] after:scale-x-0 after:origin-left after:transition-transform after:duration-500 hover:after:scale-x-100"
-          >
-            Our Program
+        <div className="flex items-center justify-center gap-8 mt-10">
+          <Link to="/program" className="gold-link">
+            → Our Program
           </Link>
-          <span className="w-px h-4 bg-white/20" />
-          <Link
-            to="/people"
-            className="font-body text-sm tracking-[0.1em] uppercase text-white/70 hover:text-[hsl(var(--gold))] transition-all duration-500 relative after:content-[''] after:absolute after:w-full after:h-px after:bottom-0 after:left-0 after:bg-[hsl(var(--gold)/0.5)] after:scale-x-0 after:origin-left after:transition-transform after:duration-500 hover:after:scale-x-100"
-          >
-            Our People
+          <Link to="/people" className="gold-link">
+            → Our People
           </Link>
         </div>
       </HeroSection>
 
       {/* Stats — dark navy strip */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: 'hsl(218, 55%, 12%)' }}>
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 200px, rgba(255,255,255,0.15) 200px, rgba(255,255,255,0.15) 201px)',
-          }}
-        />
-        <div className="container-site relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-            {/* Left — large stat */}
-            <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/[0.06]">
-              <StatCounter
-                value={35}
-                suffix="+"
-                label="Members"
-                description="A diverse and driven community of student investors operating across multiple asset classes and strategies."
-                delay={0}
-              />
-            </div>
-            {/* Right — two smaller stats stacked */}
-            <div className="lg:col-span-7">
-              <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
-                <div className="border-b sm:border-b-0 sm:border-r border-white/[0.06]">
-                  <StatCounter
-                    value={25}
-                    suffix="+"
-                    label="Analysts"
-                    description="Trained through a rigorous pipeline modelled after institutional buy-side programs."
-                    delay={0.15}
-                  />
-                </div>
-                <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col px-8 py-16 md:py-20"
-                >
-                  <span className="font-display font-light leading-none tracking-tight">
-                    <span style={{ fontSize: 'clamp(4rem, 8vw, 8rem)', color: 'hsl(var(--gold))' }}>1</span>
-                    <span className="text-2xl md:text-3xl mx-3 text-white/30">in</span>
-                    <span style={{ fontSize: 'clamp(4rem, 8vw, 8rem)', color: 'hsl(var(--gold))' }}>25</span>
-                  </span>
-                  <span className="mt-6 font-display font-medium text-white text-xl md:text-2xl tracking-wide">
-                    Acceptance Rate
-                  </span>
-                  <span className="mt-3 font-body text-sm text-white/50 leading-relaxed max-w-xs">
-                    Selective recruitment ensures only the most committed and capable students join our ranks.
-                  </span>
-                </motion.div>
-              </div>
+      <section className="bg-primary">
+        <div className="container-site">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-primary-foreground/10">
+            <StatCounter value={35} suffix="+" label="Members" delay={0} />
+            <StatCounter value={25} suffix="+" label="Analysts" delay={0.1} />
+            {/* 1 in 25 — static */}
+            <div
+              className="flex flex-col items-center text-center px-8 py-16 fade-up"
+              style={{ transitionDelay: "0.2s" }}
+            >
+              <span className="font-display font-light text-primary-foreground leading-none tracking-tight">
+                <span className="text-7xl md:text-8xl">1</span>
+                <span className="text-3xl md:text-4xl mx-3 opacity-40">in</span>
+                <span className="text-7xl md:text-8xl">25</span>
+              </span>
+              <span className="mt-5 text-[10px] tracking-[0.25em] uppercase text-primary-foreground/45 font-body">
+                Acceptance Rate
+              </span>
             </div>
           </div>
         </div>
@@ -209,24 +176,16 @@ export default function AboutPage() {
       {/* Who We Are — Split layout */}
       <section id="who-we-are" className="section-padding bg-background overflow-hidden">
         <div className="container-site">
-          {/* Animated gold line */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px mb-20 origin-left"
-            style={{ backgroundColor: 'hsl(var(--gold))' }}
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
-            {/* Left column — large quote */}
-            <motion.div
-              className="lg:col-span-5"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          <div className="w-12 h-px bg-gold mb-16 fade-up" />
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24">
+            <div className="lg:col-span-2 fade-up">
+              <p className="font-display font-light italic text-foreground text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.25] tracking-wide">
+                Forging the next generation of NUS and Finance in Asia.
+              </p>
+            </div>
+            <div
+              className="lg:col-span-3 space-y-14 fade-up"
+              style={{ transitionDelay: "0.1s" }}
             >
               <p
                 className="font-display font-light italic text-foreground leading-[1.3] tracking-wide"
@@ -316,80 +275,32 @@ export default function AboutPage() {
       {/* Org Structure */}
       <section className="section-padding bg-background">
         <div className="container-site">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          <h2 className="heading-section mb-3 fade-up">
+            Organisational Structure
+          </h2>
+          <p
+            className="body-text max-w-2xl mb-16 fade-up"
+            style={{ transitionDelay: "0.1s" }}
           >
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-16 h-px mb-10 origin-left"
-              style={{ backgroundColor: 'hsl(var(--gold))' }}
-            />
-            <h2 className="heading-section mb-4">Organisational Structure</h2>
-            <p className="body-text max-w-2xl mb-20">
-              A simple and powerful model, focused on complementary teams specialising in specific asset classes.
-            </p>
-          </motion.div>
+            A simple and powerful model, focused on complementary teams
+            specialising in specific asset classes.
+          </p>
           <OrgChart />
         </div>
       </section>
 
-      {/* Culture — dark navy with glass cards */}
-      <section id="culture" ref={cultureRef} className="relative overflow-hidden" style={{ padding: 'clamp(6rem, 10vw, 10rem) 0' }}>
-        {/* Dark background with parallax */}
-        <motion.div
-          className="absolute inset-0"
-          style={{ y: cultureBgY, backgroundColor: 'hsl(218, 55%, 12%)' }}
-        />
-        {/* Subtle vertical line pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 150px, rgba(255,255,255,0.12) 150px, rgba(255,255,255,0.12) 151px)',
-          }}
-        />
-
-        <div className="container-site relative">
-          {/* Section header */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 lg:mb-28">
-            <motion.div
-              className="lg:col-span-6"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="w-16 h-px mb-10 origin-left"
-                style={{ backgroundColor: 'hsl(var(--gold))' }}
-              />
-              <h2
-                className="font-display font-light text-white tracking-wide leading-tight"
-                style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-              >
-                Driven by <span style={{ color: 'hsl(var(--gold))' }}>Ownership</span>.
-              </h2>
-            </motion.div>
-            <motion.div
-              className="lg:col-span-5 lg:col-start-8 flex items-end"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <p className="font-body text-base text-white/50 leading-relaxed">
-                We push boundaries through diverse perspectives and bold ambition — driving learning, leadership, and growth unique to NUS.
-              </p>
-            </motion.div>
+      {/* Culture — dark navy */}
+      <section id="culture" className="section-padding bg-primary">
+        <div className="container-site">
+          <div className="mb-20 fade-up">
+            <div className="w-12 h-px bg-gold mb-10" />
+            <h2 className="font-display font-light text-primary-foreground text-4xl md:text-5xl lg:text-[3.25rem] tracking-wide leading-tight">
+              Our Culture
+            </h2>
+            <p className="mt-5 body-text text-primary-foreground/55 max-w-2xl">
+              We push boundaries through diverse perspectives and bold ambition
+              — driving learning, leadership, and growth unique to NUS.
+            </p>
           </div>
 
           {/* Culture cards — glass grid */}
@@ -484,25 +395,13 @@ export default function AboutPage() {
       {/* Achievements */}
       <section id="achievements" className="section-padding bg-background">
         <div className="container-site">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-20"
-          >
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-16 h-px mb-10 origin-left"
-              style={{ backgroundColor: 'hsl(var(--gold))' }}
-            />
-            <h2 className="heading-section">Recognised on a Regional &amp; Global Stage</h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-border/40">
+          <div className="mb-16 fade-up">
+            <div className="w-12 h-px bg-gold mb-10" />
+            <h2 className="heading-section">
+              Recognised on a Regional & Global Stage
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
             {achievements.map((a, i) => (
               <motion.div
                 key={i}
@@ -548,83 +447,60 @@ export default function AboutPage() {
       {/* Senior Advisors */}
       <section className="section-padding bg-muted/30">
         <div className="container-site">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          <div className="w-12 h-px bg-gold mb-10 fade-up" />
+          <h2 className="heading-section mb-3 fade-up">Senior Advisors</h2>
+          <p
+            className="body-text max-w-2xl mb-16 fade-up"
+            style={{ transitionDelay: "0.1s" }}
           >
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-16 h-px mb-10 origin-left"
-              style={{ backgroundColor: 'hsl(var(--gold))' }}
-            />
-            <h2 className="heading-section mb-4">Senior Advisors</h2>
-            <p className="body-text max-w-2xl mb-20">
-              Guided by industry practitioners with decades of experience in global finance.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-            {[
-              {
-                name: "Adjunct Professor James Cheng",
-                role: "Senior Advisor",
-                bio: "Previously CEO & Senior Advisor to Morgan Stanley Investment Management, and CIO at Invesco Asia.",
-              },
-              {
-                name: "Kwan Ng",
-                role: "Senior Advisor",
-                bio: "Currently Portfolio Manager at ExodusPoint. Formerly Senior Portfolio Manager at BlueCrest Capital Management, Head of FX Trading at Barclays, and Trader at Millennium.",
-              },
-            ].map((advisor, i) => (
-              <motion.div
-                key={advisor.name}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                className="group cursor-default"
-              >
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 + i * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-0 h-px mb-8 origin-left group-hover:w-12 transition-all duration-700"
-                  style={{ backgroundColor: 'hsl(var(--gold) / 0.4)', width: '0px' }}
-                />
-                <div className="w-0 h-px mb-8 transition-all duration-700 group-hover:w-12" style={{ backgroundColor: 'hsl(var(--gold) / 0.4)' }} />
-                <h3 className="font-display font-medium text-foreground text-2xl mb-2 transition-colors duration-500 group-hover:text-primary">
-                  {advisor.name}
-                </h3>
-                <p
-                  className="text-[10px] tracking-[0.25em] uppercase font-body mt-2 mb-6"
-                  style={{ color: 'hsl(var(--gold))' }}
-                >
-                  {advisor.role}
-                </p>
-                <p className="body-text text-sm text-foreground/65 leading-[1.8]">
-                  {advisor.bio}
-                </p>
-              </motion.div>
-            ))}
+            Guided by industry practitioners with decades of experience in
+            global finance.
+          </p>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-16 fade-up"
+            style={{ transitionDelay: "0.2s" }}
+          >
+            <div className="group cursor-default">
+              <h3 className="font-display font-medium text-foreground text-2xl mb-1 transition-colors duration-300 group-hover:text-primary">
+                Adjunct Professor James Cheng
+              </h3>
+              <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mt-2 mb-5">
+                Senior Advisor
+              </p>
+              <p className="body-text text-sm text-foreground/70 leading-relaxed">
+                Previously CEO & Senior Advisor to Morgan Stanley Investment
+                Management, and CIO at Invesco Asia.
+              </p>
+            </div>
+            <div className="group cursor-default">
+              <h3 className="font-display font-medium text-foreground text-2xl mb-1 transition-colors duration-300 group-hover:text-primary">
+                Kwan Ng
+              </h3>
+              <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mt-2 mb-5">
+                Senior Advisor
+              </p>
+              <p className="body-text text-sm text-foreground/70 leading-relaxed">
+                Currently Portfolio Manager at ExodusPoint. Formerly Senior
+                Portfolio Manager at BlueCrest Capital Management, Head of FX
+                Trading at Barclays, and Trader at Millennium.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Partners — NORMAL logos, no grayscale */}
-      <section id="partners" className="section-padding bg-background border-t border-border/50">
+      {/* Partners — full opacity, subtle scale on hover */}
+      <section
+        id="partners"
+        className="section-padding bg-background border-t border-border"
+      >
         <div className="container-site">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="heading-section text-center mb-6"
+          <h2 className="heading-section text-center mb-20 fade-up">
+            Our Partners
+          </h2>
+          <div
+            className="flex flex-wrap items-center justify-center gap-16 md:gap-24 fade-up"
+            style={{ transitionDelay: "0.1s" }}
           >
             Our Partners
           </motion.h2>
