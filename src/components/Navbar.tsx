@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 const navItems = [
   { label: 'About Us', path: '/' },
@@ -15,7 +16,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -23,32 +24,43 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [location]);
 
-  const isHeroPage = true; // All pages have dark hero
-  const isTransparent = !scrolled && isHeroPage;
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  const isTransparent = !scrolled;
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isTransparent
             ? 'bg-transparent border-b border-transparent'
-            : 'bg-card/95 backdrop-blur-xl border-b border-border'
+            : 'bg-card/80 glass border-b border-border/50 shadow-sm'
         }`}
       >
         <div className="container-site flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="font-display font-semibold text-lg md:text-xl tracking-[0.25em]">
+          <Link
+            to="/"
+            className="font-display font-semibold text-lg md:text-xl tracking-[0.25em] transition-colors duration-300"
+          >
             <span className={isTransparent ? 'text-primary-foreground' : 'text-foreground'}>
               NUSSIF
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-10">
+          <div className="hidden md:flex items-center gap-12">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`nav-link pb-1 ${
+                className={`nav-link pb-1 transition-colors duration-300 ${
                   isTransparent ? 'text-primary-foreground' : 'text-foreground'
                 } ${location.pathname === item.path ? 'after:scale-x-100' : ''}`}
               >
@@ -59,41 +71,57 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 relative z-50"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
             {mobileOpen ? (
-              <X className={isTransparent ? 'text-primary-foreground' : 'text-foreground'} size={22} />
+              <X className="text-primary-foreground" size={22} />
             ) : (
               <Menu className={isTransparent ? 'text-primary-foreground' : 'text-foreground'} size={22} />
             )}
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile overlay */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-navy-deep flex flex-col items-center justify-center gap-10">
-          <button
-            className="absolute top-5 right-6 text-primary-foreground"
-            onClick={() => setMobileOpen(false)}
-            aria-label="Close menu"
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 bg-navy-deep flex flex-col items-center justify-center"
           >
-            <X size={24} />
-          </button>
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className="font-display text-3xl text-primary-foreground tracking-wide"
-              onClick={() => setMobileOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      )}
+            {navItems.map((item, i) => (
+              <motion.div
+                key={item.path}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ delay: i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link
+                  to={item.path}
+                  className="block py-4 font-display text-3xl md:text-4xl text-primary-foreground tracking-wide hover:text-[hsl(var(--gold))] transition-colors duration-300"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
+            ))}
+
+            {/* Decorative line */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute bottom-20 w-16 h-px bg-[hsl(var(--gold)/0.4)] origin-center"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
