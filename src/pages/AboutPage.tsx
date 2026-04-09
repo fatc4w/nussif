@@ -85,17 +85,17 @@ function StatCounter({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col px-8 py-16 md:py-20"
+      className="flex flex-col px-8 py-10 md:py-12"
     >
-      <span className="font-display font-light text-primary-foreground text-7xl md:text-8xl leading-none tracking-tight tabular-nums">
+      <span className="font-display font-light text-primary-foreground text-5xl md:text-6xl leading-none tracking-tight tabular-nums">
         {count}
         {suffix}
       </span>
-      <span className="mt-6 font-display font-medium text-white text-xl md:text-2xl tracking-wide">
+      <span className="mt-4 font-display font-medium text-white text-lg md:text-xl tracking-wide">
         {label}
       </span>
       {description && (
-        <span className="mt-3 font-body text-sm text-white/50 leading-relaxed max-w-xs">
+        <span className="mt-3 font-body text-sm text-white/50 leading-relaxed">
           {description}
         </span>
       )}
@@ -143,25 +143,47 @@ export default function AboutPage() {
         </div>
       </HeroSection>
 
-      {/* Stats — dark navy strip */}
+      {/* Stats — dark navy strip (BH-style layout) */}
       <section className="bg-primary">
         <div className="container-site">
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-primary-foreground/10">
-            <StatCounter value={35} suffix="+" label="Members" delay={0} />
-            <StatCounter value={25} suffix="+" label="Analysts" delay={0.1} />
-            {/* 1 in 25 — static */}
-            <div
-              className="flex flex-col items-center text-center px-8 py-16 fade-up"
-              style={{ transitionDelay: "0.2s" }}
+          <div className="grid grid-cols-1 lg:grid-cols-5 divide-y lg:divide-y-0 lg:divide-x divide-primary-foreground/10">
+            {/* Hero stat — Acceptance Rate (left, larger) */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-2 flex flex-col px-8 py-16 md:py-20"
             >
               <span className="font-display font-light text-primary-foreground leading-none tracking-tight">
-                <span className="text-7xl md:text-8xl">1</span>
+                <span className="text-7xl md:text-8xl lg:text-9xl">1</span>
                 <span className="text-3xl md:text-4xl mx-3 opacity-40">in</span>
-                <span className="text-7xl md:text-8xl">25</span>
+                <span className="text-7xl md:text-8xl lg:text-9xl">25</span>
               </span>
-              <span className="mt-5 text-[10px] tracking-[0.25em] uppercase text-primary-foreground/45 font-body">
+              <span className="mt-6 font-display font-medium text-white text-xl md:text-2xl tracking-wide">
                 Acceptance Rate
               </span>
+              <span className="mt-4 font-body text-sm text-white/50 leading-relaxed max-w-sm">
+                Among the most selective student investment funds in Asia, ensuring every member meets institutional-grade standards.
+              </span>
+            </motion.div>
+
+            {/* Right column — stacked stats */}
+            <div className="lg:col-span-3 flex flex-col divide-y divide-primary-foreground/10">
+              <StatCounter
+                value={35}
+                suffix="+"
+                label="Members"
+                description="A selective community of driven students committed to excellence in investment research and portfolio management."
+                delay={0.1}
+              />
+              <StatCounter
+                value={25}
+                suffix="+"
+                label="Analysts"
+                description="Hands-on analysts developing real investment theses across equities, fixed income, and macro strategies."
+                delay={0.2}
+              />
             </div>
           </div>
         </div>
