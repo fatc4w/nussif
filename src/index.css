@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&display=swap');
+/* Font loaded via <link> in index.html for better performance */
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +6,7 @@
 
 @layer base {
   :root {
+    /* ─── Color System ─── */
     --background: 40 20% 97%;
     --foreground: 220 55% 15%;
     --card: 0 0% 100%;
@@ -39,6 +40,21 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* ─── Fluid Type Scale (1.25 ratio) ─── */
+    /* Base: 16px, Scale: 1.25 (Major Third) */
+    --text-xs: clamp(0.64rem, 0.6rem + 0.15vw, 0.72rem);      /* ~10-11.5px */
+    --text-sm: clamp(0.8rem, 0.75rem + 0.2vw, 0.9rem);        /* ~12.8-14.4px */
+    --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);     /* 16-18px */
+    --text-lg: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);      /* 20-24px */
+    --text-xl: clamp(1.563rem, 1.4rem + 0.7vw, 1.875rem);     /* 25-30px */
+    --text-2xl: clamp(1.953rem, 1.7rem + 1.1vw, 2.5rem);      /* 31-40px */
+    --text-3xl: clamp(2.441rem, 2rem + 1.8vw, 3.25rem);       /* 39-52px */
+    --text-4xl: clamp(3.052rem, 2.4rem + 2.7vw, 4.25rem);     /* 49-68px */
+    --text-5xl: clamp(3.815rem, 2.8rem + 4vw, 5.5rem);        /* 61-88px */
+
+    /* ─── Prose Width ─── */
+    --prose-width: 68ch;
   }
 }
 
@@ -51,15 +67,40 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Improved text rendering */
+    text-rendering: optimizeLegibility;
   }
 
   body {
     @apply bg-background text-foreground font-body antialiased;
     overflow-x: hidden;
+    /* Base body text size with fluid scaling */
+    font-size: var(--text-base);
+    line-height: 1.65;
+    /* Enable common ligatures */
+    font-feature-settings: "liga" 1, "calt" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
+    /* Enable OpenType features for Cormorant Garamond */
+    font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+    /* Tighter leading for large headings */
+    line-height: 1.1;
+    /* Slight negative letter-spacing for large serif type */
+    letter-spacing: -0.015em;
+    /* Balanced text wrap for better line breaks */
+    text-wrap: balance;
+  }
+
+  /* Oldstyle figures for body text (more refined) */
+  p, li, td, dd {
+    font-feature-settings: "liga" 1, "onum" 1;
+  }
+
+  /* Lining figures for tabular data and stats */
+  .tabular-nums {
+    font-feature-settings: "tnum" 1, "lnum" 1;
   }
 
   /* Smooth scrollbar */
@@ -94,23 +135,53 @@
 
   /* ─── Typography ─── */
   .eyebrow {
-    @apply font-body text-[11px] uppercase tracking-[0.15em] text-muted-foreground;
+    @apply font-body uppercase text-muted-foreground;
+    font-size: var(--text-xs);
+    letter-spacing: 0.15em;
+    font-weight: 400;
   }
 
   .heading-display {
-    @apply font-display font-medium text-foreground text-4xl md:text-5xl lg:text-6xl leading-tight;
+    @apply font-display font-medium text-foreground;
+    font-size: var(--text-4xl);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
   }
 
   .heading-section {
-    @apply font-display font-medium text-foreground text-3xl md:text-4xl lg:text-[48px] leading-tight;
+    @apply font-display font-medium text-foreground;
+    font-size: var(--text-3xl);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
   }
 
   .heading-sub {
-    @apply font-display font-normal italic text-foreground text-xl md:text-2xl lg:text-[28px] leading-snug;
+    @apply font-display font-normal italic text-foreground;
+    font-size: var(--text-xl);
+    line-height: 1.35;
+    letter-spacing: 0;
   }
 
   .body-text {
-    @apply font-body font-light text-muted-foreground text-base leading-relaxed;
+    @apply font-body font-light text-muted-foreground;
+    font-size: var(--text-base);
+    line-height: 1.7;
+    max-width: var(--prose-width);
+  }
+
+  /* Large body text for intros and pull quotes */
+  .body-large {
+    @apply font-body font-light text-foreground;
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    max-width: var(--prose-width);
+  }
+
+  /* Small utility text */
+  .text-small {
+    @apply font-body text-muted-foreground;
+    font-size: var(--text-sm);
+    line-height: 1.5;
   }
 
   /* ─── Navigation ─── */
