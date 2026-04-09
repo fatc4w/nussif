@@ -302,8 +302,8 @@ export default function AboutPage() {
                 transition={{ delay: i * 0.1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                 className="group relative cursor-default overflow-hidden"
                 style={{
-                  backgroundColor: 'rgba(255,255,255,0.02)',
-                  border: '1px solid rgba(255,255,255,0.05)',
+                  backgroundColor: 'hsl(var(--gold) / 0.03)',
+                  border: '1px solid hsl(var(--gold) / 0.1)',
                 }}
               >
                 {/* Hover border glow */}
