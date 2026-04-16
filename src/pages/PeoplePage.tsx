@@ -53,7 +53,7 @@ const investingCapsules = [
     analysts: [
       { name: 'Davin', email: 'davinchang@u.nus.edu' },
       { name: 'Bernard', email: 'E1408760@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/bernard-kwee/' },
-      { name: 'Arthava', email: 'e1398424@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/atharvamulik/' },
+      { name: 'Atharva', email: 'e1398424@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/atharvamulik/' },
       { name: 'Joash', email: 'e0957928@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/joash-lim-634292223/' },
       { name: 'Gerald', email: 'ce1186154@u.nus.edu' },
       { name: 'Pu Huan', email: 'pzhu@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/zhu-puhuan-hank-a9a839299/' },
