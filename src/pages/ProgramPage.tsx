@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import HeroSection from '@/components/HeroSection';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -81,6 +81,29 @@ export default function ProgramPage() {
     offset: ['start end', 'end start'],
   });
   const closingBgY = useTransform(closingScroll, [0, 1], ['0%', '15%']);
+
+  // Timeline line measurement
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [linePos, setLinePos] = useState({ top: 0, height: 0 });
+
+  const measureLine = useCallback(() => {
+    if (!timelineRef.current) return;
+    const dots = timelineRef.current.querySelectorAll<HTMLElement>('[data-dot]');
+    if (dots.length < 2) return;
+    const containerRect = timelineRef.current.getBoundingClientRect();
+    const firstRect = dots[0].getBoundingClientRect();
+    const lastRect = dots[dots.length - 1].getBoundingClientRect();
+    const top = firstRect.top + firstRect.height / 2 - containerRect.top;
+    const bottom = lastRect.top + lastRect.height / 2 - containerRect.top;
+    setLinePos({ top, height: bottom - top });
+  }, []);
+
+  useEffect(() => {
+    // Delay to let motion animations settle into DOM
+    const timer = setTimeout(measureLine, 200);
+    window.addEventListener('resize', measureLine);
+    return () => { clearTimeout(timer); window.removeEventListener('resize', measureLine); };
+  }, [measureLine]);
 
   return (
     <div ref={(el) => { revealRef.current = el; (pageRef as any).current = el; }}>
@@ -178,7 +201,7 @@ export default function ProgramPage() {
           <div className="border-t border-border pt-24 pb-24">
             {/* Header */}
             <motion.div
-              className="mb-20"
+              className="mb-24"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -191,68 +214,95 @@ export default function ProgramPage() {
               </p>
             </motion.div>
 
-            {/* Timeline — horizontal stages */}
-            <div className="space-y-0">
-              {stages.map((stage, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ delay: i * 0.1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                  className="group"
-                >
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 py-14 lg:py-16 border-t border-border transition-colors duration-500 group-hover:border-[hsl(var(--gold)/0.3)]">
-                    {/* Left: Number + Eyebrow */}
-                    <div className="lg:col-span-3 flex items-start gap-6">
-                      <span
-                        className="font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.25]"
-                        style={{
-                          fontSize: 'clamp(3rem, 5vw, 4.5rem)',
-                          color: 'hsl(var(--gold))',
-                          opacity: 0.12,
-                          lineHeight: 1,
-                        }}
-                      >
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <span
-                        className="eyebrow mt-3 lg:mt-4"
-                        style={{ color: 'hsl(var(--gold))' }}
-                      >
-                        {stage.eyebrow}
-                      </span>
-                    </div>
+            {/* Timeline with vertical thread */}
+            <div className="relative" ref={timelineRef}>
+              {/* Measured gold line — connects first dot to last dot */}
+              {linePos.height > 0 && (
+                <div
+                  className="absolute left-[2.75rem] -translate-x-1/2 w-px hidden lg:block"
+                  style={{
+                    backgroundColor: 'hsl(var(--gold) / 0.18)',
+                    top: linePos.top,
+                    height: linePos.height,
+                  }}
+                />
+              )}
 
-                    {/* Right: Content */}
-                    <div className="lg:col-span-8 lg:col-start-5">
-                      <h3 className="font-display font-medium text-foreground text-xl md:text-2xl lg:text-3xl mb-5 transition-colors duration-500 group-hover:text-foreground">
-                        {stage.heading}
-                      </h3>
-                      {stage.body && (
-                        <p className="body-text leading-[1.8] max-w-2xl">{stage.body}</p>
-                      )}
-                      {stage.callout && (
+              {stages.map((stage, i) => {
+                const isLast = i === stages.length - 1;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ delay: i * 0.08, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    className={isLast ? 'mt-6' : ''}
+                  >
+                    <div className={`grid grid-cols-1 lg:grid-cols-[5.5rem_1fr] gap-6 lg:gap-12 ${isLast ? 'py-16 lg:py-20' : 'py-12 lg:py-16'}`}>
+                      {/* Number column */}
+                      <div className="relative flex flex-col items-start lg:items-center">
+                        {/* Gold dot on the thread */}
                         <div
-                          className="border-l-2 pl-6 mt-2"
-                          style={{ borderColor: 'hsl(var(--gold))' }}
+                          data-dot
+                          className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-3 z-10 rounded-full"
+                          style={isLast ? {
+                            width: '12px',
+                            height: '12px',
+                            backgroundColor: 'hsl(var(--gold))',
+                            boxShadow: '0 0 8px 3px hsl(var(--gold) / 0.45), 0 0 22px 8px hsl(var(--gold) / 0.2), 0 0 40px 14px hsl(var(--gold) / 0.08)',
+                          } : {
+                            width: '8px',
+                            height: '8px',
+                            backgroundColor: 'hsl(var(--gold))',
+                          }}
+                        />
+
+                        <span
+                          className="font-display select-none"
+                          style={{
+                            fontSize: 'clamp(3.5rem, 6vw, 5rem)',
+                            color: 'hsl(var(--gold))',
+                            lineHeight: 1,
+                            fontWeight: 300,
+                          }}
                         >
-                          <p className="font-display italic text-foreground text-lg">
-                            {stage.callout}
-                          </p>
-                        </div>
-                      )}
-                      {/* Hover reveal line */}
-                      <div
-                        className="mt-6 h-px w-0 group-hover:w-16 transition-all duration-700"
-                        style={{ backgroundColor: 'hsl(var(--gold) / 0.4)' }}
-                      />
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+
+                      {/* Content */}
+                      <div className={isLast ? '' : 'pb-12 lg:pb-16'} style={isLast ? {} : { borderBottom: '1px solid hsl(var(--border))' }}>
+                        <span
+                          className="font-body text-xs tracking-[0.2em] uppercase font-medium block mb-5"
+                          style={{ color: 'hsl(var(--gold))' }}
+                        >
+                          {stage.eyebrow}
+                        </span>
+                        <h3
+                          className="font-display font-medium text-foreground mb-5"
+                          style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)' }}
+                        >
+                          {stage.heading}
+                        </h3>
+                        {stage.body && (
+                          <p className="body-text leading-[1.85] max-w-2xl">{stage.body}</p>
+                        )}
+                        {stage.callout && (
+                          <div
+                            className="mt-3 py-5 px-8"
+                            style={{ backgroundColor: 'hsl(var(--gold) / 0.06)' }}
+                          >
+                            <p className="font-display italic text-foreground" style={{ fontSize: 'clamp(1rem, 1.4vw, 1.2rem)' }}>
+                              {stage.callout}
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-              {/* Bottom border */}
-              <div className="border-t border-border" />
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -273,7 +323,19 @@ export default function ProgramPage() {
             className="w-full h-full object-cover"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-[hsl(220,55%,8%,0.5)]" />
+        <div className="absolute inset-0 bg-[hsl(220,55%,8%,0.45)]" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display font-light italic text-white/90 text-center px-6 max-w-3xl"
+            style={{ fontSize: 'clamp(1.3rem, 2.2vw, 2rem)' }}
+          >
+            "From analysts to portfolio managers — built to perform."
+          </motion.p>
+        </div>
       </section>
 
       {/* Investment Mandate */}
