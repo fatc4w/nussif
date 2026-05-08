@@ -302,23 +302,23 @@ export default function AboutPage() {
                 transition={{ delay: i * 0.1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                 className="group relative cursor-default overflow-hidden"
                 style={{
-                  backgroundColor: 'hsl(var(--gold) / 0.03)',
-                  border: '1px solid hsl(var(--gold) / 0.1)',
+                  backgroundColor: 'hsl(var(--gold) / 0.05)',
+                  border: '1px solid hsl(var(--gold) / 0.2)',
                 }}
               >
                 {/* Hover border glow */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                  style={{ boxShadow: 'inset 0 0 0 1px hsl(var(--gold) / 0.2)' }}
+                  style={{ boxShadow: 'inset 0 0 0 1px hsl(var(--gold) / 0.35)' }}
                 />
 
                 {/* Large faded gold number watermark */}
                 <span
-                  className="absolute top-6 right-8 font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.12] group-hover:scale-110"
+                  className="absolute top-6 right-8 font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.22] group-hover:scale-110"
                   style={{
                     fontSize: 'clamp(5rem, 8vw, 8rem)',
                     color: 'hsl(var(--gold))',
-                    opacity: 0.06,
+                    opacity: 0.14,
                     lineHeight: 1,
                   }}
                 >
@@ -328,8 +328,8 @@ export default function AboutPage() {
                 <div className="relative px-10 py-14 md:py-16">
                   {/* Eyebrow */}
                   <span
-                    className="text-[10px] tracking-[0.25em] uppercase font-body transition-colors duration-500"
-                    style={{ color: 'hsl(var(--gold) / 0.5)' }}
+                    className="text-xs tracking-[0.25em] uppercase font-body font-medium transition-colors duration-500"
+                    style={{ color: 'hsl(var(--gold) / 0.75)' }}
                   >
                     {v.num}
                   </span>
