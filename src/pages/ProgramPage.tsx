@@ -300,7 +300,7 @@ export default function ProgramPage() {
           className="absolute inset-0"
         >
           <img
-            src="/program-buildings.JPG"
+            src="/program-buildings.jpg"
             alt="Skyline"
             className="w-full h-full object-cover"
           />
