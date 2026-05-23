@@ -47,13 +47,14 @@ const investingCapsules = [
     imagePosition: 'center 30%',
     leadersLabel: 'Portfolio Managers',
     leaders: [
+      { name: 'Wen Jun', role: 'Portfolio Manager, Global Macro', email: 'wenjun.ye@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/jadon-wenjun-ye/', headshot: '/people/ye-wen-jun.jpg' },
       { name: 'Guo Xuan', role: 'Portfolio Manager, Global Macro', email: 'guoxuan@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/guo-xuan-koh/', headshot: '/people/guo-xuan.JPG' },
       { name: 'Chew Jinn Ming', role: 'Portfolio Manager, Commodities', email: 'chew.jinnming@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/chew-jinn-ming/', headshot: '/people/chew-jinn-ming.jpg' },
     ],
     analysts: [
       { name: 'Davin', email: 'davinchang@u.nus.edu' },
       { name: 'Bernard', email: 'E1408760@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/bernard-kwee/' },
-      { name: 'Atharva', email: 'e1398424@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/atharvamulik/' },
+      { name: 'Arthava', email: 'e1398424@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/atharvamulik/' },
       { name: 'Joash', email: 'e0957928@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/joash-lim-634292223/' },
       { name: 'Gerald', email: 'ce1186154@u.nus.edu' },
       { name: 'Pu Huan', email: 'pzhu@u.nus.edu', linkedIn: 'https://www.linkedin.com/in/zhu-puhuan-hank-a9a839299/' },
@@ -219,7 +220,7 @@ export default function PeoplePage() {
           className="absolute inset-0"
         >
           <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+            src="/people-investing.jpg"
             alt="Modern office workspace"
             className="w-full h-full object-cover"
           />
