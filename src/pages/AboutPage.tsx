@@ -266,8 +266,8 @@ export default function AboutPage() {
               Our Culture
             </h2>
             <p className="mt-5 body-text text-primary-foreground/55 max-w-2xl">
-              We push boundaries through diverse perspectives and bold ambition
-              ,driving learning, leadership, and growth unique to our members.
+              We push boundaries through diverse perspectives and bold ambition,
+              driving learning, leadership, and growth unique to our members.
             </p>
           </div>
 
