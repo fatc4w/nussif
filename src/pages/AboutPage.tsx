@@ -18,7 +18,7 @@ const values = [
   {
     num: "01",
     title: "Debate",
-    desc: "We want to hear everyone's viewpoints, and we privilege the rigour of contestation of ideas.",
+    desc: "We pride ourselves on the diversity and openness of our platform in allowing everyone to express their views and engage in contestation of ideas.",
   },
   {
     num: "02",
@@ -33,7 +33,7 @@ const values = [
   {
     num: "04",
     title: "Ownership",
-    desc: "Each pod is lean and takes responsibility for their own returns, keeping every member — down to the analysts — highly involved and committed.",
+    desc: "Each pod is lean and takes responsibility for their own returns, keeping every member highly involved and committed.",
   },
 ];
 
@@ -267,7 +267,7 @@ export default function AboutPage() {
             </h2>
             <p className="mt-5 body-text text-primary-foreground/55 max-w-2xl">
               We push boundaries through diverse perspectives and bold ambition
-              — driving learning, leadership, and growth unique to NUS.
+              ,driving learning, leadership, and growth unique to our members.
             </p>
           </div>
 
@@ -289,25 +289,30 @@ export default function AboutPage() {
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                   style={{ boxShadow: 'inset 0 0 0 1px hsl(var(--gold) / 0.2)' }}
                 />
+
+                {/* Large gold watermark number — opacity raised so it's visible */}
                 <span
-                  className="absolute top-6 right-8 font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.12] group-hover:scale-110"
+                  className="absolute top-6 right-8 font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.45] group-hover:scale-110"
                   style={{
                     fontSize: 'clamp(5rem, 8vw, 8rem)',
                     color: 'hsl(var(--gold))',
-                    opacity: 0.06,
+                    opacity: 0.3,
                     lineHeight: 1,
                   }}
                 >
                   {v.num}
                 </span>
+
                 <div className="relative px-10 py-14 md:py-16">
+                  {/* Small eyebrow number — full gold */}
                   <span
                     className="text-[10px] tracking-[0.25em] uppercase font-body transition-colors duration-500"
-                    style={{ color: 'hsl(var(--gold) / 0.5)' }}
+                    style={{ color: 'hsl(var(--gold))' }}
                   >
                     {v.num}
                   </span>
-                  <h3 className="font-display font-medium text-white text-2xl lg:text-3xl mt-6 mb-4 tracking-wide transition-colors duration-500 group-hover:text-white">
+
+                  <h3 className="font-display font-medium text-white text-2xl lg:text-3xl mt-6 mb-4 tracking-wide">
                     {v.title}
                   </h3>
                   <div className="w-0 h-px mb-6 transition-all duration-700 group-hover:w-12" style={{ backgroundColor: 'hsl(var(--gold) / 0.5)' }} />
