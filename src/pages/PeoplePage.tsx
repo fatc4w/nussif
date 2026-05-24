@@ -219,7 +219,7 @@ export default function PeoplePage() {
           className="absolute inset-0"
         >
           <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+            src="/people-investing.jpg"
             alt="Modern office workspace"
             className="w-full h-full object-cover"
           />

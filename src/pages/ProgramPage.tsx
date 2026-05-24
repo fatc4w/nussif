@@ -72,7 +72,6 @@ export default function ProgramPage() {
   const closingRef = useRef<HTMLDivElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
 
-  // Scroll progress bar
   const { scrollYProgress } = useScroll({ target: pageRef, offset: ['start start', 'end end'] });
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
@@ -82,7 +81,6 @@ export default function ProgramPage() {
   });
   const closingBgY = useTransform(closingScroll, [0, 1], ['0%', '15%']);
 
-  // Timeline line measurement
   const timelineRef = useRef<HTMLDivElement>(null);
   const [linePos, setLinePos] = useState({ top: 0, height: 0 });
 
@@ -99,7 +97,6 @@ export default function ProgramPage() {
   }, []);
 
   useEffect(() => {
-    // Delay to let motion animations settle into DOM
     const timer = setTimeout(measureLine, 200);
     window.addEventListener('resize', measureLine);
     return () => { clearTimeout(timer); window.removeEventListener('resize', measureLine); };
@@ -175,31 +172,18 @@ export default function ProgramPage() {
           className="absolute inset-0"
         >
           <img
-            src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1920&q=80"
+            src="/program-candles.jpg"
             alt="Trading screens"
             className="w-full h-full object-cover"
           />
         </motion.div>
         <div className="absolute inset-0 bg-[hsl(220,55%,8%,0.5)]" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-light italic text-white/90 text-center px-6 max-w-3xl"
-            style={{ fontSize: 'clamp(1.3rem, 2.2vw, 2rem)' }}
-          >
-            "Where theory meets live markets."
-          </motion.p>
-        </div>
       </section>
 
       {/* Analyst Pipeline */}
       <section id="analyst-pipeline" className="bg-background">
         <div className="container-site">
           <div className="border-t border-border pt-24 pb-24">
-            {/* Header */}
             <motion.div
               className="mb-24"
               initial={{ opacity: 0, y: 30 }}
@@ -216,7 +200,6 @@ export default function ProgramPage() {
 
             {/* Timeline with vertical thread */}
             <div className="relative" ref={timelineRef}>
-              {/* Measured gold line — connects first dot to last dot */}
               {linePos.height > 0 && (
                 <div
                   className="absolute left-[2.75rem] -translate-x-1/2 w-px hidden lg:block"
@@ -240,9 +223,7 @@ export default function ProgramPage() {
                     className={isLast ? 'mt-6' : ''}
                   >
                     <div className={`grid grid-cols-1 lg:grid-cols-[5.5rem_1fr] gap-6 lg:gap-12 ${isLast ? 'py-16 lg:py-20' : 'py-12 lg:py-16'}`}>
-                      {/* Number column */}
                       <div className="relative flex flex-col items-start lg:items-center">
-                        {/* Gold dot on the thread */}
                         <div
                           data-dot
                           className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-3 z-10 rounded-full"
@@ -257,7 +238,6 @@ export default function ProgramPage() {
                             backgroundColor: 'hsl(var(--gold))',
                           }}
                         />
-
                         <span
                           className="font-display select-none"
                           style={{
@@ -271,8 +251,10 @@ export default function ProgramPage() {
                         </span>
                       </div>
 
-                      {/* Content */}
-                      <div className={isLast ? '' : 'pb-12 lg:pb-16'} style={isLast ? {} : { borderBottom: '1px solid hsl(var(--border))' }}>
+                      <div
+                        className={isLast ? '' : 'pb-12 lg:pb-16'}
+                        style={isLast ? {} : { borderBottom: '1px solid hsl(var(--border))' }}
+                      >
                         <span
                           className="font-body text-xs tracking-[0.2em] uppercase font-medium block mb-5"
                           style={{ color: 'hsl(var(--gold))' }}
@@ -318,31 +300,18 @@ export default function ProgramPage() {
           className="absolute inset-0"
         >
           <img
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
+            src="/program-buildings.jpg"
             alt="Skyline"
             className="w-full h-full object-cover"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-[hsl(220,55%,8%,0.45)]" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-light italic text-white/90 text-center px-6 max-w-3xl"
-            style={{ fontSize: 'clamp(1.3rem, 2.2vw, 2rem)' }}
-          >
-            "From analysts to portfolio managers — built to perform."
-          </motion.p>
-        </div>
+        <div className="absolute inset-0 bg-[hsl(220,55%,8%,0.5)]" />
       </section>
 
       {/* Investment Mandate */}
       <section id="mandate" className="bg-muted/30">
         <div className="container-site">
           <div className="border-t border-border pt-24 pb-28">
-            {/* Header */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
               <motion.div
                 className="lg:col-span-5"
@@ -367,7 +336,6 @@ export default function ProgramPage() {
               </motion.div>
             </div>
 
-            {/* Table */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -448,7 +416,6 @@ export default function ProgramPage() {
           className="absolute inset-0"
           style={{ y: closingBgY, backgroundColor: 'hsl(218, 55%, 12%)' }}
         />
-        {/* Subtle vertical line pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
