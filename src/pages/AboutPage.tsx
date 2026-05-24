@@ -18,7 +18,7 @@ const values = [
   {
     num: "01",
     title: "Debate",
-    desc: "We pride ourselves on the diversity and openness of our platform in allowing everyone to express their views and engage in contestation of ideas.",
+    desc: "We want to hear everyone's viewpoints, and we privilege the rigour of contestation of ideas.",
   },
   {
     num: "02",
@@ -33,7 +33,7 @@ const values = [
   {
     num: "04",
     title: "Ownership",
-    desc: "Each pod is lean and takes responsibility for their own returns, keeping every member highly involved and committed.",
+    desc: "Each pod is lean and takes responsibility for their own returns, keeping every member — down to the analysts — highly involved and committed.",
   },
 ];
 
@@ -266,8 +266,8 @@ export default function AboutPage() {
               Our Culture
             </h2>
             <p className="mt-5 body-text text-primary-foreground/55 max-w-2xl">
-              We push boundaries through diverse perspectives and bold ambition,
-              driving learning, leadership, and growth unique to our members.
+              We push boundaries through diverse perspectives and bold ambition
+              — driving learning, leadership, and growth unique to NUS.
             </p>
           </div>
 
@@ -289,8 +289,6 @@ export default function AboutPage() {
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                   style={{ boxShadow: 'inset 0 0 0 1px hsl(var(--gold) / 0.2)' }}
                 />
-
-                {/* Large gold watermark number — opacity raised so it's visible */}
                 <span
                   className="absolute top-6 right-8 font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.45] group-hover:scale-110"
                   style={{
@@ -302,16 +300,13 @@ export default function AboutPage() {
                 >
                   {v.num}
                 </span>
-
                 <div className="relative px-10 py-14 md:py-16">
-                  {/* Small eyebrow number — full gold */}
                   <span
                     className="text-[10px] tracking-[0.25em] uppercase font-body transition-colors duration-500"
                     style={{ color: 'hsl(var(--gold))' }}
                   >
                     {v.num}
                   </span>
-
                   <h3 className="font-display font-medium text-white text-2xl lg:text-3xl mt-6 mb-4 tracking-wide">
                     {v.title}
                   </h3>
@@ -363,17 +358,6 @@ export default function AboutPage() {
                 transition={{ delay: i * 0.08, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative bg-background px-10 py-14 group cursor-default overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
               >
-                <span
-                  className="absolute top-4 right-6 font-display font-light select-none transition-all duration-700 group-hover:opacity-[0.1]"
-                  style={{
-                    fontSize: '5rem',
-                    color: 'hsl(var(--gold))',
-                    opacity: 0.05,
-                    lineHeight: 1,
-                  }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
                 <div
                   className="absolute top-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left"
                   style={{ backgroundColor: 'hsl(var(--gold))' }}
