@@ -155,7 +155,7 @@ export default function PeoplePage() {
               {
                 name: 'Professor Chen Kan',
                 role: 'Senior Advisor',
-                bio: 'Quantitative finance veteran and academic. Formerly Executive Director on the proprietary trading desk at JP Morgan, and Portfolio Manager at Capstone Investment Advisors and WorldQuant. Previously Deputy Head of Computational Science at NUS.',
+                bio: 'Quantitative finance veteran and academic. Formerly Executive Director on the proprietary trading desk at JP Morgan, and Portfolio Manager at Capstone Investment Advisors and WorldQuant.',
               },
             ].map((advisor, i) => (
               <motion.div
