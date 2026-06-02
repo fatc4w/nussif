@@ -152,6 +152,11 @@ export default function PeoplePage() {
                 role: 'Senior Advisor',
                 bio: 'Currently Portfolio Manager at ExodusPoint. Formerly Senior Portfolio Manager at BlueCrest Capital Management, Head of FX Trading at Barclays, and Trader at Millennium.',
               },
+              {
+                name: 'Professor Chen Kan',
+                role: 'Senior Advisor',
+                bio: 'Quantitative finance practitioner and academic. Formerly Acting Head and Deputy Head of the Department of Computational Science and Deputy Director of the Institute for Mathematical Sciences at NUS. Industry roles include Executive Director at CreditEase, Portfolio Manager at Capstone Investment Advisors and WorldQuant, and Executive Director on the proprietary trading desk at JP Morgan.',
+              },
             ].map((advisor, i) => (
               <motion.div
                 key={advisor.name}
