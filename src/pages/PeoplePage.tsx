@@ -155,7 +155,7 @@ export default function PeoplePage() {
               {
                 name: 'Professor Chen Kan',
                 role: 'Senior Advisor',
-                bio: 'Quantitative finance practitioner and academic. Formerly Acting Head and Deputy Head of the Department of Computational Science and Deputy Director of the Institute for Mathematical Sciences at NUS. Industry roles include Executive Director at CreditEase, Portfolio Manager at Capstone Investment Advisors and WorldQuant, and Executive Director on the proprietary trading desk at JP Morgan.',
+                bio: 'Quantitative finance veteran and academic. Formerly Executive Director on the proprietary trading desk at JP Morgan, and Portfolio Manager at Capstone Investment Advisors and WorldQuant. Previously Deputy Head of Computational Science at NUS.',
               },
             ].map((advisor, i) => (
               <motion.div
