@@ -393,51 +393,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Senior Advisors */}
-      <section className="section-padding bg-muted/30">
-        <div className="container-site">
-          <div className="w-12 h-px bg-gold mb-10 fade-up" />
-          <h2 className="heading-section mb-3 fade-up">Senior Advisors</h2>
-          <p
-            className="body-text max-w-2xl mb-16 fade-up"
-            style={{ transitionDelay: "0.1s" }}
-          >
-            Guided by industry practitioners with decades of experience in
-            global finance.
-          </p>
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 gap-16 fade-up"
-            style={{ transitionDelay: "0.2s" }}
-          >
-            <div className="group cursor-default">
-              <h3 className="font-display font-medium text-foreground text-2xl mb-1 transition-colors duration-300 group-hover:text-primary">
-                Adjunct Professor James Cheng
-              </h3>
-              <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mt-2 mb-5">
-                Senior Advisor
-              </p>
-              <p className="body-text text-sm text-foreground/70 leading-relaxed">
-                Previously CEO & Senior Advisor to Morgan Stanley Investment
-                Management, and CIO at Invesco Asia.
-              </p>
-            </div>
-            <div className="group cursor-default">
-              <h3 className="font-display font-medium text-foreground text-2xl mb-1 transition-colors duration-300 group-hover:text-primary">
-                Kwan Ng
-              </h3>
-              <p className="text-[10px] tracking-[0.25em] uppercase text-gold font-body mt-2 mb-5">
-                Senior Advisor
-              </p>
-              <p className="body-text text-sm text-foreground/70 leading-relaxed">
-                Currently Portfolio Manager at ExodusPoint. Formerly Senior
-                Portfolio Manager at BlueCrest Capital Management, Head of FX
-                Trading at Barclays, and Trader at Millennium.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Partners */}
       <section
         id="partners"
