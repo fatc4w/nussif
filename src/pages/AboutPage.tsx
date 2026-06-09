@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion, useScroll, useSpring } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import VideoModal from "@/components/VideoModal";
 import OrgChart from "@/components/OrgChart";
@@ -13,6 +13,25 @@ import citadelSecLogo from "@/assets/partners/citadel-securities.png";
 import point72Logo from "@/assets/partners/point72.png";
 import massiveLogo from "@/assets/partners/massive.png";
 import millenniumLogo from "@/assets/partners/millennium.png";
+
+import bridgewaterLogo from "@/assets/placements/bridgewater.png";
+import goldmanLogo from "@/assets/placements/goldman-sachs.png";
+import gicLogo from "@/assets/placements/gic.png";
+import bofaLogo from "@/assets/placements/bank-of-america.png";
+import stonepeakLogo from "@/assets/placements/stonepeak.png";
+import moelisLogo from "@/assets/placements/moelis.png";
+import morganStanleyLogo from "@/assets/placements/morgan-stanley.png";
+import citiLogo from "@/assets/placements/citi.png";
+import blueCrestLogo from "@/assets/placements/bluecrest.png";
+import point72PlacementLogo from "@/assets/placements/point72.png";
+import dymonLogo from "@/assets/placements/dymon-asia.png";
+import glencoreLogo from "@/assets/placements/glencore.png";
+import axpoLogo from "@/assets/placements/axpo.png";
+import nomuraLogo from "@/assets/placements/nomura.png";
+import qrtLogo from "@/assets/placements/qrt.png";
+import citadelPlacementLogo from "@/assets/placements/citadel.png";
+import gardaLogo from "@/assets/placements/garda.png";
+import capulaLogo from "@/assets/placements/capula.png";
 
 const values = [
   {
@@ -50,6 +69,35 @@ const achievements = [
     name: "JPMorgan Asia Asset & Wealth Management Challenge (Singapore)",
     result: "Champions",
   },
+];
+
+const placementCategories = [
+  "All",
+  "L/S Equities",
+  "Global Macro",
+  "Commodities",
+  "Systematic Strategies",
+] as const;
+
+const placementFirms = [
+  { name: "Bridgewater", logo: bridgewaterLogo, categories: ["L/S Equities"] },
+  { name: "Goldman Sachs", logo: goldmanLogo, categories: ["L/S Equities", "Global Macro", "Systematic Strategies"] },
+  { name: "GIC", logo: gicLogo, categories: ["L/S Equities"] },
+  { name: "Bank of America", logo: bofaLogo, categories: ["L/S Equities", "Global Macro"] },
+  { name: "Stonepeak", logo: stonepeakLogo, categories: ["L/S Equities"] },
+  { name: "Moelis", logo: moelisLogo, categories: ["L/S Equities"] },
+  { name: "Morgan Stanley", logo: morganStanleyLogo, categories: ["Global Macro"] },
+  { name: "Citi", logo: citiLogo, categories: ["Global Macro"] },
+  { name: "BlueCrest", logo: blueCrestLogo, categories: ["Global Macro"] },
+  { name: "Point72", logo: point72PlacementLogo, categories: ["Global Macro"] },
+  { name: "Dymon Asia", logo: dymonLogo, categories: ["Global Macro"] },
+  { name: "Glencore", logo: glencoreLogo, categories: ["Commodities"] },
+  { name: "Axpo", logo: axpoLogo, categories: ["Commodities"] },
+  { name: "Nomura", logo: nomuraLogo, categories: ["Systematic Strategies"] },
+  { name: "QRT", logo: qrtLogo, categories: ["Systematic Strategies"] },
+  { name: "Citadel", logo: citadelPlacementLogo, categories: ["Systematic Strategies"] },
+  { name: "Garda Capital Partners", logo: gardaLogo, categories: ["Systematic Strategies"] },
+  { name: "Capula", logo: capulaLogo, categories: ["Systematic Strategies"] },
 ];
 
 const partners = [
@@ -106,6 +154,7 @@ function StatCounter({
 export default function AboutPage() {
   const revealRef = useScrollReveal();
   const pageRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
 
   const { scrollYProgress } = useScroll({ target: pageRef, offset: ['start start', 'end end'] });
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
@@ -389,6 +438,89 @@ export default function AboutPage() {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Placements */}
+      <section id="placements" className="section-padding bg-background border-t border-border overflow-hidden">
+        <div className="container-site">
+          <div className="mb-20 fade-up">
+            <div className="w-12 h-px bg-gold mb-10" />
+            <p className="text-[10px] tracking-[0.25em] uppercase font-body mb-6" style={{ color: 'hsl(var(--gold))' }}>
+              Placements 2026
+            </p>
+            <h2 className="heading-section max-w-4xl">
+              Our members place amongst the best in the financial industry
+            </h2>
+            <p className="mt-5 body-text max-w-2xl">
+              Firms our members have received Summer and Graduate placements at for 2026.
+            </p>
+          </div>
+
+          {/* Filter tabs with sliding active pill */}
+          <div className="mb-14 flex justify-center fade-up">
+            <div className="relative inline-flex flex-wrap justify-center gap-1 rounded-full border border-border bg-secondary/40 p-1">
+              {placementCategories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className="relative px-4 py-2 md:px-5 md:py-2.5 text-xs md:text-sm font-body tracking-wide transition-colors duration-200"
+                >
+                  {activeCategory === cat && (
+                    <motion.div
+                      layoutId="placementTab"
+                      className="absolute inset-0 rounded-full bg-primary"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 ${
+                      activeCategory === cat
+                        ? "text-primary-foreground"
+                        : "text-foreground/50 hover:text-foreground/80"
+                    }`}
+                  >
+                    {cat}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Logo grid — non-matching firms dim out */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-border">
+            {placementFirms.map((firm, index) => {
+              const visible =
+                activeCategory === "All" || firm.categories.includes(activeCategory);
+              return (
+                <motion.div
+                  key={firm.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: (index % 6) * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  className="bg-background"
+                >
+                  <motion.div
+                    animate={{ opacity: visible ? 1 : 0.12 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="group relative flex items-center justify-center h-28 md:h-32 px-6 transition-shadow duration-500 hover:shadow-lg"
+                  >
+                    <div
+                      className="absolute top-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left"
+                      style={{ backgroundColor: 'hsl(var(--gold))' }}
+                    />
+                    <img
+                      src={firm.logo}
+                      alt={firm.name}
+                      loading="lazy"
+                      className="max-h-10 md:max-h-12 w-auto max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </motion.div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
