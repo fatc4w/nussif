@@ -489,7 +489,7 @@ export default function AboutPage() {
           </div>
 
           {/* Logo grid — non-matching firms dim out */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-border">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
             {placementFirms.map((firm, index) => {
               const visible =
                 activeCategory === "All" || firm.categories.includes(activeCategory);
@@ -500,7 +500,6 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: (index % 6) * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                  className="bg-background"
                 >
                   <motion.div
                     animate={{ opacity: visible ? 1 : 0.12 }}
