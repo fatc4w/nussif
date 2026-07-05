@@ -6,7 +6,7 @@ import HeroSection from '@/components/HeroSection';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import heroImage from '@/assets/hero-trading.jpg';
 
-const APPLY_URL = 'https://www.google.com';
+const APPLY_URL = 'https://forms.office.com/Pages/ShareFormPage.aspx?id=Xu-lWwkxd06Fvc_rDTR-ghbuzO_hwkFNmR1TLDctiJBUME1NVUdYQzNGNlVOSzdKQkhWSUY3MUI0UC4u&sharetoken=TGc4Xqw46sMkbulMbeRJ';
 
 interface Role {
   num: string;
