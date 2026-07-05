@@ -22,28 +22,28 @@ const investingRoles: Role[] = [
     title: 'Equities Analyst',
     team: 'L/S Equities',
     teamLink: '/people#ls-equities',
-    desc: 'Generate long and short ideas across Singapore and global equity markets — combining fundamental analysis with thematic conviction across L/S, event-driven, and relative value strategies.',
+    desc: 'Generates investment ideas and strategies across Singapore and global equity markets, combining fundamental analysis with a keen sense of the structural global and sectoral undercurrents that allow the Equities team to generate excess returns.',
   },
   {
     num: '02',
     title: 'Macro Analyst',
     team: 'Global Macro',
     teamLink: '/people#global-macro-commodities',
-    desc: 'Build discretionary macro views across fixed income, currencies, and equity indices — translating global economic narratives into positioned conviction across FICC markets.',
+    desc: 'Develops a robust first principles understanding of global capital markets and economies, translating economic narratives into positioning across a range of asset classes.',
   },
   {
     num: '03',
     title: 'Systematic Strategies Analyst',
     team: 'Systematic Strategies',
     teamLink: '/people#systematic-strategies',
-    desc: "Embed quantitative, data-driven analysis into the fund's investment process — researching signals and lending a quantitative dimension to the asset pods' market views.",
+    desc: "Leverages our range of data partnerships to embed quantitative, data-driven analysis into the fund's investment decisions. Focuses on signal research, generation and bringing a systematic dimension to the Investing teams.",
   },
   {
     num: '04',
     title: 'Commodities Analyst',
     team: 'Commodities',
     teamLink: '/people#global-macro-commodities',
-    desc: 'Trade energy and metals with strategies grounded in both micro and macro fundamentals — from supply-demand balances to positioning, flows, and cross-commodity relative value.',
+    desc: 'Devises metals and energy market views grounded in both micro and macro fundamentals, as well as supply-demand imbalances, flows and cross-commodity relative value.',
   },
 ];
 
@@ -53,21 +53,21 @@ const operationsRoles: Role[] = [
     title: 'Risk & Infrastructure Analyst',
     team: 'Operations',
     teamLink: '/people#operations',
-    desc: 'Safeguard the fund. Build and maintain the risk frameworks, tooling, and infrastructure that give a live student fund institutional-grade oversight.',
+    desc: 'Builds and maintains the risk frameworks, tooling, and infrastructure that gives NUSSIF an institutional-grade oversight.',
   },
   {
     num: '06',
     title: 'Fund Development Analyst',
     team: 'Operations',
     teamLink: '/people#operations',
-    desc: "Drive the fund's long-term growth — partnerships, external relations, and the initiatives that expand NUSSIF's reach, standing, and capital base.",
+    desc: "Drive the fund's long-term growth through partnerships, external relations, and the initiatives that expand NUSSIF's reach, standing, and capital base. Fund Development Analysts are responsible for the outreach, event management and relationship building between NUSSIF and senior leaders in industry, allowing them to build their own industry networks concurrently.",
   },
   {
     num: '07',
     title: 'Marketing & Brand Analyst',
     team: 'Operations',
     teamLink: '/people#operations',
-    desc: 'Own how NUSSIF shows up to the world — the brand, content, and communications that reflect the standard of the fund behind them.',
+    desc: 'Owns how NUSSIF shows up to the world, through an extensive understanding for the brand, content, and communications that reflect the standard of the fund behind them.',
   },
 ];
 
@@ -333,8 +333,7 @@ export default function RecruitmentPage() {
     <div ref={revealRef}>
       <HeroSection
         image={heroImage}
-        title="Recruitment"
-        subtitle="Seven analyst seats across two divisions. One application. A live fund from day one."
+        title="H2'2026 Analyst Recruitment"
       />
 
       {/* Opening statement + figures */}
@@ -355,39 +354,10 @@ export default function RecruitmentPage() {
                 not spectators.
               </h2>
               <p className="body-text leading-[1.85]">
-                Every member of NUSSIF operates inside a live fund — with real capital, real
-                accountability, and mentorship from practitioners across the global buy-side.
-                Whether your instincts lean toward markets or toward building the institution
+                Every member of NUSSIF operates inside a live student fund with the growth and mentorship opportunities from practitioners across the industry.
+                Whether your instincts and passions lean toward the financial markets, global affairs, history and geopolitics or toward building the institution
                 behind them, there is a seat here designed for you to own.
               </p>
-            </motion.div>
-
-            <motion.div
-              className="lg:col-span-4 lg:col-start-9"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="space-y-10">
-                {[
-                  { figure: '07', label: 'Open Positions' },
-                  { figure: '02', label: 'Divisions' },
-                  { figure: '01', label: 'Application' },
-                ].map((stat) => (
-                  <div key={stat.label} className="flex items-baseline gap-6 border-b border-border pb-6">
-                    <span
-                      className="font-display font-light leading-none"
-                      style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', color: 'hsl(var(--gold))' }}
-                    >
-                      {stat.figure}
-                    </span>
-                    <span className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                      {stat.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
             </motion.div>
           </div>
         </div>
@@ -412,8 +382,8 @@ export default function RecruitmentPage() {
               </div>
               <div className="lg:col-span-5 lg:col-start-8 flex items-end">
                 <p className="body-text">
-                  Four specialist pods, each lean and accountable for its own returns. Investing
-                  analysts research, debate, and help run live positions across global markets.
+                  Our investing teams consist of four distinct departments that specialise in their unique asset classes. An Investment 
+                  Analyst researches, debates, and runs live positions across the markets they feel the most passion in.
                 </p>
               </div>
             </motion.div>
@@ -479,8 +449,7 @@ export default function RecruitmentPage() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-display italic text-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
           >
-            However you see yourself contributing — every path into NUSSIF begins with the same
-            application.
+            We want the most passionate across NUS, no matter what field you might come from. Apply now to discover your fit.
           </motion.p>
         </div>
       </section>
