@@ -35,7 +35,7 @@ export default function Footer() {
       links: [
         { text: "Investing Roles", href: "/recruitment#investing-roles", internal: true },
         { text: "Operations Roles", href: "/recruitment#operations-roles", internal: true },
-        { text: "Apply Now", href: "https://www.google.com", external: true },
+        { text: "Apply Now", href: "https://forms.office.com/Pages/ShareFormPage.aspx?id=Xu-lWwkxd06Fvc_rDTR-ghbuzO_hwkFNmR1TLDctiJBUME1NVUdYQzNGNlVOSzdKQkhWSUY3MUI0UC4u&sharetoken=TGc4Xqw46sMkbulMbeRJ", external: true },
       ],
     },
   ];
