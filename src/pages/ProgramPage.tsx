@@ -84,6 +84,13 @@ export default function ProgramPage() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [linePos, setLinePos] = useState({ top: 0, height: 0 });
 
+  // The gold thread draws itself as the reader moves through the pipeline
+  const { scrollYProgress: timelineProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 0.75', 'end 0.45'],
+  });
+  const threadScale = useSpring(timelineProgress, { stiffness: 90, damping: 26, restDelta: 0.001 });
+
   const measureLine = useCallback(() => {
     if (!timelineRef.current) return;
     const dots = timelineRef.current.querySelectorAll<HTMLElement>('[data-dot]');
@@ -103,7 +110,7 @@ export default function ProgramPage() {
   }, [measureLine]);
 
   return (
-    <div ref={(el) => { revealRef.current = el; (pageRef as any).current = el; }}>
+    <div ref={(el) => { revealRef.current = el; (pageRef as React.MutableRefObject<HTMLDivElement | null>).current = el; }}>
       {/* Scroll progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left"
@@ -135,14 +142,18 @@ export default function ProgramPage() {
                 >
                   "
                 </span>
-                <p
+                <motion.p
+                  initial={{ opacity: 0, filter: 'blur(10px)' }}
+                  whileInView={{ opacity: 1, filter: 'blur(0px)' }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
                   className="font-display font-light text-foreground leading-[1.4]"
                   style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1.6rem)' }}
                 >
                   We strive to provide an institutional-grade experience that empowers our members to leverage industry best practices — making decisions with clear{' '}
                   <span style={{ color: 'hsl(var(--gold))' }}>ownership</span> and{' '}
                   <span style={{ color: 'hsl(var(--gold))' }}>accountability</span>.
-                </p>
+                </motion.p>
               </motion.div>
               <motion.div
                 className="lg:col-span-4 lg:col-start-9 lg:pt-4"
@@ -198,17 +209,31 @@ export default function ProgramPage() {
               </p>
             </motion.div>
 
-            {/* Timeline with vertical thread */}
+            {/* Timeline with scroll-drawn vertical thread */}
             <div className="relative" ref={timelineRef}>
               {linePos.height > 0 && (
-                <div
-                  className="absolute left-[2.75rem] -translate-x-1/2 w-px hidden lg:block"
-                  style={{
-                    backgroundColor: 'hsl(var(--gold) / 0.18)',
-                    top: linePos.top,
-                    height: linePos.height,
-                  }}
-                />
+                <>
+                  {/* Faint base line */}
+                  <div
+                    className="absolute left-[2.75rem] -translate-x-1/2 w-px hidden lg:block"
+                    style={{
+                      backgroundColor: 'hsl(var(--gold) / 0.12)',
+                      top: linePos.top,
+                      height: linePos.height,
+                    }}
+                  />
+                  {/* Bright thread that draws itself with scroll */}
+                  <motion.div
+                    className="absolute left-[2.75rem] -translate-x-1/2 w-px hidden lg:block origin-top"
+                    style={{
+                      backgroundColor: 'hsl(var(--gold) / 0.55)',
+                      top: linePos.top,
+                      height: linePos.height,
+                      scaleY: threadScale,
+                      boxShadow: '0 0 8px 0 hsl(var(--gold) / 0.3)',
+                    }}
+                  />
+                </>
               )}
 
               {stages.map((stage, i) => {
