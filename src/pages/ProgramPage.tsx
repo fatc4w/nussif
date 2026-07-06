@@ -1,8 +1,69 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'motion/react';
-import HeroSection from '@/components/HeroSection';
+import { motion, useScroll, useTransform, useSpring, type MotionValue } from 'motion/react';
+import PageHero from '@/components/PageHero';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import heroImage from '@/assets/hero-program.jpg';
+
+/* The philosophy, tokenised so each word can ignite as the reader scrolls.
+   Copy is verbatim — "ownership" and "accountability" keep their gold. */
+const quoteTokens: { w: string; gold: boolean; suffix: string }[] = [
+  ...'We strive to provide an institutional-grade experience that empowers our members to leverage industry best practices — making decisions with clear'
+    .split(' ')
+    .map((w) => ({ w, gold: false, suffix: '' })),
+  { w: 'ownership', gold: true, suffix: '' },
+  { w: 'and', gold: false, suffix: '' },
+  { w: 'accountability', gold: true, suffix: '.' },
+];
+
+function QuoteWord({
+  token,
+  index,
+  total,
+  progress,
+}: {
+  token: (typeof quoteTokens)[number];
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+}) {
+  const start = index / total;
+  const end = Math.min(1, start + 2.5 / total);
+  const opacity = useTransform(progress, [start, end], [0.14, 1]);
+  return (
+    <motion.span
+      style={{ opacity, color: token.gold ? 'hsl(var(--gold))' : undefined }}
+    >
+      {token.w}
+      {token.suffix}{' '}
+    </motion.span>
+  );
+}
+
+/* Kinetic quote: words light up in sequence as the block rises through the viewport */
+function KineticQuote() {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start 0.95', 'start 0.35'],
+  });
+  return (
+    <p
+      ref={ref}
+      className="font-display font-light text-foreground leading-[1.45]"
+      style={{ fontSize: 'clamp(1.5rem, 2.7vw, 2.5rem)' }}
+    >
+      {quoteTokens.map((token, i) => (
+        <QuoteWord
+          key={i}
+          token={token}
+          index={i}
+          total={quoteTokens.length}
+          progress={scrollYProgress}
+        />
+      ))}
+    </p>
+  );
+}
 
 const stages = [
   {
@@ -117,11 +178,10 @@ export default function ProgramPage() {
         style={{ scaleX, backgroundColor: 'hsl(var(--gold))' }}
       />
 
-      <HeroSection
+      <PageHero
         image={heroImage}
         title="The NUSSIF Program"
         subtitle="An institutional-grade training experience, built for the next generation of buy-side practitioners."
-        noOverlay
       />
 
       {/* Philosophy */}
@@ -142,18 +202,7 @@ export default function ProgramPage() {
                 >
                   "
                 </span>
-                <motion.p
-                  initial={{ opacity: 0, filter: 'blur(10px)' }}
-                  whileInView={{ opacity: 1, filter: 'blur(0px)' }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-display font-light text-foreground leading-[1.4]"
-                  style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1.6rem)' }}
-                >
-                  We strive to provide an institutional-grade experience that empowers our members to leverage industry best practices — making decisions with clear{' '}
-                  <span style={{ color: 'hsl(var(--gold))' }}>ownership</span> and{' '}
-                  <span style={{ color: 'hsl(var(--gold))' }}>accountability</span>.
-                </motion.p>
+                <KineticQuote />
               </motion.div>
               <motion.div
                 className="lg:col-span-4 lg:col-start-9 lg:pt-4"
@@ -333,10 +382,17 @@ export default function ProgramPage() {
         <div className="absolute inset-0 bg-[hsl(220,55%,8%,0.5)]" />
       </section>
 
-      {/* Investment Mandate */}
-      <section id="mandate" className="bg-muted/30">
-        <div className="container-site">
-          <div className="border-t border-border pt-24 pb-28">
+      {/* Investment Mandate — presented as a term sheet on deep navy */}
+      <section id="mandate" className="bg-navy-deep relative overflow-hidden">
+        {/* Faint radial gold wash */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse 60% 80% at 10% 0%, hsl(37 45% 62% / 0.05), transparent 55%)',
+          }}
+        />
+        <div className="container-site relative">
+          <div className="pt-24 pb-28 md:pt-32 md:pb-36">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
               <motion.div
                 className="lg:col-span-5"
@@ -346,7 +402,7 @@ export default function ProgramPage() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
                 <span className="eyebrow block mb-4" style={{ color: 'hsl(var(--gold))' }}>Mandate</span>
-                <h2 className="heading-section">Investment Mandate</h2>
+                <h2 className="heading-section text-primary-foreground">Investment Mandate</h2>
               </motion.div>
               <motion.div
                 className="lg:col-span-5 lg:col-start-8 flex items-end"
@@ -355,7 +411,7 @@ export default function ProgramPage() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                <p className="body-text">
+                <p className="font-body font-light text-primary-foreground/55 leading-[1.7]" style={{ fontSize: 'var(--text-base)' }}>
                   A multi-strategy framework combining discretionary and systematic approaches across global markets.
                 </p>
               </motion.div>
@@ -388,7 +444,7 @@ export default function ProgramPage() {
                           }}
                         />
                         <span
-                          className="font-body font-semibold text-foreground uppercase"
+                          className="font-body font-semibold text-white/85 uppercase"
                           style={{ fontSize: '0.62rem', letterSpacing: '0.13em' }}
                         >
                           {col}
@@ -401,15 +457,15 @@ export default function ProgramPage() {
                   {mandateData.map((row, rowIndex) => (
                     <motion.tr
                       key={row.label}
-                      className="group transition-colors duration-300 hover:bg-background/80"
-                      style={{ borderTop: '1px solid hsl(var(--border))' }}
+                      className="group transition-colors duration-300 hover:bg-white/[0.04]"
+                      style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.3 + rowIndex * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     >
                       <td
-                        className="py-5 pr-6 font-body font-semibold text-foreground align-top"
+                        className="py-5 pr-6 font-body font-semibold text-white/85 align-top"
                         style={{ fontSize: '0.78rem' }}
                       >
                         {row.label}
@@ -417,7 +473,7 @@ export default function ProgramPage() {
                       {[row.equities, row.macro, row.commodities].map((val, j) => (
                         <td
                           key={j}
-                          className="py-5 pr-4 font-body text-muted-foreground align-top group-hover:text-foreground transition-colors duration-300"
+                          className="py-5 pr-4 font-body text-white/50 align-top group-hover:text-white/90 transition-colors duration-300"
                           style={{ fontSize: '0.78rem' }}
                         >
                           {val}
@@ -425,7 +481,7 @@ export default function ProgramPage() {
                       ))}
                     </motion.tr>
                   ))}
-                  <tr style={{ borderTop: '1px solid hsl(var(--border))' }}>
+                  <tr style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
                     <td colSpan={4} style={{ padding: 0 }} />
                   </tr>
                 </tbody>
@@ -440,6 +496,11 @@ export default function ProgramPage() {
         <motion.div
           className="absolute inset-0"
           style={{ y: closingBgY, backgroundColor: 'hsl(218, 55%, 12%)' }}
+        />
+        {/* Gold hairline between the navy panels */}
+        <div
+          className="absolute top-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--gold) / 0.4), transparent)' }}
         />
         <div
           className="absolute inset-0 opacity-[0.03]"
