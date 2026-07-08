@@ -50,10 +50,10 @@ const investingRoles: Role[] = [
 const operationsRoles: Role[] = [
   {
     num: '05',
-    title: 'Risk & Infrastructure Analyst',
+    title: 'Developer Analyst',
     team: 'Operations',
     teamLink: '/people#operations',
-    desc: 'Safeguard the fund. Build and maintain the risk frameworks, tooling, and infrastructure that give a live student fund institutional-grade oversight.',
+    desc: 'Build and maintain the systems, tooling, and infrastructure that give a live student fund institutional-grade oversight.',
   },
   {
     num: '06',
@@ -334,7 +334,7 @@ export default function RecruitmentPage() {
       <PageHero
         image={heroImage}
         title="Recruitment"
-        subtitle="Seven analyst seats across two divisions. One application. A live fund from day one."
+        subtitle="H2'2026 Cycle."
       >
         <button
           onClick={() => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' })}
@@ -367,34 +367,6 @@ export default function RecruitmentPage() {
                 Whether your instincts lean toward markets or toward building the institution
                 behind them, there is a seat here designed for you to own.
               </p>
-            </motion.div>
-
-            <motion.div
-              className="lg:col-span-4 lg:col-start-9"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="space-y-10">
-                {[
-                  { figure: '07', label: 'Open Positions' },
-                  { figure: '02', label: 'Divisions' },
-                  { figure: '01', label: 'Application' },
-                ].map((stat) => (
-                  <div key={stat.label} className="flex items-baseline gap-6 border-b border-border pb-6">
-                    <span
-                      className="font-display font-light leading-none"
-                      style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', color: 'hsl(var(--gold))' }}
-                    >
-                      {stat.figure}
-                    </span>
-                    <span className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                      {stat.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
             </motion.div>
           </div>
         </div>
