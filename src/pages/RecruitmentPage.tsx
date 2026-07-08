@@ -1,10 +1,29 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useMotionValue, useSpring } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'motion/react';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import heroImage from '@/assets/hero-trading.jpg';
+
+const faqs = [
+  {
+    q: 'Can I apply to and be considered for more than one team?',
+    a: 'Yes, but you will only be allowed entry into one team. Think carefully and choose the role that fits your passions and skills best!',
+  },
+  {
+    q: 'Is financial markets experience or knowledge required?',
+    a: 'Financial markets knowledge or experience is advantaged but not strictly necessary, as long as you demonstrate a strong passion and knowledge in a particular domain that is relevant to global affairs, geopolitics, business, history and more. In fact, we highly encourage students who are able to showcase their passions in diverse fields to apply.',
+  },
+  {
+    q: 'Will I be disadvantaged for applying late?',
+    a: 'While we filter candidates on a rolling basis, we do not disadvantage students who were unable to apply early. Moreover, we still encourage all to apply as early as you can!',
+  },
+  {
+    q: 'How can I prepare for my interviews?',
+    a: 'Our Portfolio Managers and Directors conduct interviews based on the role requirements, as well as the content you have showcased to us on your CVs. Fundamentally, the interview is our opportunity to know more about yourself, so we encourage all applicants to refresh their experiences, because we would ask more about them! Overall, we hope you use the interview to showcase your passions and skillsets to us with confidence, and we look forward to hearing about your stories and experiences that have shaped you into a promising candidate.',
+  },
+];
 
 const APPLY_URL = 'https://www.google.com';
 
@@ -326,6 +345,121 @@ function RoleRow({ role, index, dark = false }: { role: Role; index: number; dar
   );
 }
 
+/* ─── FAQ accordion — a single item ─── */
+function FaqItem({
+  q,
+  a,
+  index,
+  open,
+  onToggle,
+}: {
+  q: string;
+  a: string;
+  index: number;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ delay: index * 0.05, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="border-t border-border last:border-b"
+    >
+      <button
+        onClick={onToggle}
+        aria-expanded={open}
+        className="group w-full flex items-start gap-6 md:gap-10 py-7 md:py-9 text-left"
+      >
+        {/* Plus that rotates into an × */}
+        <span
+          className={`relative flex-shrink-0 mt-[0.35em] w-5 h-5 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            open ? 'rotate-[135deg]' : 'rotate-0'
+          }`}
+        >
+          <span
+            className={`absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 transition-colors duration-300 ${
+              open ? 'bg-[hsl(var(--gold))]' : 'bg-foreground/70 group-hover:bg-foreground'
+            }`}
+          />
+          <span
+            className={`absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 transition-colors duration-300 ${
+              open ? 'bg-[hsl(var(--gold))]' : 'bg-foreground/70 group-hover:bg-foreground'
+            }`}
+          />
+        </span>
+
+        <span
+          className={`flex-1 font-body font-normal leading-snug transition-colors duration-300 ${
+            open ? 'text-primary' : 'text-foreground group-hover:text-primary'
+          }`}
+          style={{ fontSize: 'clamp(1.05rem, 1.7vw, 1.4rem)' }}
+        >
+          {q}
+        </span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <p
+              className="pl-11 md:pl-[3.75rem] pr-4 pb-8 md:pb-10 -mt-1 font-body font-light text-muted-foreground leading-[1.9] max-w-3xl"
+              style={{ fontSize: 'var(--text-base)' }}
+            >
+              {a}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+/* ─── FAQ section — single-open accordion, Millennium-style ─── */
+function RecruitmentFaqs() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <section id="faqs" className="section-padding bg-background scroll-mt-24">
+      <div className="container-site">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-14 md:mb-20"
+        >
+          <div className="w-12 h-px bg-gold mb-10" />
+          <span className="eyebrow block mb-4" style={{ color: 'hsl(var(--gold))' }}>
+            FAQ
+          </span>
+          <h2 className="heading-section">Frequently Asked Questions</h2>
+        </motion.div>
+
+        <div>
+          {faqs.map((f, i) => (
+            <FaqItem
+              key={i}
+              index={i}
+              q={f.q}
+              a={f.a}
+              open={openIndex === i}
+              onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function RecruitmentPage() {
   const revealRef = useScrollReveal();
 
@@ -334,7 +468,7 @@ export default function RecruitmentPage() {
       <PageHero
         image={heroImage}
         title="Recruitment"
-        subtitle="H2'2026 Cycle."
+        subtitle="Seven analyst seats across two divisions. One application. A live fund from day one."
       >
         <button
           onClick={() => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' })}
@@ -367,6 +501,34 @@ export default function RecruitmentPage() {
                 Whether your instincts lean toward markets or toward building the institution
                 behind them, there is a seat here designed for you to own.
               </p>
+            </motion.div>
+
+            <motion.div
+              className="lg:col-span-4 lg:col-start-9"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="space-y-10">
+                {[
+                  { figure: '07', label: 'Open Positions' },
+                  { figure: '02', label: 'Divisions' },
+                  { figure: '01', label: 'Application' },
+                ].map((stat) => (
+                  <div key={stat.label} className="flex items-baseline gap-6 border-b border-border pb-6">
+                    <span
+                      className="font-display font-light leading-none"
+                      style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', color: 'hsl(var(--gold))' }}
+                    >
+                      {stat.figure}
+                    </span>
+                    <span className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                      {stat.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>
@@ -433,7 +595,7 @@ export default function RecruitmentPage() {
               </div>
               <div className="lg:col-span-5 lg:col-start-8 flex items-end">
                 <p className="font-body font-light text-primary-foreground/55 leading-[1.7]" style={{ fontSize: 'var(--text-base)' }}>
-                  The backbone of the fund. Operations analysts and Developers build the systems, relationships,
+                  The backbone of the fund. Operations analysts build the systems, relationships,
                   and brand that let a student fund run at an institutional standard.
                 </p>
               </div>
@@ -448,6 +610,9 @@ export default function RecruitmentPage() {
         </div>
       </section>
 
+      {/* Frequently Asked Questions */}
+      <RecruitmentFaqs />
+
       {/* One application note */}
       <section className="py-20 md:py-24 bg-background">
         <div className="container-site text-center">
@@ -458,7 +623,8 @@ export default function RecruitmentPage() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-display italic text-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
           >
-            However you see yourself contributing to one of the University's most energetic and dynamic projects, every path into NUSSIF begins with the same application.
+            However you see yourself contributing — every path into NUSSIF begins with the same
+            application.
           </motion.p>
         </div>
       </section>
