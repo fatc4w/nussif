@@ -433,7 +433,7 @@ export default function RecruitmentPage() {
               </div>
               <div className="lg:col-span-5 lg:col-start-8 flex items-end">
                 <p className="font-body font-light text-primary-foreground/55 leading-[1.7]" style={{ fontSize: 'var(--text-base)' }}>
-                  The backbone of the fund. Operations analysts build the systems, relationships,
+                  The backbone of the fund. Operations analysts and Developers build the systems, relationships,
                   and brand that let a student fund run at an institutional standard.
                 </p>
               </div>
@@ -458,8 +458,7 @@ export default function RecruitmentPage() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-display italic text-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
           >
-            However you see yourself contributing — every path into NUSSIF begins with the same
-            application.
+            However you see yourself contributing to one of the University's most energetic and dynamic projects, every path into NUSSIF begins with the same application.
           </motion.p>
         </div>
       </section>
