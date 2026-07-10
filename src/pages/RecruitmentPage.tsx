@@ -424,7 +424,7 @@ function FaqItem({
 
 /* ─── FAQ section — single-open accordion, Millennium-style ─── */
 function RecruitmentFaqs() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section id="faqs" className="section-padding bg-background scroll-mt-24">
